@@ -1,0 +1,27 @@
+nav {
+    white-space: nowrap;
+    background: #401255;
+    height: 99vh;
+    width: auto;
+  }
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  /* Only stick if you can fit */
+  @media (min-height: 300px) {
+    nav ul {
+      position: sticky;
+      top: 0;
+    }
+  }
+  nav ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+  }
+  nav ul li a:hover {
+    background: black;
+  }

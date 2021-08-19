@@ -1,0 +1,42 @@
+<table class="table table-sm">
+    <tr *ngFor = "let team of teams">
+      <td>
+          <div class="row">
+            <div class="col-1">
+                {{team.teamName}} 
+              </div>
+              <div class="col-1">
+                <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalToggleLabel">Enter team {{team.teamName}} Password</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="">
+                              <input class="form-control" type="password" placeholder="password">
+                              <div class="modal-footer">
+                                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">submit</button>
+                              </div>
+                          </form>
+                        </div>                        
+                      </div>
+                    </div>
+                  </div>
+                <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Join</a>
+            </div>
+          </div>
+          
+       
+      </td>
+      <td>
+        <ul *ngFor = "let member of team.teamMembers">
+            <li>{{member}}</li>
+        </ul>
+      </td>
+    </tr>    
+  </table>
+  <a href="#" routerLink = "/createteam">Create Team</a>
+  
+
