@@ -1,0 +1,38 @@
+<div style="margin-right: 0px;">
+    <div class="row" >
+        <div class="col-8" style="border: 1 solid black;  height:100vh; background-color: rgb(51, 51, 40);">
+        <!-- chat window -->                  
+            <div class="chat-container">
+                <!-- chat body -->
+                <div class=" row-md-9" id="chbody">
+                    <div *ngFor="let item of messageArray">
+                        <p class="message-container" style="color: white;"><span  class="messageUsername">{{item?.user}}</span> <br>{{item?.message}} </p>     
+                    </div>                    
+                </div>
+            </div>
+                <!-- chat footer -->
+                <div class="row-md-9">
+                    <div class="row chat-footer">
+                        <div class="col-md-12">
+                            <div class="form-group mb-0">
+                                <input type="text"
+                                        placeholder="type a message"
+                                        class="form-control"
+                                        [(ngModel)]="messageText"
+                                        (keyup)="$event.keyCode === 13 && sendMessage()"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-4" style="border: 1 solid black; height:100vh; background-color: rgb(134, 134, 63);">
+        <!-- list of players -->
+            <h5>List of Player {{playerList.length}}</h5>
+            <hr>
+            <div *ngFor="let player of playerList">
+                <p style="color: rgb(29, 19, 19);">{{player?.playerName}}</p>     
+            </div>  
+        </div>
+    </div>
+</div>

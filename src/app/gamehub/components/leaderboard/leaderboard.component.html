@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-8">
+        <select class="form-select"  style="width: 400px;">
+            <option value="null" disabled selected hidden>Select Class</option>
+            <option value="0">BattleShip</option>
+            <option value="1">PartyGames</option>
+            <option value="2">Songsink</option>
+        </select>
+    </div>
+    <div class="col-4">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+            <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+          </div>
+    </div>
+    
+</div>
+  <br>
+<div class="h-50 card">
+    <div class="card-header text-center">
+      <h4>Leaderboard</h4>
+    </div>
+    <div class="m-2 overflow-auto">
+      <table class="table table-sm">
+        <tr *ngFor = "let leader of leaders">
+          <td>
+            <i class="mr-2"></i>{{leader.playerName}}
+          </td>
+          <td>
+            {{leader.score}}
+          </td>
+        </tr>
+      </table>
+    </div>
+</div>
