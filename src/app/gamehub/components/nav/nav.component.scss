@@ -1,8 +1,7 @@
 nav {
-    white-space: nowrap;
-    background: #401255;
+    background: #111011;
     height: 99vh;
-    width: auto;
+    width: 100%;
   }
   nav ul {
     list-style: none;
@@ -23,5 +22,10 @@ nav {
     text-decoration: none;
   }
   nav ul li a:hover {
-    background: black;
+    background: rgb(32, 221, 158);
+    transition: .9s;
+    transform: scale(1.1);
+    z-index: -1;
+    
   }
+  
