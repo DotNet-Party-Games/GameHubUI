@@ -2,24 +2,43 @@
 RevaBox Games is a multiplayer party gaming platform and social hub experience. This web application allows a user to browse and play a series of games available within a social hub. Here, as a unique user, you will be able to engage with different party games including Songs-ink (social drawing game), Pillow Tactics (a turn / grid based combat game), Battleship, and Dotnet Royale (competitive mini-games). Within each game, users are able to create a team and compete with each other in live competition both in-game and on a global leaderboard.
 
 ## Tech Stack:
+
 Angular 
+
 Bootstrap
+
 .NET framework
+
 C#
+
 NodeJS
+
 Azure SQL Server 
+
 Entity Framework Core
+
 ASP.NET Core Web API
+
 Moq/XUnit
+
 Sqlite
+
 Serilog
+
 socket.io
+
 Sonarcloud
+
 Github Actions
+
 Git
+
 Docker
+
 DockerHub
+
 Azure Kubernetes Service
+
 SignalR
 
 
