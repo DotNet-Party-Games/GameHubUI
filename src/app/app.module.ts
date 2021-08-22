@@ -14,6 +14,9 @@ import { RouterModule } from '@angular/router';
 import { NavComponent } from './gamehub/components/nav/nav.component';
 import { CreateTeamComponent } from './gamehub/components/teamwindow/createTeam/create-team/create-team.component';
 import { AuthModule } from '@auth0/auth0-angular';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -32,7 +35,18 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     AuthModule.forRoot({
       domain: environment.auth.domain,
-      clientId: environment.auth.clientId
+      clientId: environment.auth.clientId,
+      audience: 'revboxgamesapi',
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: `${environment.api.url}/*`,
+            tokenOptions: {
+              audience: 'revboxgamesapi'
+            }
+          }
+        ]
+      }
     }),
     RouterModule.forRoot([
       {path: "home", component: HomeComponent },
@@ -43,8 +57,11 @@ import { environment } from 'src/environments/environment';
       {path: "createteam", component: CreateTeamComponent },
     ]),
     FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

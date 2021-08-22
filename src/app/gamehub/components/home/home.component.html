@@ -10,10 +10,10 @@
         </div>
         <div class="col" style="border-right: 1px solid rgb(140, 39, 187);">
             <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-                <a class="text-white text-decoration-none btn btn-dark">Play Games</a> 
+                <button (click)="getUserInfo()" class="text-white text-decoration-none btn btn-dark">Play Games</button> 
             </ng-container>
             <ng-template #loggedOut>
-                <button class="text-white text-decoration-none btn btn-dark" (click) = "auth.loginWithPopup()">
+                <button class="text-white text-decoration-none btn btn-dark" (click)="login()">
                     Login
                 </button>
             </ng-template>

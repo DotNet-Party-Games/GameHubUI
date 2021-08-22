@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +10,20 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService, private http: HttpClient) { }
 
-  ngOnInit(): void {}
+  user: any;
+
+  ngOnInit(): void {
+    this.auth.user$.subscribe(result => this.user = result);
+  }
+
+  public getUserInfo(): void {
+    console.log(this.user);
+    this.http.get(`${environment.api.url}/user/login`).subscribe(result => console.log(result));
+  }
+
+  public login(): void {
+    this.auth.loginWithPopup();
+  }
 }

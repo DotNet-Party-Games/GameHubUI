@@ -7,6 +7,10 @@ export const environment = {
   auth: {
     domain: "revboxgames.us.auth0.com",
     clientId: "l1ViylBGRGDUJzSSm6LkKGDgHFNNREYg"
+  },
+  api: {
+    name: 'revboxgamesapi',
+    url: "https://localhost:44327"
   }
 };
 
