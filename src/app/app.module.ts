@@ -13,6 +13,8 @@ import { HomeComponent } from './gamehub/components/home/home.component';
 import { RouterModule } from '@angular/router';
 import { NavComponent } from './gamehub/components/nav/nav.component';
 import { CreateTeamComponent } from './gamehub/components/teamwindow/createTeam/create-team/create-team.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,10 @@ import { CreateTeamComponent } from './gamehub/components/teamwindow/createTeam/
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AuthModule.forRoot({
+      domain: environment.auth.domain,
+      clientId: environment.auth.clientId
+    }),
     RouterModule.forRoot([
       {path: "home", component: HomeComponent },
       {path: "gamewindow", component: GamewindowComponent },
