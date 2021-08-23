@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth: {
+    domain: "revboxgames.us.auth0.com",
+    clientId: "l1ViylBGRGDUJzSSm6LkKGDgHFNNREYg"
+  },
+  api: {
+    name: 'revboxgamesapi',
+    url: "https://localhost:44327"
+  }
 };
 
 /*
