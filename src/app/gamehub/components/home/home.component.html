@@ -8,6 +8,16 @@
                 <h6>NEED HELP?</h6>
             <a href="" class=" text-decoration-none">join us on our Discord Group</a>
         </div>
+        <div class="col" style="border-right: 1px solid rgb(140, 39, 187);">
+            <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+                <button (click)="getUserInfo()" class="text-white text-decoration-none btn btn-dark">Play Games</button> 
+            </ng-container>
+            <ng-template #loggedOut>
+                <button class="text-white text-decoration-none btn btn-dark" (click)="login()">
+                    Login
+                </button>
+            </ng-template>
+        </div>
         <div class="col">
             <h6>FIRST TIME HERE?</h6>
             <a href="" class=" text-decoration-none" >Read our Mannuel</a> 
@@ -19,7 +29,7 @@
     <div class="row">
         <div class="col">
             <h6>HELP US MAKE A BETTER REVABOX</h6>
-            <a  class=" text-white text-decoration-none btn btn-dark col-2 fst-italic">donate</a> 
+            <a class="text-white text-decoration-none btn btn-dark col-2 fst-italic">donate</a> 
             <hr width="70%" style="margin-right: auto; margin-left: auto; margin-top: 8%;">
         </div>
     </div>
