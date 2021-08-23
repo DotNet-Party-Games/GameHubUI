@@ -7,7 +7,7 @@
     color: white;
 }
 
-a {
+a, button {
     padding: .5em .8em;
     color: #0e9ceefa;
     font: bold;
@@ -18,7 +18,9 @@ a {
   }
   
 a::before,
-a::after {
+a::after,
+button:before,
+button:after {
     content: '';
     height: 14px;
     width: 14px;
@@ -27,7 +29,7 @@ a::after {
     opacity: 0;
   }
   
-a::before {
+a::before, button::before {
     content: '';
     right: 0;
     top: 0;    
@@ -36,7 +38,7 @@ a::before {
     transform: translate(-100%, 50%);
   }
   
-a:after {
+a:after, button::after {
     content: '';    
     left: 0;
     bottom: 0;
@@ -46,10 +48,12 @@ a:after {
   }
   
 a:hover:before,
-a:hover:after{
+a:hover:after,
+button:hover:before,
+button:hover:after {
     transform: translate(0,0);
     opacity: 1;
   }
-a:hover {
+a:hover, button:hover {
     color: #19ce19;
   }
