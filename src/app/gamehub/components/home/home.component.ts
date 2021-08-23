@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   public getUserInfo(): void {
     console.log(this.user);
-    this.http.get(`${environment.api.url}/user/login`).subscribe(result => console.log(result));
+    this.http.get(`${environment.api.url}/user`).subscribe(result => console.log(result));
   }
 
   public login(): void {
