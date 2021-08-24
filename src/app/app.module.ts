@@ -57,6 +57,7 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
       {path: "leaderboard", component: LeaderboardComponent },
       {path: "teamwindow", component: TeamwindowComponent },
       {path: "createteam", component: CreateTeamComponent },
+      {path: "chat", component: GamechatComponent }
     ]),
     FormsModule,
     HttpClientModule,
