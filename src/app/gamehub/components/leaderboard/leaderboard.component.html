@@ -1,50 +1,56 @@
-<div class="row" style="margin-top: 1%;">
-  <div class="col-3">
-    <div id="optionscard" class="card">
-      <div class="card-body">
-        <h2 class="card-title" style="color: azure;">Leaderboard Options:</h2>
-        <br>
-        <!--Game Select-->
-        <div id="gameselect">
-          <select class="form-select">
-            <option value="null" disabled selected hidden>Select Game</option>
-            <option value="0">BattleShip</option>
-            <option value="1">PartyGames</option>
-            <option value="2">Songsink</option>
-          </select>
-        </div>
-        <br>
-        <!--Team Toggle-->
-        <div id="teamtoggle">
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-            <label class="form-check-label" for="flexSwitchCheckChecked" style="color: azure;">Toggle Team Leaderboards</label>
+<div class="container">
+  <div id="title">
+    Team Leaderboard
+    </div>
+    
+    <!--Presenting the Leaderboard-->
+    <div id="leaderboard">
+      <table class="table table-sm">
+        <thead id="categorytext">
+          <tr>
+            <td>Team Name</td>
+            <td>Total Score</td>
+          </tr>
+        </thead>
+        <tbody id="tbodytext">
+          <tr *ngFor="let leader of leaders">
+            <td>
+              <i class="mr-2"></i>{{leader.playerName}}
+            </td>
+            <td>
+              {{leader.score}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+<!-- Removing the Game selector and team toggle for the leaderboards
+
+    <div class="row" style="margin-top: 1%;">
+    <div class="col-3">
+      <div id="optionscard" class="card">
+        <div class="card-body">
+          <h2 class="card-title" style="color: azure;">Leaderboard Options:</h2>
+          <br>
+          <div id="gameselect">
+            <select class="form-select">
+              <option value="null" disabled selected hidden>Select Game</option>
+              <option value="0">BattleShip</option>
+              <option value="1">PartyGames</option>
+              <option value="2">Songsink</option>
+            </select>
+          </div>
+          <br>
+           <div id="teamtoggle">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+              <label class="form-check-label" for="flexSwitchCheckChecked" style="color: azure;">Toggle Team Leaderboards</label>
+            </div> 
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-
-  <div id="leaderboard" class="col-6">
-    <!--Present Leaderboard-->
-    <table class="table table-sm">
-      <thead id="categorytext">
-        <tr>
-          <td>Name</td>
-          <td>Score</td>
-        </tr>
-      </thead>
-      <tbody id="tbodytext">
-        <tr *ngFor="let leader of leaders">
-          <td>
-            <i class="mr-2"></i>{{leader.playerName}}
-          </td>
-          <td>
-            {{leader.score}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+</div> -->

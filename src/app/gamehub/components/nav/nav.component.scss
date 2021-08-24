@@ -1,8 +1,13 @@
 nav {
     background: #111011;
-    height: 99vh;
-    width: 100%;
   }
+
+.navbar-brand:hover
+{
+  background: rgb(32, 221, 158);
+  transition: .9s;
+}
+
   nav ul {
     list-style: none;
     margin: 0;
@@ -26,6 +31,6 @@ nav {
     transition: .9s;
     transform: scale(1.1);
     z-index: -1;
-    
   }
+
   
