@@ -18,6 +18,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 import { environment } from 'src/environments/environment';
+import { GamechatComponent } from './gamehub/components/gamechat/gamechat.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { environment } from 'src/environments/environment';
     TeamwindowComponent,
     HomeComponent,
     NavComponent,
-    CreateTeamComponent    
+    CreateTeamComponent,
+    GamechatComponent    
   ],
   imports: [
     BrowserModule,
