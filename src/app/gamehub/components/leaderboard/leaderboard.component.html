@@ -1,21 +1,21 @@
 <div class="container">
   <div id="title">
     Team Leaderboard
+    <p>(Placeholder Values)</p>
     </div>
     
     <!--Presenting the Leaderboard-->
-    <div id="leaderboard">
-      <table class="table table-sm">
+      <table id="leaderboard" class="table table-hover table-bordered">
         <thead id="categorytext">
           <tr>
             <td>Team Name</td>
-            <td>Total Score</td>
+            <td style="width: 30%">Total Score</td>
           </tr>
         </thead>
         <tbody id="tbodytext">
           <tr *ngFor="let leader of leaders">
             <td>
-              <i class="mr-2"></i>{{leader.playerName}}
+              {{leader.playerName}}
             </td>
             <td>
               {{leader.score}}
@@ -23,7 +23,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
 </div>
 
 
