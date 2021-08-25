@@ -18,6 +18,7 @@ export class IsTMComponent implements OnInit {
   teamName:string | any = sessionStorage.getItem('teamName');
   isDeleted:boolean | any = false;
   isAccepted:boolean | any = false;
+  hasLeft:boolean | any = false;
   requestList : ITeamJoinRequest[] |any = [];
 
 
@@ -37,13 +38,20 @@ export class IsTMComponent implements OnInit {
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;
     });
-    console.log(this.isDeleted);
+    location.reload();
+  }
+
+  // leave Team
+  OnLeaveTeam():void{
+    this.teamservice.leaveTeam().subscribe((left :boolean)=>{
+      this.hasLeft = left;
+    });
+    location.reload();
   }
 
   // Get the list Of  all Join team request
   GetListOfRequest():void{
-    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{
-      
+    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{      
       requestList.forEach(element => {
         if(element.user.teamId==null){
           this.requestList.push(element);
@@ -56,6 +64,10 @@ export class IsTMComponent implements OnInit {
   AcceptOrDeny(requestId:string,accept?:boolean){
     this.teamservice.ApproveOrDenyRequest(requestId).subscribe((response:boolean)=>{
       this.isAccepted=response
+      if(response){
+        this.GetListOfRequest();
+        this.SearchTeam();
+      }
     });
     location.reload();
   }
