@@ -12,7 +12,7 @@ export class TeamwindowComponent implements OnInit {
 
   public currentUser: IUser |any;
   public userTeam:ITeam |any;
-  public haveTeam: boolean | any;
+  public haveTeam: boolean =false;
   constructor( private teamservice:TeamService) {
     this.currentUser= {
       id:"",
@@ -33,12 +33,11 @@ export class TeamwindowComponent implements OnInit {
   GetCurrentUser():void{
     this.teamservice.GetUserInfo().subscribe((currentUser : IUser)=>{
       this.currentUser = currentUser ; 
-      sessionStorage.setItem('teamName',currentUser.team.name);
-      // console.log(JSON.stringify(this.currentUser));
-      // console.log(JSON.stringify(this.userTeam));
-      if(currentUser.team.name){
+      if(currentUser.team!=null){
+        sessionStorage.setItem('teamName',currentUser.team.name);
         this.haveTeam = true;
       }
+      
     });
     
   }

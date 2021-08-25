@@ -16,34 +16,34 @@ export class IsnotTMComponent implements OnInit, OnChanges {
     description : new FormControl(),
   });
 
-  joinRequest:ITeamJoinRequest | any;
-  teams: ITeam[] | any;
+  joinRequest:ITeamJoinRequest | any={};
+  teams: ITeam[] | any= [];
   searchKey: string |any = '';
-
-  constructor( private teamservice:TeamService) { }
+  
+   constructor( private teamservice:TeamService) { }
  
    ngOnInit(): void {
      this.GetAllTeam();
    }
  
    ngOnChanges(changes:SimpleChanges):void{
-   
+    
    }
    // get the list of all teams
-    GetAllTeam():void
-    {
-      this.teamservice.GetAllTeams().subscribe((teamList : ITeam[])=>{
-      this.teams = teamList;
+   GetAllTeam():void
+   {
+     this.teamservice.GetAllTeams().subscribe((teamList : ITeam[])=>{
+       this.teams = teamList;
      })
    }
  
    //Get list of Team base on search
    OnSearchTeam():void
    {
-     this.teamservice.GetSearchedTeamsByName(this.searchKey).subscribe((teamList : ITeam[])=>{
-       this.teams = teamList;
+     this.teamservice.GetSearchedTeamsByName(this.searchKey).subscribe((teamfound : ITeam)=>{
+       this.teams = [];
+       this.teams.push(teamfound)
      });
-     console.log(this.searchKey);
      this.searchKey="";
    }
 
