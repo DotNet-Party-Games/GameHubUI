@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ITeam } from '../../interfaces/ITeam';
+import { IUser } from '../../interfaces/IUser';
+import { TeamService } from '../../services/teamservice/team.service';
 
 @Component({
   selector: 'app-teamwindow',
@@ -7,14 +10,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeamwindowComponent implements OnInit {
 
-  teams: {teamName:string, teamMembers:string[]}[]=[];
-  constructor() { 
-    this.teams.push({teamName:"klaus",teamMembers:["a","b","c"]});
-    this.teams.push({teamName:"Iram",teamMembers:["aa","bb","cc"]});
-    this.teams.push({teamName:"Sean",teamMembers:["aaa","bbb","ccc"]});
-  }
+  public currentUser: IUser |any;
+  public userTeam:ITeam |any;
+  public haveTeam: boolean | any;
+  constructor( private teamservice:TeamService) {
+    this.currentUser= {
+      id:"",
+      username:"",
+      email:"",
+      picture:"",
+      teamId:"",
+      team:"",
+    };
+   }
+
 
   ngOnInit(): void {
+    this.GetCurrentUser();
+    
+  }
+
+  GetCurrentUser():void{
+    this.teamservice.GetUserInfo().subscribe((currentUser : IUser)=>{
+      this.currentUser = currentUser ; 
+      sessionStorage.setItem('teamName',currentUser.team.name);
+      // console.log(JSON.stringify(this.currentUser));
+      // console.log(JSON.stringify(this.userTeam));
+      if(currentUser.team.name){
+        this.haveTeam = true;
+      }
+    });
+    
   }
 
 }

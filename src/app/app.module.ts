@@ -3,22 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { GamelobbyComponent } from './gamehub/components/gamelobby/gamelobby.component';
 import { GamewindowComponent } from './gamehub/components/gamewindow/gamewindow.component';
 import { LeaderboardComponent } from './gamehub/components/leaderboard/leaderboard.component';
 import { TeamwindowComponent } from './gamehub/components/teamwindow/teamwindow.component';
 import { HomeComponent } from './gamehub/components/home/home.component';
+import { CreateTeamComponent } from './gamehub/components/teamwindow/create-team/create-team.component';
+import { NavComponent } from './gamehub/components/nav/nav.component';
 
 import { RouterModule } from '@angular/router';
-import { NavComponent } from './gamehub/components/nav/nav.component';
-import { CreateTeamComponent } from './gamehub/components/teamwindow/createTeam/create-team/create-team.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 import { environment } from 'src/environments/environment';
 import { GamechatComponent } from './gamehub/components/gamechat/gamechat.component';
+import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
+import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
     HomeComponent,
     NavComponent,
     CreateTeamComponent,
-    GamechatComponent    
+    GamechatComponent,    
+    IsnotTMComponent,
+    IsTMComponent    
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,7 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
       {path: "chat", component: GamechatComponent }
     ]),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
