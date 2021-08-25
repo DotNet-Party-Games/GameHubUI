@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 import { environment } from 'src/environments/environment';
+import { GamechatComponent } from './gamehub/components/gamechat/gamechat.component';
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
 
@@ -32,6 +33,7 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     HomeComponent,
     NavComponent,
     CreateTeamComponent,
+    GamechatComponent,    
     IsnotTMComponent,
     IsTMComponent    
   ],
@@ -60,10 +62,12 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
       {path: "leaderboard", component: LeaderboardComponent },
       {path: "teamwindow", component: TeamwindowComponent },
       {path: "createteam", component: CreateTeamComponent },
+      {path: "chat", component: GamechatComponent }
     ]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }

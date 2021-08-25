@@ -1,0 +1,14 @@
+#chat-container {
+  max-width: 20%;
+  min-width: 300px;
+}
+
+#chat-window {
+  display: flex;
+  flex-direction: column-reverse;
+  height: calc(100vh - 200px);
+}
+
+#message-container {
+  width: 100%;
+}
