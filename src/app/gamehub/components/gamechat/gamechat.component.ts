@@ -23,6 +23,8 @@ export class GamechatComponent implements OnInit {
   public channelId: string = "test"
   public messageBody = new FormControl('');
 
+  public container: HTMLElement | null = null;
+
   constructor(
     public userService: UserService,
     private chatService: GameChatService,
@@ -38,13 +40,20 @@ export class GamechatComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {      
+    this.container = document.getElementById("messagecontainer");  
+    if (this.container != null) {            
+      this.container.scrollTop = this.container.scrollHeight;
+    }     
+  } 
+
   public sendMessage(): void {
     if (this.messageBody.value != '' && this.user != null) {
       var msg: ChatMessage = {
         senderId: this.user.id,
         senderName: this.user.username,
         body: this.messageBody.value,
-        timeSent: new Date().getUTCDate(),
+        timestamp: new Date().getTime(),
       }
       this.chatService.sendMessage(msg);
     }
@@ -68,7 +77,7 @@ export class GamechatComponent implements OnInit {
 
     this.chatService.messageReceived.subscribe((message: ChatMessage) => {  
       this.ngZone.run(() => {   
-          this.chatMessages.push(message);
+          this.chatMessages.unshift(message);
       });  
     });
 
