@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  public login(): void {
+    this.auth.loginWithPopup();
+  }
+  logout(): void {
+    // Call this to log the user out of the application
+    this.auth.logout({ returnTo: window.location.origin });
+  }
 }

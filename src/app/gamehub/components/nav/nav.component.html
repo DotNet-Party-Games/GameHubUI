@@ -12,7 +12,17 @@
             <li><a routerLink = "/gamelobby" routerLinkActive="active">gamelobby</a></li>
             <li><a routerLink = "/leaderboard" routerLinkActive="active">Leaderboard</a></li>
             <li><a routerLink = "/teamwindow" routerLinkActive="active">teamwindow</a></li>
+
+            
         </ul>
+        <div class="d-flex">
+          <button class="text-white text-decoration-none btn btn-success mx-2" (click)="login()">
+            Login
+        </button> 
+        <button class="btn btn-danger" *ngIf="auth.isAuthenticated$ | async" (click)="logout()">
+            Log out
+          </button>
+        </div>
       </div>
     </div>
   </nav>
