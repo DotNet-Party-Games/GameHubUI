@@ -1,13 +1,19 @@
-<div>
-  <div>
-    <app-isnot-tm></app-isnot-tm>
-  </div>
+<div  *ngIf="haveTeam==true; then is else isnot"></div>
+  <ng-template #isnot>
+    <div >
+      <app-isnot-tm></app-isnot-tm>
+    </div>
+  </ng-template>
+  
   <br><br><br>
-  <div style="border-top: 2px solid white;">
-    <br>
-    <app-is-tm [currentUser] = "currentUser"></app-is-tm>
-  </div>
-</div>
+  <ng-template #is>
+    <div style="border-top: 2px solid white;">
+      <br>
+      <app-is-tm [currentUser] = "currentUser"></app-is-tm>
+    </div>
+  </ng-template>
+  
+
 
   
   

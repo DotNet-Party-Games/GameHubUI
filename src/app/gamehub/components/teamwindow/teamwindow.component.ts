@@ -36,6 +36,9 @@ export class TeamwindowComponent implements OnInit {
       sessionStorage.setItem('teamName',currentUser.team.name);
       // console.log(JSON.stringify(this.currentUser));
       // console.log(JSON.stringify(this.userTeam));
+      if(currentUser.team.name){
+        this.haveTeam = true;
+      }
     });
     
   }
