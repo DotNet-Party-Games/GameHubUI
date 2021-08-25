@@ -1,21 +1,19 @@
 <div class="row" id="main_div">
-    <div class="row text-center" style="height: 40vh;  margin-bottom: 5px;">
-        <h3 style="margin: 10% 0% 0% 0% ; color: #518053;;">WELCOME TO</h3>
+    <div class="row text-center" style="height: 30vh;  margin-bottom: 5px;">
+        <h3 style="margin: 5% 0% 0% 0% ; color: #518053;;">WELCOME TO</h3>
         <img src="assets\images\title2.png" alt="title" style="width:35%; margin: auto;" >
     </div>
-    <div class="row text-center" style="margin: 0% 0% 4% 0% ;">
+    <div class="row text-center" style="margin: 0% 0% 3% 0% ;">
         <div class="col">
                 <h6>NEED HELP?</h6>
             <a href="" class=" text-decoration-none">join us on our Discord Group</a>
         </div>
-        <div class="col" style="border-right: 1px solid rgb(140, 39, 187);">
+        <div class="col">
             <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
                 <button (click)="getUserInfo()" class="text-white text-decoration-none btn btn-dark">Play Games</button> 
             </ng-container>
             <ng-template #loggedOut>
-                <button class="text-white text-decoration-none btn btn-dark" (click)="login()">
-                    Login
-                </button>
+                
             </ng-template>
         </div>
         <div class="col">
