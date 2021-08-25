@@ -10,7 +10,6 @@ import { GamewindowComponent } from './gamehub/components/gamewindow/gamewindow.
 import { LeaderboardComponent } from './gamehub/components/leaderboard/leaderboard.component';
 import { TeamwindowComponent } from './gamehub/components/teamwindow/teamwindow.component';
 import { HomeComponent } from './gamehub/components/home/home.component';
-import { CreateTeamComponent } from './gamehub/components/teamwindow/create-team/create-team.component';
 import { NavComponent } from './gamehub/components/nav/nav.component';
 
 import { RouterModule } from '@angular/router';
@@ -31,7 +30,6 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     TeamwindowComponent,
     HomeComponent,
     NavComponent,
-    CreateTeamComponent,
     IsnotTMComponent,
     IsTMComponent    
   ],
@@ -59,7 +57,6 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
       {path: "gamelobby", component: GamelobbyComponent },
       {path: "leaderboard", component: LeaderboardComponent },
       {path: "teamwindow", component: TeamwindowComponent },
-      {path: "createteam", component: CreateTeamComponent },
     ]),
     FormsModule,
     ReactiveFormsModule,

@@ -23,7 +23,5 @@ export class HomeComponent implements OnInit {
     this.http.get(`${environment.api.url}/user`).subscribe(result => console.log(result));
   }
 
-  public login(): void {
-    this.auth.loginWithPopup();
-  }
+ 
 }
