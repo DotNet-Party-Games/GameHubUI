@@ -1,0 +1,53 @@
+<div class="container-fluid text-white">
+    <div class="row">
+        <div class="col">
+            <h2>List Of members</h2>
+            {{currentUser.username}} <br>
+            
+            <table class="table table-dark table-stdiped" style="margin-top: 20px;">
+                <!-- thead -->
+                <thead>
+                    <tr>
+                      <th>Profile</th>
+                      <th>UserName</th>
+                    </tr>            
+                </thead>
+                <!-- tbody -->
+                <tbody>
+                    <tr *ngFor = "let member of team.users">
+                      <td><img src="{{member.picture}}" alt=""></td>
+                      <td>{{ member.username}}</td>
+                    </tr>
+                  
+                </tbody> 
+                <!-- tfoot -->
+                <tfoot>
+        
+                </tfoot>       
+              </table>
+            <button class="btn btn-danger" type="submit" (click)="OnDeleteTeam()">Delete team</button>
+
+            
+            
+        </div>
+        <div class="col">
+            <h2>My requests</h2>
+            <table>
+                <tbody>
+                    <tr *ngFor="let request of requestList">
+                        <td>{{request.user.username}}</td>
+                        <td>{{request.requestId}}</td>
+                        <td><a class="btn btn-primary" (click)="AcceptOrDeny(request.requestId,true)">Accept</a></td>
+                        <td><a class="btn btn-danger" (click)="AcceptOrDeny(request.requestId,false)">Deny</a></td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+    
+    
+</div>
+  
+  
+  
