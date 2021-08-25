@@ -13,7 +13,7 @@ import { HomeComponent } from './gamehub/components/home/home.component';
 import { NavComponent } from './gamehub/components/nav/nav.component';
 
 import { RouterModule } from '@angular/router';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthGuard, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
@@ -55,11 +55,11 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     }),
     RouterModule.forRoot([
       {path: "home", component: HomeComponent },
-      {path: "gamewindow", component: GamewindowComponent },
-      {path: "gamelobby", component: GamelobbyComponent },
-      {path: "leaderboard", component: LeaderboardComponent },
-      {path: "teamwindow", component: TeamwindowComponent },
-      {path: "chat", component: GamechatComponent }
+      {path: "gamewindow", component: GamewindowComponent,canActivate: [AuthGuard], },
+      {path: "gamelobby", component: GamelobbyComponent, canActivate: [AuthGuard], },
+      {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
+      {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
+      {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], }
 
     ]),
     FormsModule,

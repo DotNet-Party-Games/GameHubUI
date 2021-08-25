@@ -7,19 +7,18 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li><a routerLink = "/gamewindow" routerLinkActive="active">gamewindow</a></li>
-            <li><a routerLink = "/gamelobby" routerLinkActive="active">gamelobby</a></li>
-            <li><a routerLink = "/leaderboard" routerLinkActive="active">Leaderboard</a></li>
-            <li><a routerLink = "/teamwindow" routerLinkActive="active">teamwindow</a></li>
-
-            
+        <ul class="navbar-nav me-auto mb-1 mb-lg-0">
+            <li><a  routerLink = "/gamewindow" routerLinkActive="active"><span  class="fa fa-gamepad fa-2x"></span> gamewindow</a></li>
+            <li><a routerLink = "/chat" routerLinkActive="active"><span class="fa fa-comments fa-2x" ></span> gamelobby</a></li>
+            <li><a  routerLink = "/leaderboard" routerLinkActive="active"><span class="fa fa-trophy fa-2x"></span> Leaderboard</a></li>
+            <li><a   routerLink = "/teamwindow" routerLinkActive="active"><span class="fa fa-users fa-2x"></span> team</a></li>
+                
         </ul>
         <div class="d-flex">
-          <button class="text-white text-decoration-none btn btn-success mx-2" (click)="login()">
+          <button class="text-white text-decoration-none btn btn-success mx-2" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="login()">
             Login
         </button> 
-        <button class="btn btn-danger" *ngIf="auth.isAuthenticated$ | async" (click)="logout()">
+        <button class="btn btn-danger" *ngIf="(auth.isAuthenticated$ | async) === true" (click)="logout()">
             Log out
           </button>
         </div>

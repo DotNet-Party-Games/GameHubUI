@@ -19,6 +19,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   joinRequest:ITeamJoinRequest | any={};
   teams: ITeam[] | any= [];
   searchKey: string |any = '';
+  messageSearch : string | any = '';
   
    constructor( private teamservice:TeamService) { }
  
@@ -35,6 +36,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
      this.teamservice.GetAllTeams().subscribe((teamList : ITeam[])=>{
        this.teams = teamList;
      })
+     this.messageSearch = '';
    }
  
    //Get list of Team base on search
@@ -42,8 +44,14 @@ export class IsnotTMComponent implements OnInit, OnChanges {
    {
      this.teamservice.GetSearchedTeamsByName(this.searchKey).subscribe((teamfound : ITeam)=>{
        this.teams = [];
-       this.teams.push(teamfound)
+       if(teamfound.id!=null){
+        this.teams.push(teamfound);
+        this.messageSearch = 'Team found';
+        document.getElementById("sp")?.setAttribute("style","color:green");
+       }
      });
+     
+     
      this.searchKey="";
    }
 
@@ -54,6 +62,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
         this.joinRequest = joinRequest;
         console.log(this.joinRequest.id);
       });
+      alert("Your request is been sent");
     }
   }
     // the submit button event click call on OnCreateTeam method
@@ -63,10 +72,11 @@ export class IsnotTMComponent implements OnInit, OnChanges {
         sessionStorage.setItem('user_teamId',createdTeam.users[0].teamId.toString())
         sessionStorage.setItem('user_teamName',createdTeam.users[0].team.toString())
       }
-      alert(""+createdTeam+"Team created");
+      alert("Team created");
       
     })
     this.GetAllTeam();
+    location.reload();
   }
 
 }
