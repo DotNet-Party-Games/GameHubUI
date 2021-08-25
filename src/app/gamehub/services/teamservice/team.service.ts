@@ -35,9 +35,9 @@ export class TeamService {
   }
 
   // get list of team by teamName in case of search (​/team​/{teamName}).  Return Iteam[]
-  GetSearchedTeamsByName(teamName:string): Observable<ITeam[]>
+  GetSearchedTeamsByName(teamName:string): Observable<ITeam>
   {
-    return this.http.get<ITeam[]>(this.url +'team/'+teamName);
+    return this.http.get<ITeam>(this.url +'team/'+ teamName);
   }
 
   // delete a team by teamname (​/team​/{teamName}).  Return boolean
@@ -57,9 +57,9 @@ export class TeamService {
   }
 
   // Approve or deny a request (/team/request/approve/{requestId})
-  ApproveOrDenyRequest(requestId:string, approve:boolean):Observable<boolean>
+  ApproveOrDenyRequest(requestId:string, approve?:boolean):Observable<boolean>
   {
-    return this.http.put<boolean>(this.url +'team/request/approve'+requestId,null);
+    return this.http.put<boolean>(this.url +'team/request/approve/'+requestId,null);
   }
 
   // leave a team (/team/leave)

@@ -7,7 +7,8 @@
       <div class="col">
         <form class="d-flex">
           <input class="form-control me-2" name ="searchKey" [(ngModel)]="searchKey" placeholder="Search team" aria-label="Search" >
-          <button class="btn btn-outline-success" type="submit" (click)="OnSearchTeam()">Search</button>
+          <button class="btn btn-outline-success  me-2" type="submit" (click)="OnSearchTeam()">Search</button>
+          <button class="btn btn-outline-primary" type="submit" (click)=" GetAllTeam()">All </button>
         </form>
       </div>
     </div>
@@ -27,15 +28,14 @@
               </tr>            
           </thead>
           <!-- tbody -->
-          <tbody *ngFor = "let team of teams">
-              <tr>
+          <tbody>
+              <tr *ngFor = "let team of teams">
                 <td>{{ teams.indexOf(team)+1 }}</td>
                 <td >{{team.name}} </td>  
                 <td >{{team.users.length}}</td>
                 <td><a class="btn btn-primary" (click)="OnJoinTeamRequest(team.name)">Join</a></td>
-              </tr>
-            
-          </tbody> 
+              </tr>                
+          </tbody>
           <!-- tfoot -->
           <tfoot>
   
@@ -44,8 +44,6 @@
       </div>
     </div>
   </div>
-  
-  
   
   <div class="col-1">
       <div class="modal fade" id="exampleModalToggle" aria-hidden="tdue" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
