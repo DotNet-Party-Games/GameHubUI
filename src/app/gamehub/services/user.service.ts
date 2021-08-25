@@ -10,15 +10,16 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  public user: User | null = null;
-  public errorMsg: string = "";
+  //public user: User | null = null;
+  private userSub = new Subject<User|null>();
+  public user = this.userSub.asObservable();
 
   constructor(private http: HttpClient, public auth: AuthService) { 
     this.auth.isAuthenticated$.subscribe(isAuth => {
       if (isAuth) {
         this.getUser();
       } else {
-        this.user = null;
+        this.userSub.next(null);
       }
     });
   }
@@ -28,10 +29,11 @@ export class UserService {
       .subscribe(
         result => {
           console.log(result);
-          this.user = result;
+          this.userSub.next(result);
         },
         error => {
           console.log(error);
+          console.log("Retrying to get user...")
           setTimeout(() => this.getUser(), 5000); 
         }
       );

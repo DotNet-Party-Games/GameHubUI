@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';  
+import { AuthService } from '@auth0/auth0-angular';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
 import { ChatMessage } from '../models/chatmessage.model';
 import { ChatStatus } from '../models/chatstatus.model';
@@ -9,38 +10,33 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class GameChatService {
-  public messageReceived = new EventEmitter<ChatMessage>();  
+  public messageReceived = new EventEmitter<ChatMessage>();
   public connectionEstablished = new EventEmitter<Boolean>();
   public userEvent = new EventEmitter<ChatStatus>();
-  public loading = new EventEmitter<Boolean>();
 
-  private _hubConnection: HubConnection = new HubConnectionBuilder()
-    .withUrl(`${environment.api.url}/chat`)
-    .withAutomaticReconnect()
-    .build();
+  private _hubConnection: HubConnection | null = null;
 
-  constructor() { 
+  constructor(private authService: AuthService) {
     this.registerOnServerEvents();
-    this.startConnection(); 
   }
 
-  public sendMessage(message: ChatMessage) {  
-    this._hubConnection.invoke('GameRoomChat', message);  
+  public sendMessage(message: ChatMessage) {
+    if (this._hubConnection != null) {
+      this._hubConnection.invoke('GameRoomChat', message);
+    }
   }
-  
+
   public joinChat(roomId: string) {
     if (this._hubConnection) {
-      this.loading.emit(true);
       this._hubConnection.invoke('JoinGameRoomChat', roomId)
         .then(() => {
-          console.log(`Connected to room ID:  ${roomId}.`)
+          console.log(`Connected to room ID: ${roomId}.`)
         })
-        .catch(err =>{
+        .catch(err => {
           console.log(err.toString());
+          console.log('retrying...');
+          setTimeout(() => this.joinChat(roomId), 5000);
         })
-        .finally(() => {
-          this.loading.emit(false);
-        });
     }
   }
 
@@ -48,38 +44,49 @@ export class GameChatService {
     if (this._hubConnection) {
       this._hubConnection.invoke('LeaveGameRoomChat', roomId)
         .then(() => {
-          console.log(`Disconnected from room ID: ${roomId}.`)
+          console.log(`Disconnected from room ID: ${roomId}`)
         })
-        .catch(err =>{
+        .catch(err => {
           console.log(err.toString());
         })
-        .finally(() => {
-          this.loading.emit(false);
-        });
     }
   }
 
-  private startConnection(): void {
-    this.loading.emit(true);  
-    this._hubConnection  
-      .start()  
-      .then(() => {  
-        console.log('Hub connection started');  
-        this.connectionEstablished.emit(true);
-        this.loading.emit(false);  
-      })  
-      .catch( _ => {  
-        console.log('Error while establishing connection, retrying...');  
-        setTimeout(() => this.startConnection(), 5000);  
-      });  
+  public startConnection(): void {
+    this.authService.getAccessTokenSilently({ audience: 'revboxgamesapi' }).subscribe(
+      token => {
+        this._hubConnection = new HubConnectionBuilder()
+          .withUrl(`${environment.api.url}/chat`, { accessTokenFactory: () => token })
+          .withAutomaticReconnect()
+          .build();
+
+        if (this._hubConnection) {
+          this._hubConnection
+            .start()
+            .then(() => {
+              console.log('Hub connection started');
+              this.connectionEstablished.emit(true);
+            })
+            .catch(_ => {
+              console.log('Error while establishing connection, retrying...');
+              setTimeout(() => this.startConnection(), 5000);
+            });
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
-  private registerOnServerEvents(): void {  
-    this._hubConnection.on('Message', (data: any) => {  
-      this.messageReceived.emit(data);  
-    });
-    this._hubConnection.on('Event', (data: any) => {
-      this.userEvent.emit(data);
-    });
-  } 
+  private registerOnServerEvents(): void {
+    if (this._hubConnection) {
+      this._hubConnection.on('Message', (data: ChatMessage) => {
+        this.messageReceived.emit(data);
+      });
+      this._hubConnection.on('Event', (data: ChatStatus) => {
+        this.userEvent.emit(data);
+      });
+    }
+  }
 }
