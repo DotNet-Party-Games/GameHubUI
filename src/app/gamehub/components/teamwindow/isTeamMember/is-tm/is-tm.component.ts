@@ -20,6 +20,7 @@ export class IsTMComponent implements OnInit {
   isAccepted:boolean | any = false;
   hasLeft:boolean | any = false;
   requestList : ITeamJoinRequest[] |any = [];
+  cfrm : string |any = '';
 
 
   // Constructor
@@ -43,10 +44,13 @@ export class IsTMComponent implements OnInit {
 
   // leave Team
   OnLeaveTeam():void{
-    this.teamservice.leaveTeam().subscribe((left :boolean)=>{
-      this.hasLeft = left;
-    });
-    location.reload();
+    this.cfrm= confirm("Are you sure? Please confirm");
+    if(this.cfrm){
+      this.teamservice.leaveTeam().subscribe((left :boolean)=>{
+        this.hasLeft = left;
+      });
+      location.reload();
+    }
   }
 
   // Get the list Of  all Join team request
