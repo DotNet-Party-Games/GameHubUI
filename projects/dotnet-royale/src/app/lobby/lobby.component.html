@@ -1,0 +1,77 @@
+<div style="height: 100vh;">
+
+  <div class="row justify-content-md-center">
+    <div class="col col-12">
+      <div class="p-2 text-center text-warning" style="background-color: #111;">
+        <img src="assets/images/lobby.png" alt="lobby" style="height: 15vh;">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3 justify-content-md-center" style="height: 70vh;">
+
+    <div class="col col-3">
+      <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh;">
+        <h2>Live Chat in Lobby</h2>
+      </div>
+      <app-livechat></app-livechat>
+    </div>
+
+    <div class="col col-6" style="height: 74vh;">
+      <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh">
+        <h2>Rooms
+          <button class="btn btn-primary ml-2" (click)="reloadRoomList()"><i class="fas fa-redo"></i></button>
+          <button class="btn btn-primary ml-2" (click)="showInputRoomId()"><i class="fas fa-plus"></i></button>
+        </h2>
+      </div>
+      <div class="bg-dark" style="height: 74vh;">
+        <ul class="list-group list-group-flush text-white overflow-auto" style="height: 66vh;">
+          <li>
+            <div *ngIf = "isInputRoomId" class="input-group">
+              <input type="text" [(ngModel)] = "roomIdInput" class="form-control" placeholder="Enter a room name">
+              <button class="btn btn-primary" type="button" (click)="hideInputRoomId(); joinRoom(username, roomIdInput); goToRoom(roomIdInput)">Add and Join</button>
+            </div>
+          </li>
+          <li *ngFor = "let room of rooms" class="list-group-item bg-dark">
+            <div *ngIf = "room.id == 'lobby'">
+              <h4>
+                <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger"><i class="fas fa-star"></i></div>
+                Lobby<span class="ml-3 badge badge-info">{{room.users.length}}</span>
+              </h4>
+            </div>
+            <div *ngIf = "room.id != 'lobby'">
+              <h4>
+              <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger"><i class="fas fa-star"></i></div>
+              <div *ngIf = "room.id != roomId" class="mr-2 badge badge-dark text-dark"><i class="fas fa-square-full"></i></div>
+              {{room.id}}<span class="ml-3 badge badge-info">{{room.users.length}}</span>
+                <button *ngIf = "room.users.length < roomSize" class="btn btn-warning" style="float: right" (click) = "goToRoom(room.id)">
+                <i class="fas fa-sign-in-alt"></i></button>
+                <button *ngIf = "room.users.length >= roomSize" class="btn btn-danger" style="float: right">
+                  Full</button>
+                </h4>
+            </div>
+          </li>
+        </ul>
+        <div class="col col-12 bg-dark text-center">
+          <button class="mb-1 btn btn-warning container" (click)="goToMain()">
+            <img src="assets/images/back.png" alt="back" style="height: 5vh;">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-3">
+      <div class="bg-dark" style="height: 81vh;">
+        <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh;">
+          <h2>Games</h2>
+        </div>
+        <div class="overflow-hidden" style="height: 74vh;">
+          <app-vertical-carousel></app-vertical-carousel>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

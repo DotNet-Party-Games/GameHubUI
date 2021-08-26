@@ -1,0 +1,35 @@
+<div style="height: 70vh;">
+  <div class="row-md-12">
+    <div class="chat-container">
+      <ng-container >
+
+          <!-- chat body -->
+          <div class="row-md-12" id="chbody">
+              <div *ngFor="let item of messageArray"
+                  [ngClass]= "item?.user === currentUser?.userName && 'same-user'">
+                  <p class="message-container"><span  class="messageUsername">{{item?.user}}</span> <br>{{item?.message}} </p>
+              </div>
+          </div>
+
+          <!-- chat footer -->
+          <div class="row-md-9">
+              <div class="row chat-footer">
+                  <div class="col-md-10  align-self-center">
+                      <div class="form-group ml-2 mb-0">
+                          <input  type="text"
+                                  placeholder="type a message"
+                                  class="form-control"
+                                  [(ngModel)]="messageText"
+                                  (keyup)="$event.keyCode === 13 && sendMessage()"
+                          />
+                      </div>
+                  </div>
+                  <div class="col-md-1 text-center align-self-center">
+                      <button class="btn btn-success fas fa-paper-plane" (click)="sendMessage()"></button>
+                  </div>
+              </div>
+          </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
