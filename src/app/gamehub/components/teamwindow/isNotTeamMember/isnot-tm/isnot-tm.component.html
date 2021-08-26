@@ -7,7 +7,7 @@
       <div class="col">
         <form class="d-flex">
           <input class="form-control me-2" name ="searchKey" [(ngModel)]="searchKey" placeholder="Search team" aria-label="Search" >
-          <button class="btn btn-outline-success  me-2" type="submit" (click)="OnSearchTeam()" [disabled]="searchKey==''" >Search</button>
+          <button class="btn btn-outline-success  me-2" type="submit" (click)="OnSearchTeam()">Search</button>
           <button class="btn btn-outline-primary" type="submit" (click)=" GetAllTeam()">All </button>
         </form>
       </div>
@@ -46,34 +46,33 @@
     </div>
   </div>
   
-  <div class="col-1 bg-dark text-white">
+  <div class="col-1">
       <div class="modal fade" id="exampleModalToggle" aria-hidden="tdue" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark">
+            <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel">Create New Team</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form class="form-group bg-dark text-white" [formGroup]="createTeamGroup">
+                <form class="form-group" [formGroup]="createTeamGroup">
                   <div class="mb-3">
                       <label class="form-label">Team Name</label>
-                      <input type="text" class="form-control bg-dark text-white" minlength="2" maxlength="25" required formControlName = "name">
-                      
+                      <input type="text" class="form-control" required formControlName = "name">
                   </div>
                   <div class="mb-3">
                       <label class="form-label">Description</label>
-                      <textarea type="password" class="form-control bg-dark text-white" minlength="5" maxlength="230" required rows="4" cols="70" formControlName = "description"></textarea>
-                      
-                    </div>
-                  <button type="submit" 
-                      class="btn btn-primary" 
-                      [disabled]="createTeamGroup.invalid" 
+                      <textarea type="password" class="form-control" required rows="4" cols="70" formControlName = "description"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary"  
                       data-bs-target="#exampleModalToggle2" 
                       data-bs-toggle="modal" 
                       data-bs-dismiss="modal"
                       (click) = OnCreateTeam(createTeamGroup)>Submit</button>
               </form>
+              </div>  
+              <div class="modal-footer">
+                
               </div>                      
             </div>
           </div>
