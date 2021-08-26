@@ -21,6 +21,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
+import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     NavComponent,
     CreateTeamComponent,
     IsnotTMComponent,
-    IsTMComponent    
+    IsTMComponent,
+    GameComponent    
   ],
   imports: [
     BrowserModule,
@@ -55,11 +57,12 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     }),
     RouterModule.forRoot([
       {path: "home", component: HomeComponent },
-      {path: "gamewindow", component: GamewindowComponent },
+      {path: "gamelist", component: GamewindowComponent },
       {path: "gamelobby", component: GamelobbyComponent },
       {path: "leaderboard", component: LeaderboardComponent },
       {path: "teamwindow", component: TeamwindowComponent },
       {path: "createteam", component: CreateTeamComponent },
+      {path: "game", component: GameComponent}
     ]),
     FormsModule,
     ReactiveFormsModule,
