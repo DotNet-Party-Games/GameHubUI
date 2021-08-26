@@ -1,0 +1,59 @@
+#title
+{
+    color: azure;
+    font: 50px bold Arial, serif;
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 5%;
+    text-shadow: 
+    1px 1px 10px #0e9ceefa;
+}
+
+img
+{
+    opacity: 1;
+    display: inline-block;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+ul
+{
+    width: 100%;
+    display: flex;
+}
+
+li
+{
+    text-align: center;
+    flex: 1;
+}
+
+.text 
+{
+    background-color: #0e9ceefa;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+
+.middle 
+{
+    transition: .5s ease;
+    opacity: 0;
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    transform: translateY(-800%);
+}
+
+li:hover img
+{
+    opacity: 0.5;
+}
+
+li:hover .middle
+{
+    opacity: 1;
+}
