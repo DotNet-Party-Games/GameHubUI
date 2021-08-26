@@ -4,6 +4,8 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
+import { ChatMessage } from 'src/app/gamehub/models/chatmessage.model';
+import { ChatStatus } from 'src/app/gamehub/models/chatstatus.model';
 import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service'; 
 
@@ -23,30 +25,24 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   searchKey: string |any = '';
   messageSearch : string | any = '';
   cfrm : string |any = '';
+  notification :string | any='';
+
   @Input()
   public currentUser: IUser |any = {};
-  // whatIsInInput : IUser|any ={};
-  // whatWasInInput : IUser|any={};
 
   
    constructor( private teamservice:TeamService,
     private chatService: GameChatService,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone) { 
+      this.subscribeToEvents();
+    }
  
    ngOnInit(): void {
      this.GetAllTeam();
    }
  
-   ngOnChanges(changes:SimpleChanges):void{    
-    // this.whatIsInInput = changes.currentUser.currentValue;
-    // this.whatWasInInput = changes.currentUser.previousValue;
-    // console.log(this.whatWasInInput);
-    // console.log(this.whatIsInInput);
+   ngOnChanges(changes:SimpleChanges):void{
 
-    // if(this.whatIsInInput==this.whatWasInInput){
-    //   location.reload();
-      
-    // }
    }
    // get the list of all teams
    GetAllTeam():void
@@ -99,7 +95,18 @@ export class IsnotTMComponent implements OnInit, OnChanges {
     this.GetAllTeam();
     location.reload();
   }
-  getNotified():void{
+
+  subscribeToEvents(): void {   
+    this.chatService.messageReceived.subscribe((message: ChatMessage) => {  
+      this.ngZone.run(() => {   
+          this.notification =message;
+      });  
+    });   
+    this.chatService.userEvent.subscribe((chatEvent: ChatStatus) => {  
+      this.ngZone.run(() => {   
+          console.log(chatEvent);
+      });  
+    });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
         console.log(alert);

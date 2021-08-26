@@ -1,7 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
+import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
+import { ChatMessage } from 'src/app/gamehub/models/chatmessage.model';
+import { ChatStatus } from 'src/app/gamehub/models/chatstatus.model';
+import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
 
 @Component({
@@ -20,10 +24,15 @@ export class IsTMComponent implements OnInit {
   isAccepted:boolean | any = false;
   hasLeft:boolean | any = false;
   requestList : ITeamJoinRequest[] |any = [];
-
+  cfrm : string |any = '';
+  notification :string | any='';
 
   // Constructor
-  constructor(private teamservice:TeamService) { }
+  constructor(private teamservice:TeamService,
+    private chatService: GameChatService,
+    private ngZone: NgZone) { 
+      this.subscribeToEvents();
+    }
   
 
 
@@ -35,17 +44,23 @@ export class IsTMComponent implements OnInit {
 
   // Delete Team
   OnDeleteTeam():void{
+    this.cfrm= confirm("Are You Sure To Delete Team?");
+    if(this.cfrm){
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;
     });
+  }
     location.reload();
   }
 
   // leave Team
   OnLeaveTeam():void{
+    this.cfrm= confirm("Are You Sure To Delete Team?");
+    if(this.cfrm){
     this.teamservice.leaveTeam().subscribe((left :boolean)=>{
       this.hasLeft = left;
     });
+  }
     location.reload();
   }
 
@@ -69,6 +84,7 @@ export class IsTMComponent implements OnInit {
         this.SearchTeam();
       }
     });
+    this.sendMessage();
     location.reload();
   }
 
@@ -78,5 +94,32 @@ export class IsTMComponent implements OnInit {
        this.myteam = team;
      });
    }
+
+   subscribeToEvents(): void { 
+    this.chatService.messageReceived.subscribe((message: ChatMessage) => {  
+      this.ngZone.run(() => {   
+          this.notification = message;
+      });  
+    });   
+    this.chatService.userEvent.subscribe((chatEvent: ChatStatus) => {  
+      this.ngZone.run(() => {   
+          console.log(chatEvent);
+      });  
+    });
+    this.chatService.userAlert.subscribe((alert: ChatAlert) => {
+      this.ngZone.run(() => {
+        console.log(alert);
+      });
+    });
+  }
+  public sendMessage(): void {   
+      var msg: ChatMessage = {
+        senderId: this.currentUser.id,
+        senderName: this.currentUser.username,
+        body: "You have been accepted",
+        timestamp: new Date().getTime(),
+      }
+      this.chatService.sendMessage(msg);
+  }
 
 }

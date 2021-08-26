@@ -1,5 +1,5 @@
   <div *ngIf="haveTeam==false">
-    <app-isnot-tm></app-isnot-tm>
+    <app-isnot-tm [currentUser] = "currentUser"></app-isnot-tm>
   </div>
 
   <div *ngIf="haveTeam==true" style="border-top: 2px solid white;">
