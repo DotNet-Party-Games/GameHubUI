@@ -6,6 +6,7 @@ import { ChatStatus } from '../../models/chatstatus.model';
 import { User } from '../../models/user.model';
 import { FormControl } from '@angular/forms';
 import { timingSafeEqual } from 'crypto';
+import { ChatAlert } from '../../models/chatalert.model';
 
 @Component({
   selector: 'app-gamechat',
@@ -85,6 +86,12 @@ export class GamechatComponent implements OnInit {
       this.ngZone.run(() => {   
           console.log(chatEvent);
       });  
+    });
+
+    this.chatService.userAlert.subscribe((alert: ChatAlert) => {
+      this.ngZone.run(() => {
+        console.log(alert);
+      });
     });
   }
 
