@@ -1,0 +1,3 @@
+[submodule "src/app/module/Dotnet-Royale"]
+	path = src/app/module/Dotnet-Royale
+	url = https://github.com/DotNet-Party-Games/Dotnet-Royale.git
