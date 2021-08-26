@@ -1,28 +1,46 @@
 <div class="container">
+
+  <!--Display Title-->
   <div id="title">
-    Team Leaderboard
-    <p>(Placeholder Values)</p>
-    </div>
-    
+    Team Leaderboards
+  </div>
+
+  <div class="container">
+    <!--Game Select-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+          <a>Party Games</a>
+        </li>
+        <li>
+          <a>Songs-Ink</a>
+        </li>
+        <li>
+          <a>Battleship</a>
+        </li>
+      </ul>
+    </nav>
+
     <!--Presenting the Leaderboard-->
-      <table id="leaderboard" class="table table-hover table-bordered">
-        <thead id="categorytext">
-          <tr>
-            <td>Team Name</td>
-            <td style="width: 30%">Total Score</td>
-          </tr>
-        </thead>
-        <tbody id="tbodytext">
-          <tr *ngFor="let leader of leaders">
-            <td>
-              {{leader.playerName}}
-            </td>
-            <td>
-              {{leader.score}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <table id="leaderboard" class="table table-hover table-bordered">
+      <thead id="categorytext">
+        <tr>
+          <td>Team Name</td>
+          <td style="width: 30%">Total Score</td>
+        </tr>
+      </thead>
+      <tbody id="tbodytext">
+        <tr *ngFor="let leader of leaders">
+          <td>
+            {{leader.playerName}}
+          </td>
+          <td>
+            {{leader.score}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
