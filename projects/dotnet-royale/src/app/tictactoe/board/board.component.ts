@@ -240,7 +240,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     return "Cats Game! Nobody";
   }
   goToRoom() {
-    this.router.navigate(['/room']);
+    this.router.navigate(['game/dotnetroyale/room']);
   }
 
 }

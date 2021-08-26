@@ -470,7 +470,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['/room']);
+    this.router.navigate(['game/dotnetroyale/room']);
   }
 
 }

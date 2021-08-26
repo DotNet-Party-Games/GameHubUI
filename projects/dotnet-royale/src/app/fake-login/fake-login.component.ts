@@ -21,7 +21,7 @@ export class FakeLoginComponent implements OnInit {
   }
 
   goToMain(){
-    this.router.navigate(['/main']);
+    this.router.navigate(['game/dotnetroyale/main']);
   }
 
   //This code is for test only - to here ************************************************************************

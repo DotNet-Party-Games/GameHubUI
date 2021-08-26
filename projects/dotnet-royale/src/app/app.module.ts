@@ -1,4 +1,4 @@
-import { DoBootstrap, NgModule, Injector } from '@angular/core';
+import { DoBootstrap, NgModule, Injector, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -56,16 +56,16 @@ import { lightbikeComponent } from './light-bike/light-bike.component';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: FakeLoginComponent},
-      {path: 'main', component: MainComponent},
-      {path: 'lobby', component: LobbyComponent},
-      {path: 'room', component: RoomComponent},
-      {path: 'leaderboard', component: LeaderboardComponent},
-      {path: 'user-profile', component: UserProfileComponent},
-      {path: 'snake', component: LayoutComponent},
-      {path: 'blackjack', component: BlackjackComponent},
-      {path: 'tictactoe', component: BoardComponent},
-      {path: 'lightbike', component: lightbikeComponent}
+      {path: 'game/dotnetroyale', component: FakeLoginComponent},
+      {path: 'game/dotnetroyale/main', component: MainComponent},
+      {path: 'game/dotnetroyale/lobby', component: LobbyComponent},
+      {path: 'game/dotnetroyale/room', component: RoomComponent},
+      {path: 'game/dotnetroyale/leaderboard', component: LeaderboardComponent},
+      {path: 'game/dotnetroyale/user-profile', component: UserProfileComponent},
+      {path: 'game/dotnetroyale/snake', component: LayoutComponent},
+      {path: 'game/dotnetroyale/blackjack', component: BlackjackComponent},
+      {path: 'game/dotnetroyale/tictactoe', component: BoardComponent},
+      {path: 'game/dotnetroyale/lightbike', component: lightbikeComponent}
     ]),
     NgbModule
   ],
@@ -83,4 +83,14 @@ export class AppModule{}
 
 //   ngDoBootstrap(){}
 // }
+
+@NgModule({})
+export class DotnetRoyaleModule{
+  static forRoot(): ModuleWithProviders<DotnetRoyaleModule> {
+    return {
+      ngModule: AppModule,
+      providers: []
+    }
+  }
+}
 

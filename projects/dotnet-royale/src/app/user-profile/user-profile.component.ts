@@ -54,7 +54,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   goToMain(){
-    this.router.navigate(['/main']);
+    this.router.navigate(['game/dotnetroyale/main']);
   }
 
 }

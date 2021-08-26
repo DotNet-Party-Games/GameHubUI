@@ -397,7 +397,7 @@ export class lightbikeComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['/room']);
+    this.router.navigate(['game/dotnetroyale/room']);
   }
 
 }

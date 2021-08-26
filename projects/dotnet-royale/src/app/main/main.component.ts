@@ -14,19 +14,19 @@ export class MainComponent implements OnInit {
   }
 
   goToLobby() {
-    this.router.navigate(['/lobby']);
+    this.router.navigate(['game/dotnetroyale/lobby']);
   }
 
   goToLeaderboard() {
-    this.router.navigate(['/leaderboard']);
+    this.router.navigate(['game/dotnetroyale/leaderboard']);
   }
 
   goToUserProfile() {
-    this.router.navigate(['/user-profile']);
+    this.router.navigate(['game/dotnetroyale/user-profile']);
   }
 
   goToRoot(){
-    this.router.navigate(['/']);
+    this.router.navigate(['game/dotnetroyale']);
   }
 
 }

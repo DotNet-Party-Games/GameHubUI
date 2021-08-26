@@ -34,14 +34,14 @@ export class LobbyComponent implements OnInit {
 
   goToRoom(p_roomId: string){
     this.joinRoom(this.username, p_roomId);
-    this.router.navigate(['/room']);
+    this.router.navigate(['game/dotnetroyale/room']);
   }
 
   goToMain(){
     this.username = sessionStorage.getItem("userName");
     this.roomId = sessionStorage.getItem("roomId");
     this.leaveRoom(this.username, this.roomId);
-    this.router.navigate(['/main']);
+    this.router.navigate(['game/dotnetroyale/main']);
   }
 
   getRoomList(){

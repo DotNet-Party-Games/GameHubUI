@@ -45,7 +45,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   goToLobby(){
     this.leaveRoom(this.username, this.roomId);
-    this.router.navigate(['/lobby']);
+    this.router.navigate(['game/dotnetroyale/lobby']);
   }
 
   leaveRoom(username:string, roomId:string):void
@@ -78,19 +78,19 @@ export class RoomComponent implements OnInit, OnDestroy {
   {
     switch(p_gameid) {
       case 1: {
-        this.router.navigate(['/snake']);
+        this.router.navigate(['game/dotnetroyale/snake']);
         break;
       }
       case 2: {
-        this.router.navigate(['/blackjack']);
+        this.router.navigate(['game/dotnetroyale/blackjack']);
         break;
       }
       case 3: {
-        this.router.navigate(['/tictactoe']);
+        this.router.navigate(['game/dotnetroyale/tictactoe']);
         break;
       }
       case 4: {
-        this.router.navigate(['/lightbike']);
+        this.router.navigate(['game/dotnetroyale/lightbike']);
         break;
       }
       default: {
