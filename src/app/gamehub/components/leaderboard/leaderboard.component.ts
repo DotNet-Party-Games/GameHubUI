@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ITeamScore } from '../../interfaces/ITeamScores';
+import { LeaderboardService } from '../../services/leaderboardservice/leaderboard.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -7,14 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
 
-  leaders: {playerName:string, score:number}[]=[];
-  constructor() { 
-    this.leaders.push({playerName:"klaus",score:1500});
-    this.leaders.push({playerName:"Iram",score:1000});
-    this.leaders.push({playerName:"Sean",score:500});
+  TeamEntry?: ITeamScore[];
+  SelectedGame: string = "partygames";
+
+  constructor(private leaderBoardService: LeaderboardService) { 
+    // this.leaders.push({playerName:"klaus",score:1500});
+    // this.leaders.push({playerName:"Iram",score:1000});
+    // this.leaders.push({playerName:"Sean",score:500});
+
   }
 
   ngOnInit(): void {
+    this.GetTeamLeaderboard(this.SelectedGame);
+  }
+
+  GetTeamLeaderboard(gameName: string)
+  {
+    this.leaderBoardService.GetTeamLeaderboard(gameName).subscribe(
+      (result) => {
+        this.TeamEntry = result.scores;
+        this.SelectedGame = result.id;
+        }
+    );
   }
 
 }
