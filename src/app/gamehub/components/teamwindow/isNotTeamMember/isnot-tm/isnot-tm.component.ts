@@ -1,7 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ITeam } from 'src/app/gamehub/interfaces/ITeam'; 
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
+import { IUser } from 'src/app/gamehub/interfaces/IUser';
+import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
+import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service'; 
 
 @Component({
@@ -15,20 +18,35 @@ export class IsnotTMComponent implements OnInit, OnChanges {
     name : new FormControl(),
     description : new FormControl(),
   });
-
   joinRequest:ITeamJoinRequest | any={};
   teams: ITeam[] | any= [];
   searchKey: string |any = '';
   messageSearch : string | any = '';
+  cfrm : string |any = '';
+  @Input()
+  public currentUser: IUser |any = {};
+  // whatIsInInput : IUser|any ={};
+  // whatWasInInput : IUser|any={};
+
   
-   constructor( private teamservice:TeamService) { }
+   constructor( private teamservice:TeamService,
+    private chatService: GameChatService,
+    private ngZone: NgZone) { }
  
    ngOnInit(): void {
      this.GetAllTeam();
    }
  
-   ngOnChanges(changes:SimpleChanges):void{
-    
+   ngOnChanges(changes:SimpleChanges):void{    
+    // this.whatIsInInput = changes.currentUser.currentValue;
+    // this.whatWasInInput = changes.currentUser.previousValue;
+    // console.log(this.whatWasInInput);
+    // console.log(this.whatIsInInput);
+
+    // if(this.whatIsInInput==this.whatWasInInput){
+    //   location.reload();
+      
+    // }
    }
    // get the list of all teams
    GetAllTeam():void
@@ -49,34 +67,43 @@ export class IsnotTMComponent implements OnInit, OnChanges {
         this.messageSearch = 'Team found';
         document.getElementById("sp")?.setAttribute("style","color:green");
        }
-     });
-     
-     
+     });     
      this.searchKey="";
    }
 
    // send a request to join a team
    OnJoinTeamRequest(teamName:string):void{
-     if(teamName!=null){
-      this.teamservice.JoinTeam(teamName).subscribe((joinRequest: ITeamJoinRequest)=>{
-        this.joinRequest = joinRequest;
-        console.log(this.joinRequest.id);
-      });
-      alert("Your request is been sent");
-    }
+    this.cfrm= confirm("submit the request?");
+    if(this.cfrm){
+      if(teamName!=null){
+        this.teamservice.JoinTeam(teamName).subscribe((joinRequest: ITeamJoinRequest|any)=>{
+          this.joinRequest = joinRequest;          
+          if(this.joinRequest.id){
+            alert("Your request is been sent");
+          }
+        });        
+      }
+    }     
   }
     // the submit button event click call on OnCreateTeam method
   OnCreateTeam(createTeamGroup:FormGroup):void{
-    this.teamservice.CreateTeam(createTeamGroup.value).subscribe((createdTeam:any) =>{
-      if(createdTeam){   
-        sessionStorage.setItem('user_teamId',createdTeam.users[0].teamId.toString())
-        sessionStorage.setItem('user_teamName',createdTeam.users[0].team.toString())
-      }
-      alert("Team created");
-      
-    })
+    if(createTeamGroup.valid){
+      this.teamservice.CreateTeam(createTeamGroup.value).subscribe((createdTeam:any) =>{
+        if(createdTeam){   
+          sessionStorage.setItem('user_teamId',createdTeam.users[0].teamId.toString())
+          sessionStorage.setItem('user_teamName',createdTeam.users[0].team.toString())
+        }
+        alert("Team created");
+      })
+    }  
     this.GetAllTeam();
     location.reload();
   }
-
+  getNotified():void{
+    this.chatService.userAlert.subscribe((alert: ChatAlert) => {
+      this.ngZone.run(() => {
+        console.log(alert);
+      });
+    });
+  }
 }
