@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { GamechatComponent } from './gamehub/components/gamechat/gamechat.component';
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
+import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     NavComponent,
     GamechatComponent,    
     IsnotTMComponent,
-    IsTMComponent    
+    IsTMComponent,
+    GameComponent    
   ],
   imports: [
     BrowserModule,
@@ -55,12 +57,12 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
     }),
     RouterModule.forRoot([
       {path: "home", component: HomeComponent },
-      {path: "gamewindow", component: GamewindowComponent,canActivate: [AuthGuard], },
+      {path: "gamelist", component: GamewindowComponent,canActivate: [AuthGuard], },
       {path: "gamelobby", component: GamelobbyComponent, canActivate: [AuthGuard], },
       {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
-      {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], }
-
+      {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
+      {path: "game", component: GameComponent, canActivate: [AuthGuard], }
     ]),
     FormsModule,
     ReactiveFormsModule,

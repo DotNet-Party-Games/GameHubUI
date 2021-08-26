@@ -1,27 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink = "/home" routerLinkActive="active">
-        <img src="assets\images\title2.png" style="width: 200px;">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav me-auto mb-1 mb-lg-0">
-            <li><a  routerLink = "/gamewindow" routerLinkActive="active"><span  class="fa fa-gamepad fa-2x"></span> gamewindow</a></li>
-            <li><a routerLink = "/chat" routerLinkActive="active"><span class="fa fa-comments fa-2x" ></span> gamelobby</a></li>
-            <li><a  routerLink = "/leaderboard" routerLinkActive="active"><span class="fa fa-trophy fa-2x"></span> Leaderboard</a></li>
-            <li><a   routerLink = "/teamwindow" routerLinkActive="active"><span class="fa fa-users fa-2x"></span> team</a></li>
-                
-        </ul>
-        <div class="d-flex">
-          <button class="text-white text-decoration-none btn btn-success mx-2" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="login()">
-            Login
-        </button> 
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home" routerLinkActive="active">
+      <img src="assets\images\title2.png" style="width: 200px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto mb-1 mb-lg-0">
+        <li><a routerLink="/gamelist" routerLinkActive="active"><span class="fa fa-gamepad fa-2x"></span> Game List</a>
+        </li>
+        <li><a routerLink="/chat" routerLinkActive="active"><span class="fa fa-comments fa-2x"></span> Game Lobby</a>
+        </li>
+        <li><a routerLink="/leaderboard" routerLinkActive="active"><span class="fa fa-trophy fa-2x"></span>Leaderboard</a></li>
+        <li><a routerLink="/teamwindow" routerLinkActive="active"><span class="fa fa-users fa-2x"></span> Team</a></li>
+
+      </ul>
+      <div class="d-flex">
+        <button class="text-white text-decoration-none btn btn-success mx-2"
+          *ngIf="(auth.isAuthenticated$ | async) === false" (click)="login()">
+          Login
+        </button>
         <button class="btn btn-danger" *ngIf="(auth.isAuthenticated$ | async) === true" (click)="logout()">
-            Log out
-          </button>
-        </div>
+          Log out
+        </button>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
