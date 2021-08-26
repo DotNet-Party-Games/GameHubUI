@@ -11,57 +11,71 @@ import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
 })
 export class IsTMComponent implements OnInit {
 
+  // Variable declarations
   @Input()
-  public currentUser: IUser |any ={
-    id:"",
-    username:"",
-    email:"",
-    picture:"",
-    teamId:"",
-    team:"",
-  };
-  team : ITeam |any;
-  teamName:string | any;
-  isDeleted:boolean | any;
+  public currentUser: IUser |any = {};
+  myteam : ITeam |any = {};
+  teamName:string | any = sessionStorage.getItem('teamName');
+  isDeleted:boolean | any = false;
+  isAccepted:boolean | any = false;
+  hasLeft:boolean | any = false;
+  requestList : ITeamJoinRequest[] |any = [];
+
+
+  // Constructor
   constructor(private teamservice:TeamService) { }
-  requestList : ITeamJoinRequest |any;
+  
 
 
   ngOnInit(): void {
-    this.isDeleted = false;
-    this.teamName = sessionStorage.getItem('teamName');
-    // if(this.currentUser.id === this.currentUser.team.teamOwner){
       this.GetListOfRequest();
       this.SearchTeam();
-    // }
     
   }
 
+  // Delete Team
   OnDeleteTeam():void{
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;
     });
-    console.log(this.isDeleted);
+    location.reload();
   }
 
+  // leave Team
+  OnLeaveTeam():void{
+    this.teamservice.leaveTeam().subscribe((left :boolean)=>{
+      this.hasLeft = left;
+    });
+    location.reload();
+  }
+
+  // Get the list Of  all Join team request
   GetListOfRequest():void{
-    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[] | any)=>{
-      this.requestList = requestList;
-      console.log(JSON.stringify(this.requestList[1]));
+    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{      
+      requestList.forEach(element => {
+        if(element.user.teamId==null){
+          this.requestList.push(element);
+        }
+      });
     });
   }
 
-  AcceptOrDeny(requestId:string,accept:boolean){
-    this.teamservice.ApproveOrDenyRequest(requestId, accept).subscribe((response:boolean)=>{
-
+  // Accept or deny a particular request
+  AcceptOrDeny(requestId:string,accept?:boolean){
+    this.teamservice.ApproveOrDenyRequest(requestId).subscribe((response:boolean)=>{
+      this.isAccepted=response
+      if(response){
+        this.GetListOfRequest();
+        this.SearchTeam();
+      }
     });
+    location.reload();
   }
 
   SearchTeam():void
    {
-     this.teamservice.GetSearchedTeamsByName(this.teamName).subscribe((teamList : ITeam[])=>{
-       this.team = teamList;
-       console.log(JSON.stringify(this.team));
+     this.teamservice.GetSearchedTeamsByName(this.teamName).subscribe((team : ITeam)=>{
+       this.myteam = team;
      });
    }
 

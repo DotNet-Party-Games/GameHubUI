@@ -1,0 +1,20 @@
+<!-- <div #scrollMe [scrollTop]="chatMessages.length === 0 ? 0: scrollMe.scrollHeight" class="modal-body">-->
+<div id="chat-container">
+  <div id="messagecontainer" class="modal-body">
+  <div class="container-fluid border bg-light" id="chat-window">
+    <div *ngFor="let msg of chatMessages">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{msg.senderName}}</h5>
+        <small>{{msg.timestamp | date:'L/dd/yy h:mm a'}}</small>
+      </div>
+      <p class="mb-1">{{msg.body}}</p>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="input-group mb-3">
+      <input (keydown.enter)="sendMessage()" type="text" class="form-control" placeholder="Send a message" [formControl]="messageBody">
+      <button (click)="sendMessage()" class="btn btn-primary" type="button" id="send-message-button" >Send</button>
+    </div>
+</div>
+</div>
