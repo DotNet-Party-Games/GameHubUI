@@ -1,0 +1,19 @@
+<div class="h-50 card bg-dark overflow-auto">
+  <div class="card-header text-center" style="background-color: #111;">
+    <h4>Games</h4>
+  </div>
+  <div class="m-2 overflow-auto">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div *ngFor = "let game of games; let i = index" class="accordion-item">
+        <h5 class="accordion-header" id="flush-headingOne">
+          <div class="accordion-button collapsed" type="button" (click)="setGameId(game.id)" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapseOne_' + i" aria-expanded="false" aria-controls="flush-collapseOne">
+            <i class="fas fa-gamepad mr-2"></i>{{game.name | uppercase}}
+          </div>
+        </h5>
+        <div [attr.id]="'flush-collapseOne_' + i" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">{{game.description}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

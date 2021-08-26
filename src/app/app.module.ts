@@ -22,6 +22,7 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
+import { DotnetRoyaleModule } from 'projects/dotnet-royale/src/app/app.module';
 
 @NgModule({
   declarations: [
@@ -63,12 +64,14 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
+      {path: "game/dotnetroyale", loadChildren: () => import('projects/dotnet-royale/src/app/app.module').then(m => m.DotnetRoyaleModule)}
       {path: "**", redirectTo:"home"}
     ]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    DotnetRoyaleModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }

@@ -1,0 +1,83 @@
+<div style="height: 100vh;">
+
+  <div class="row justify-content-md-center">
+    <div class="col col-12">
+      <div class="p-2 text-center text-warning" style="background-color: #111;">
+        <img src="assets/images/leaderboard.png" alt="leaderboard" style="height: 15vh;">
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center text-white"  style="height: 70vh;">
+
+    <div class="col col-4">
+      <div class="card bg-dark m-4">
+        <div class="card-header text-center" style="background-color: #111;">
+          <h3>SNAKE</h3>
+        </div>
+        <div class="overflow-auto">
+          <table class="table table-sm">
+            <tr *ngFor = "let snakeLeader of snakeLeaders" class="text-white bg-dark">
+              <td>
+                <i class="fas fa-user-circle mr-2"></i>{{snakeLeader.username | uppercase}}
+              </td>
+              <td>
+                {{snakeLeader.score}}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-4">
+      <div class="card bg-dark m-4">
+        <div class="card-header text-center" style="background-color: #111;">
+          <h3>BLACK JACK</h3>
+        </div>
+        <div class="overflow-auto">
+          <table class="table table-sm">
+            <tr *ngFor = "let blackjackLeader of blackjackLeaders" class="text-white bg-dark">
+              <td>
+                <i class="fas fa-user-circle mr-2"></i>{{blackjackLeader.username | uppercase}}
+              </td>
+              <td>
+                {{blackjackLeader.score}}
+              </td>
+            </tr>
+          </table>
+        </div>
+       </div>
+    </div>
+
+    <div class="col col-4">
+      <div class="card bg-dark m-4">
+        <div class="card-header text-center" style="background-color: #111;">
+          <h3>TIC-TAC-TOE</h3>
+        </div>
+        <div class="overflow-auto">
+          <table class="table table-sm">
+            <tr *ngFor = "let tictactoeLeader of tictactoeLeaders" class="text-white bg-dark">
+              <td>
+                <i class="fas fa-user-circle mr-2"></i>{{tictactoeLeader.username | uppercase}}
+              </td>
+              <td>
+                {{tictactoeLeader.score}}
+              </td>
+            </tr>
+          </table>
+        </div>
+       </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-4 justify-content-md-center">
+    <div class="col col-6 text-center">
+      <button class="btn btn-warning container mt-2" (click)="goToMain()">
+        <img src="assets/images/back.png" alt="back" style="height: 5vh;">
+      </button>
+    </div>
+  </div>
+
+</div>
