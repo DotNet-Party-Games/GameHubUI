@@ -62,12 +62,13 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
       {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
-      {path: "game", component: GameComponent, canActivate: [AuthGuard], }
+      {path: "game", component: GameComponent, canActivate: [AuthGuard], },
+      {path: "**", redirectTo:"home"}
     ]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
