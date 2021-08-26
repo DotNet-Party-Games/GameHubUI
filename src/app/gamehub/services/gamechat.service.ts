@@ -1,7 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { Console } from 'console';
 import { environment } from 'src/environments/environment';
+import { ChatAlert } from '../models/chatalert.model';
 import { ChatMessage } from '../models/chatmessage.model';
 import { ChatStatus } from '../models/chatstatus.model';
 import { User } from '../models/user.model';
@@ -13,6 +15,7 @@ export class GameChatService {
   public messageReceived = new EventEmitter<ChatMessage>();
   public connectionEstablished = new EventEmitter<Boolean>();
   public userEvent = new EventEmitter<ChatStatus>();
+  public userAlert = new EventEmitter<ChatAlert>();
 
   private hubConnection: HubConnection | null = null;
   private roomId: string = "";
@@ -90,6 +93,11 @@ export class GameChatService {
       });
       this.hubConnection.on('Event', (data: ChatStatus) => {
         this.userEvent.emit(data);
+        console.log(data);
+      });
+      this.hubConnection.on('Alert', (data: ChatAlert) => {
+        this.userAlert.emit(data);
+        console.log(data);
       });
     }
   }
