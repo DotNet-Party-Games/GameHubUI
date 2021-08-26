@@ -64,7 +64,7 @@ import { DotnetRoyaleModule } from 'projects/dotnet-royale/src/app/app.module';
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
-      {path: "game/dotnetroyale", loadChildren: () => import('projects/dotnet-royale/src/app/app.module').then(m => m.DotnetRoyaleModule)}
+      {path: "game/dotnetroyale", loadChildren: () => import('projects/dotnet-royale/src/app/app.module').then(m => m.DotnetRoyaleModule)},
       {path: "**", redirectTo:"home"}
     ]),
     FormsModule,

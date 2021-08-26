@@ -33,7 +33,7 @@
              
         </div>
         <!-- Requests column -->
-        <div class="col-4 mt-3">
+        <div class="col-4 mt-3" *ngIf="myteam.teamOwner==currentUser.id">
             <div class="row">
                 <h2>My requests</h2>
             </div>
