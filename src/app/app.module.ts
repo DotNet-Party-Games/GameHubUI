@@ -65,12 +65,13 @@ import { DotnetRoyaleModule } from 'projects/dotnet-royale/src/app/app.module';
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", loadChildren: () => import('projects/dotnet-royale/src/app/app.module').then(m => m.DotnetRoyaleModule)}
+      {path: "**", redirectTo:"home"}
     ]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    DotnetRoyaleModule.forRoot(),
+    DotnetRoyaleModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
