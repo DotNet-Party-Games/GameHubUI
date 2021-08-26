@@ -12,9 +12,4 @@ export class GamewindowComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToPartyGames()
-  {
-
-  }
-
 }
