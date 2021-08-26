@@ -1,0 +1,17 @@
+main {
+
+    display: grid;
+    /* grid-template-columns: 100px 100px 100px; */
+    grid-gap: 0px;
+}
+
+app-square {
+   
+    border: 3px rgb(3, 62, 255) solid;
+    /* height: 100px; */
+
+}
+
+h1 {
+    text-align: center;
+}

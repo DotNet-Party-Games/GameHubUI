@@ -1,0 +1,49 @@
+<div style="height: 100vh;">
+
+  <div style="height: 88vh;">
+  <!-- (A) DEALER'S CARDS -->
+    <h3 id="winner"></h3>
+    <div id="deal-wrap">
+      <!-- (A1) DEALER'S POINTS + STAND -->
+      <div id="deal-data">
+        <span id="deal-stand">STAND</span>
+        Dealer's Hand - <span id="deal-points">?</span>
+      </div>
+
+      <!-- (A2) DEALER'S CARDS -->
+      <div id="deal-cards"></div>
+    </div>
+
+    <!-- (B) PLAYER'S CARDS -->
+    <div id="play-wrap" *ngFor="let player of players; index as i">
+      <!-- (B1) PLAYERS'S POINTS + STAND -->
+      <div id="play-data">
+        <span id="play-stand{{i}}">STAND </span>
+      {{player}} - <span id="play-points{{i}}">0</span>
+        <span *ngIf="i == turn">YOUR TURN</span>
+      </div>
+
+      <!-- (B2) PLAYER'S CARDS -->
+      <div id="play-cards{{i}}"></div>
+    </div>
+
+
+    <!-- (C) PLAY! -->
+    <div id="play-control">
+
+      <!-- (C1) START -->
+      <input type="button" id="playc-start"  value="Play!"/>
+      <!-- (C2) HIT OR STAND -->
+      <input type="button" id="playc-hit"  value="Hit"/>
+      <input type="button" id="playc-stand"  value="Stand"/>
+    </div>
+  </div>
+
+  <div class="row mt-4 justify-content-md-center">
+    <div class="col col-6 text-center">
+      <button class="btn btn-warning container mt-2" (click)="goToRoom()"><h3>Back</h3></button>
+    </div>
+  </div>
+
+</div>
+
