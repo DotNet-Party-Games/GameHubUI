@@ -19,11 +19,11 @@
           <table class="table text-white">
             <tr>
               <td>Average Score</td>
-              <td>{{snakeGameStats.avgScore | number}}</td>
+              <td>{{snakeAvgScore | number}}</td>
             </tr>
             <tr>
               <td>High Score</td>
-              <td>{{snakeGameStats.highScore | number}}</td>
+              <td>{{snakeHighScore | number}}</td>
             </tr>
           </table>
         </div>
@@ -38,12 +38,8 @@
         <div class="overflow-auto">
           <table class="table text-white">
             <tr>
-              <td>Average Score</td>
-              <td>{{blackJackGameStats.avgScore | number}}</td>
-            </tr>
-            <tr>
-              <td>High Score</td>
-              <td>{{blackJackGameStats.highScore | number}}</td>
+              <td>Win/Loss Ratio</td>
+              <td>{{blackJackWinLossRatio | number}}</td>
             </tr>
           </table>
         </div>
@@ -58,12 +54,8 @@
         <div class="overflow-auto">
           <table class="table text-white">
             <tr>
-              <td>Average Score</td>
-              <td>{{tictactoeGameStats.avgScore | number}}</td>
-            </tr>
-            <tr>
-              <td>High Score</td>
-              <td>{{tictactoeGameStats.highScore | number}}</td>
+              <td>Win/Loss Ratio</td>
+              <td>{{ticTacToeWinLossRatio | number}}</td>
             </tr>
           </table>
         </div>

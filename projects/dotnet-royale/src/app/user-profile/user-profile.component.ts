@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PartygameService } from '../services/partygame.service';
-import { IGame } from '../services/game';
-import { IUserScore } from '../services/userscore';
-import { IGameStats } from '../services/gamestats';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IUser } from '../services/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,48 +9,33 @@ import { IUser } from '../services/user';
 })
 export class UserProfileComponent implements OnInit {
 
-  userName: string;
-  user: IUser;
   userId: number;
-  games: IGame[];
-  userscores: IUserScore[];
-  scores: {gameName: string, score: number}[];
+  snakeAvgScore: number;
+  snakeHighScore: number;
+  blackJackWinLossRatio: number;
+  ticTacToeWinLossRatio: number;
 
-  snakeGameStats: IGameStats;
-  blackJackGameStats: IGameStats;
-  tictactoeGameStats: IGameStats;
-
-  constructor(private router: Router, private partyGameApi: PartygameService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private partyGameApi: PartygameService) { }
 
   ngOnInit(): void {
-    this.userName = sessionStorage.getItem("userName");
-    this.partyGameApi.getUserFromUserName(this.userName)
-      .subscribe((response: IUser) => {this.user = response});
-    this.userId = this.user.id;
+    this.partyGameApi.getUserFromUserName(sessionStorage.getItem("userName"))
+      .subscribe((response: any) => {this.userId = response.id});
 
-    this.partyGameApi.getSnakeGameStatsByUserId(this.userId)
-      .subscribe((response: IGameStats) => {this.snakeGameStats = response});
-    this.partyGameApi.getBlackJackGameStatsByUserId(this.userId)
-      .subscribe((response: IGameStats) => {this.blackJackGameStats = response});
-    this.partyGameApi.getTicTacToeGameStatsByUserId(this.userId)
-      .subscribe((response: IGameStats) => {this.tictactoeGameStats = response});
-  }
-
-  getGameList()
-  {
-    this.partyGameApi.getGames().subscribe((response: IGame[]) => { this.games = response });
-  }
-
-  GetUserScoreHistory()
-  {
-    this.partyGameApi.getScoreHistoryByUserId(this.userId).subscribe((response: IUserScore[]) => {
-      this.userscores = response;
-      this.userscores.sort((a, b) => b.score - a.score);
-    });
+    this.partyGameApi.getSnakeGameStatsByUserId(6)
+      .subscribe((response: any) => {
+        this.snakeAvgScore = response.avgScore;
+        this.snakeHighScore = response.highScore;
+      });
+    this.partyGameApi.getBlackJackGameStatsByUserId(6)
+      .subscribe((response: any) => {
+        this.blackJackWinLossRatio = response.winLossRatio}
+        );
+    this.partyGameApi.getTicTacToeGameStatsByUserId(6)
+      .subscribe((response: any) => {this.ticTacToeWinLossRatio = response.winLossRatio});
   }
 
   goToMain(){
-    this.router.navigate(['main'], { relativeTo: this.route });
+    this.router.navigate(['/main']);
   }
 
 }
