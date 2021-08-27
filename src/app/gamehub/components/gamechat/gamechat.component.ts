@@ -1,6 +1,6 @@
 import { Component, EventEmitter, NgZone, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { GameChatService } from '../../services/gamechat.service';
+import { UserService } from 'projects/hubservices/src/public-api';
+import { GameChatService } from 'projects/hubservices/src/public-api';
 import { ChatMessage } from '../../models/chatmessage.model';
 import { ChatStatus } from '../../models/chatstatus.model';
 import { User } from '../../models/user.model';

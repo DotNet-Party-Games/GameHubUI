@@ -304,6 +304,37 @@
           }
         }
       }
+    },
+    "hubservices": {
+      "projectType": "library",
+      "root": "projects/hubservices",
+      "sourceRoot": "projects/hubservices/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/hubservices/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/hubservices/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/hubservices/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/hubservices/src/test.ts",
+            "tsConfig": "projects/hubservices/tsconfig.spec.json",
+            "karmaConfig": "projects/hubservices/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "GameHubUI"

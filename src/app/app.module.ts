@@ -32,10 +32,10 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
     TeamwindowComponent,
     HomeComponent,
     NavComponent,
-    GamechatComponent,    
+    GamechatComponent,
     IsnotTMComponent,
     IsTMComponent,
-    GameComponent    
+    GameComponent
   ],
   imports: [
     BrowserModule,
