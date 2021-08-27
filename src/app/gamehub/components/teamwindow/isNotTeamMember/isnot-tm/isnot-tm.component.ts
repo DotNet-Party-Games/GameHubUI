@@ -4,10 +4,15 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
+
+// import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
+
 import { ChatMessage } from 'src/app/gamehub/models/chatmessage.model';
 import { ChatStatus } from 'src/app/gamehub/models/chatstatus.model';
 import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service'; 
+import { UserService } from 'projects/hubservices/src/public-api';
+import { User } from 'src/app/gamehub/models/user.model';
 
 @Component({
   selector: 'app-isnot-tm',
@@ -23,15 +28,18 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   joinRequest:ITeamJoinRequest | any={};
   teams: ITeam[] | any= [];
   searchKey: string |any = '';
-  messageSearch : string | any = '';
   cfrm : string |any = '';
-  notification :string | any='';
+  notifyMe:ChatAlert | any={};
 
   @Input()
   public currentUser: IUser |any = {};
 
+  public user: User | null = null;
+  public connectionEstablished: Boolean = false;
+
   
    constructor( private teamservice:TeamService,
+    public userService: UserService,
     private chatService: GameChatService,
     private ngZone: NgZone) { 
       this.subscribeToEvents();
@@ -50,7 +58,6 @@ export class IsnotTMComponent implements OnInit, OnChanges {
      this.teamservice.GetAllTeams().subscribe((teamList : ITeam[])=>{
        this.teams = teamList;
      })
-     this.messageSearch = '';
    }
  
    //Get list of Team base on search
@@ -60,7 +67,6 @@ export class IsnotTMComponent implements OnInit, OnChanges {
        this.teams = [];
        if(teamfound.id!=null){
         this.teams.push(teamfound);
-        this.messageSearch = 'Team found';
         document.getElementById("sp")?.setAttribute("style","color:green");
        }
      });     
@@ -81,7 +87,8 @@ export class IsnotTMComponent implements OnInit, OnChanges {
       }
     }     
   }
-    // the submit button event click call on OnCreateTeam method
+
+  // the submit button event click call on OnCreateTeam method
   OnCreateTeam(createTeamGroup:FormGroup):void{
     if(createTeamGroup.valid){
       this.teamservice.CreateTeam(createTeamGroup.value).subscribe((createdTeam:any) =>{
@@ -96,20 +103,20 @@ export class IsnotTMComponent implements OnInit, OnChanges {
     location.reload();
   }
 
-  subscribeToEvents(): void {   
-    this.chatService.messageReceived.subscribe((message: ChatMessage) => {  
-      this.ngZone.run(() => {   
-          this.notification =message;
-      });  
-    });   
-    this.chatService.userEvent.subscribe((chatEvent: ChatStatus) => {  
-      this.ngZone.run(() => {   
-          console.log(chatEvent);
-      });  
+  subscribeToEvents(): void {
+    this.userService.user.subscribe(user => {
+      this.user = user;
+      if(this.user != null) {
+        this.chatService.startConnection();
+      }
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
         console.log(alert);
+        this.notifyMe = alert;
+        if(this.notifyMe.alertType=="REQUEST APPROVED"){
+          location.reload();
+        }
       });
     });
   }
