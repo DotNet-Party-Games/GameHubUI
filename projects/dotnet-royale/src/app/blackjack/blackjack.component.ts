@@ -4,7 +4,7 @@ import { BlackjackService } from '../services/blackjack/blackjack.service';
 import { IScore } from '../services/score';
 import { PartygameService } from '../services/partygame.service';
 import { ILoggedUser } from '../services/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 export interface Blackjack {
@@ -49,7 +49,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   }
 
   public currentUser:ILoggedUser;
-  constructor(private partyGameApi: PartygameService, private blackjackservice: BlackjackService, private router: Router) {
+  constructor(private partyGameApi: PartygameService, private blackjackservice: BlackjackService, private router: Router, private route: ActivatedRoute) {
     this.currentUser =
     {
       id: 0,
@@ -179,7 +179,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   goToRoom(){
     // change to reroute to blackjack room
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['blackjack']);
+    this.router.navigate(['blackjack'], { relativeTo: this.route } );
   }
 
 }
