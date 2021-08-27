@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 #chbody{
-    background-image: url('/assets/images/bg1.jpg') ;
+    background-image: url('/assets/dotnet-royale/bg1.jpg') ;
     opacity: 0.6;
     background-repeat: no-repeat;
     background-size: cover;
@@ -30,9 +30,10 @@
     word-wrap: break-word;
 }
 .messageUsername{
-    color:#28a745;
+    color:#111;
     float: right;
     font-size: 0.9rem;
+    font-weight: bold;
     font-style: italic;
 }
 .same-user{
