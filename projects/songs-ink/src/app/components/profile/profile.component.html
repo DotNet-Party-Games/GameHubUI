@@ -1,0 +1,55 @@
+<div style="text-align: center;">
+    <span>
+        <h4>Player Info</h4>
+        <div>
+            <p>Email: {{currentPlayer.email}}</p>
+        </div>
+        <div>
+            <p>Username: {{currentPlayer.playerName}}</p>
+            <form (ngSubmit)="changeUserName()">
+                <div>
+                    <label for="text"><b>Update username:  </b></label>
+                    <input type="text" name="text" id="newName" [(ngModel)]="newName">
+                    <input type="submit" value="Update" class="btn btn-primary">
+                </div>
+                
+            </form>
+        </div>
+        <div>
+            <p>Games Played: {{currentPlayer.gamesPlayed}}</p>
+        </div>
+        <div>
+            <p>Total Score: {{currentPlayer.playerScore}}</p>
+        </div>
+        <div>
+            <p>Current Score: {{currentPlayer.currentScore}}</p>
+        </div>
+    </span>
+    <span>
+        <h4>Categories</h4>
+        <app-profile-categorylist *ngFor="let category of userCategories" 
+            [category]="category.customCategoryName"
+            (onRemoveCategory)="removeCategory(category.customCategoryName)">
+        </app-profile-categorylist>
+        <app-profile-wordlist *ngFor="let word of currentPlayer.customWords" [word]="word"
+            (onRemoveWord)="removeWord(word)"></app-profile-wordlist>
+        <div>
+
+            <form (ngSubmit)="addCategory()">
+                <div>
+                    <label for="text"><b>Add a Category</b> ({{categoryAddCost * -1}} points)</label>
+                    <input type="text" name="text" id="newCategory" [(ngModel)]="newCategory">
+                    <input type="submit" value="Add Category" class="btn btn-primary">
+                </div>
+            </form>
+
+            <form (ngSubmit)="addCustomWord()">
+                <div >
+                    <label for="text"><b>Add a word</b> ({{wordAddCost * -1}} points)</label>
+                    <input type="text" name="text" id="newWord" [(ngModel)]="newWord">
+                    <input type="submit" value="Add Word" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </span>
+</div>

@@ -22,6 +22,7 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -64,13 +65,15 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
-      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)}
+      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
+      {path: "game/songsink", component: GameComponent, loadChildren: () => import('projects/songs-ink/src/app/songsink.module').then(m => m.SongsInkModule)}
       //{path: "**", redirectTo: "home"}
     ]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NoopAnimationsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
