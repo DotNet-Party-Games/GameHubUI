@@ -4,6 +4,7 @@ import { PartygameService } from '../services/partygame.service';
 import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SocketioService } from '../services/socketio/socketio.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-livechat',
@@ -21,7 +22,7 @@ export class LivechatComponent implements OnInit,OnChanges {
 
   public UserList:string[];
 
-  constructor(private partyGameApi: PartygameService, private socketService: SocketioService )
+  constructor(private partyGameApi: PartygameService, private socketService: SocketioService)
   {
     this.currentUser = sessionStorage.getItem('userName');
   }
