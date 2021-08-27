@@ -65,7 +65,7 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
-      {path: "**", redirectTo: "home"}
+      //{path: "**", redirectTo: "home"}
     ]),
     FormsModule,
     ReactiveFormsModule,
