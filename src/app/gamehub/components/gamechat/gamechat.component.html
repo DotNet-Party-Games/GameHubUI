@@ -1,5 +1,4 @@
 <div id="chat-container">
-  <!--<div class="container">-->
   <ngb-accordion #acc="ngbAccordion">
     <ngb-panel>
       <ng-template ngbPanelHeader>
@@ -16,7 +15,6 @@
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
-<!--</div> -->
   <div id="message-container">
     <div class="container-fluid border bg-light" id="chat-window">
       <div *ngFor="let msg of chatMessages">

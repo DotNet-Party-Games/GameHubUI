@@ -22,6 +22,7 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
+import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     GamechatComponent,
     IsnotTMComponent,
     IsTMComponent,
-    GameComponent
+    GameComponent,
+    LoadingWheelComponent
   ],
   imports: [
     BrowserModule,

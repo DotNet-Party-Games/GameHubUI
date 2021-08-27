@@ -39,7 +39,7 @@ export class GamechatComponent implements OnInit {
   ngOnInit(): void {
     if (this.user != null) {
       console.log(`User start: ${this.user}`);
-      this.chatService.startConnection();
+      //this.chatService.startConnection();   
     }
   }
 
@@ -48,14 +48,18 @@ export class GamechatComponent implements OnInit {
     if (this.container != null) {            
       this.container.scrollTop = this.container.scrollHeight;
     }     
-  } 
+  }
+  
+  ngOnDestroy() {
+    this.chatService.leaveChat();
+  }
 
   public getUserKeys() {
     return Object.keys(this.userDictionary);
   }
 
   public sendMessage(): void {
-    if (this.messageBody.value != '' && this.user != null) {
+    if (this.messageBody.value !== '' && this.messageBody.value != null && this.user != null) {
       var msg: ChatMessage = {
         senderId: this.user.id,
         senderName: this.user.username,

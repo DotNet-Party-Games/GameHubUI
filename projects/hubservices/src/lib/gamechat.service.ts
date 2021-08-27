@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ChatAlert } from '../models/chatalert.model';
 import { ChatMessage } from '../models/chatmessage.model';
@@ -11,9 +12,11 @@ import { ChatStatus } from '../models/chatstatus.model';
 })
 export class GameChatService {
   public messageReceived = new EventEmitter<ChatMessage>();
-  public connectionEstablished = new EventEmitter<Boolean>();
+  public connectionEstablished = new BehaviorSubject<Boolean>(false);
   public userEvent = new EventEmitter<ChatStatus>();
   public userAlert = new EventEmitter<ChatAlert>();
+
+  public connectionEst: Boolean = false;
 
   private hubConnection: HubConnection | null = null;
   private roomId: string = "";
@@ -43,11 +46,11 @@ export class GameChatService {
     }
   }
 
-  public leaveChat(roomId: string) {
-    if (this.hubConnection) {
-      this.hubConnection.invoke('LeaveGameRoomChat', roomId)
+  public leaveChat() {
+    if (this.hubConnection && this.roomId) {
+      this.hubConnection.invoke('LeaveGameRoomChat', this.roomId)
         .then(() => {
-          console.log(`Disconnected from room ID: ${roomId}`);
+          console.log(`Disconnected from room ID: ${this.roomId}`);
           this.roomId = "";
         })
         .catch(err => {
@@ -57,31 +60,35 @@ export class GameChatService {
   }
 
   public startConnection(): void {
-    this.authService.getAccessTokenSilently({ audience: 'revboxgamesapi' }).subscribe(
-      token => {
-        this.hubConnection = new HubConnectionBuilder()
-          .withUrl(`${environment.api.url}/chat`, { accessTokenFactory: () => token })
-          .withAutomaticReconnect()
-          .build();
+    if (!this.connectionEst) {
+      this.authService.getAccessTokenSilently({ audience: 'revboxgamesapi' }).subscribe(
+        token => {
+          this.hubConnection = new HubConnectionBuilder()
+            .withUrl(`${environment.api.url}/chat`, { accessTokenFactory: () => token })
+            .withAutomaticReconnect()
+            .build();
 
-        if (this.hubConnection) {
-          this.hubConnection
-            .start()
-            .then(() => {
-              console.log('Hub connection started');
-              this.connectionEstablished.emit(true);
-              this.registerOnServerEvents();
-            })
-            .catch(_ => {
-              console.log('Error while establishing connection, retrying...');
-              setTimeout(() => this.startConnection(), 5000);
-            });
+          if (this.hubConnection) {
+            this.hubConnection
+              .start()
+              .then(() => {
+                console.log('Hub connection started');
+                this.connectionEstablished.next(true);
+                this.registerOnServerEvents();
+              })
+              .catch(_ => {
+                console.log('Error while establishing connection, retrying...');
+                setTimeout(() => this.startConnection(), 5000);
+              });
+          }
+        },
+        error => {
+          console.log(error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
+    } else {
+
+    }
   }
 
   private registerOnServerEvents(): void {
@@ -96,5 +103,9 @@ export class GameChatService {
         this.userAlert.emit(data);
       });
     }
+    this.connectionEstablished.subscribe(c => {
+      console.log(`connection est :${c}`);
+      this.connectionEst = c
+    });
   }
 }
