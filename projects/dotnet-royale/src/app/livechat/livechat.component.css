@@ -30,9 +30,10 @@
     word-wrap: break-word;
 }
 .messageUsername{
-    color:#28a745;
+    color:#111;
     float: right;
     font-size: 0.9rem;
+    font-weight: bold;
     font-style: italic;
 }
 .same-user{
