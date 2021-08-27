@@ -24,6 +24,8 @@ export class GamechatComponent implements OnInit {
   public channelId: string = "test"
   public messageBody = new FormControl('');
 
+  public userDictionary = {};
+
   public container: HTMLElement | null = null;
 
   constructor(
@@ -37,7 +39,7 @@ export class GamechatComponent implements OnInit {
   ngOnInit(): void {
     if (this.user != null) {
       console.log(`User start: ${this.user}`);
-      this.chatService.startConnection();
+      //this.chatService.startConnection();   
     }
   }
 
@@ -46,10 +48,18 @@ export class GamechatComponent implements OnInit {
     if (this.container != null) {            
       this.container.scrollTop = this.container.scrollHeight;
     }     
-  } 
+  }
+  
+  ngOnDestroy() {
+    this.chatService.leaveChat();
+  }
+
+  public getUserKeys() {
+    return Object.keys(this.userDictionary);
+  }
 
   public sendMessage(): void {
-    if (this.messageBody.value != '' && this.user != null) {
+    if (this.messageBody.value !== '' && this.messageBody.value != null && this.user != null) {
       var msg: ChatMessage = {
         senderId: this.user.id,
         senderName: this.user.username,
@@ -84,14 +94,12 @@ export class GamechatComponent implements OnInit {
 
     this.chatService.userEvent.subscribe((chatEvent: ChatStatus) => {  
       this.ngZone.run(() => {   
-          console.log(chatEvent);
+          if (chatEvent.status === "PRESENT" || chatEvent.status === "JOINED") {
+            this.userDictionary[chatEvent.user.id] = chatEvent.user;
+          } else if (chatEvent.status == "LEFT") {
+            delete this.userDictionary[chatEvent.user.id];
+          }
       });  
-    });
-
-    this.chatService.userAlert.subscribe((alert: ChatAlert) => {
-      this.ngZone.run(() => {
-        console.log(alert);
-      });
     });
   }
 

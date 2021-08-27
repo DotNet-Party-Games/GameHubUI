@@ -1,4 +1,3 @@
-import { TeamwindowComponent } from "../components/teamwindow/teamwindow.component";
 import { Team } from "./team.model";
 
 export interface User {
