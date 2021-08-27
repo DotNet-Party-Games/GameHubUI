@@ -45,7 +45,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   goToLobby(){
     this.leaveRoom(this.username, this.roomId);
-    this.router.navigate(['lobby'], { relativeTo: this.route });
+    this.router.navigate(['lobby'], { relativeTo: this.route.parent });
   }
 
   leaveRoom(username:string, roomId:string):void
@@ -72,25 +72,25 @@ export class RoomComponent implements OnInit, OnDestroy {
       console.log("sending gameid");
       this.socketService.sendGameId({room: this.roomId, gameid: this.gameId});
     }
-    
+
   }
   goToGame(p_gameid: number)
   {
     switch(p_gameid) {
       case 1: {
-        this.router.navigate(['snake'], { relativeTo: this.route });
+        this.router.navigate(['snake'], { relativeTo: this.route.parent });
         break;
       }
       case 2: {
-        this.router.navigate(['blackjack'], { relativeTo: this.route });
+        this.router.navigate(['blackjack'], { relativeTo: this.route.parent });
         break;
       }
       case 3: {
-        this.router.navigate(['tictactoe'], { relativeTo: this.route });
+        this.router.navigate(['tictactoe'], { relativeTo: this.route.parent });
         break;
       }
       case 4: {
-        this.router.navigate(['lightbike'], { relativeTo: this.route });
+        this.router.navigate(['lightbike'], { relativeTo: this.route.parent });
         break;
       }
       default: {
