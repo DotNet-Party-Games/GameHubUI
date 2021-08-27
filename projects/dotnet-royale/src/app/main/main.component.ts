@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../../hubservices/src/lib/user.service';
 
 @Component({
   selector: 'app-main',
@@ -8,9 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
+    let username = sessionStorage.getItem('userName');
+    if(!username)
+      this.userService.user.subscribe(u => {
+        sessionStorage.setItem('userName', u.username);
+      });
   }
 
   goToLobby() {
@@ -26,9 +32,7 @@ export class MainComponent implements OnInit {
   }
 
   goToRoot(){
-    this.router.navigate(['game/dotnetroyale']);
-    // this.router.navigate([''], { relativeTo: this.route.parent });
-    // console.log(this.route.parent);
+    this.router.navigate(['gamelist']);
   }
 
 }
