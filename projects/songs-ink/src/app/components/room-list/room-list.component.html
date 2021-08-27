@@ -21,7 +21,6 @@
       [class.selected]='roomId === currentRoom'
       (click)='loadRoom(roomId)'
       *ngFor='let roomId of rooms'
-      routerLink="/game"
     >
       {{ roomId }}
   </button>

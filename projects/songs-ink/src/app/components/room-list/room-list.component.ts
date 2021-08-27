@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Input, AfterViewInit, AfterViewChecked, HostListener, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { ChooseCategoryService } from 'src/app/services/choose-category.service';
-import { SocketIoService } from 'src/app/services/socketio.service';
+import { ChooseCategoryService }  from './../../services/choose-category.service'
+import { SocketIoService } from './../../services/socketio.service'
 import { ChatComponent } from '../chat/chat.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewChecked {
   categories: string[];
   chosenCategory: string;
 
-  constructor(private SocketService: SocketIoService, public dialog: MatDialog, private categoryService: ChooseCategoryService) { 
+  constructor(private router: Router, private route: ActivatedRoute, private SocketService: SocketIoService, public dialog: MatDialog, private categoryService: ChooseCategoryService) { 
   }
 
   ngOnInit(): void {
@@ -45,6 +45,7 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   loadRoom(id: string) {
     this.SocketService.getRoom(id);
+    this.router.navigate(['game'], {relativeTo: this.route.parent})
   }
   addRoom() {
     this.categoryService.getDefaultCategories().subscribe(categories => {

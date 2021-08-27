@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SocketIoService } from 'src/app/services/socketio.service';
+import { SocketIoService } from './../../services/socketio.service'
 import { RoomListComponent } from '../room-list/room-list.component';
 
 @Component({
