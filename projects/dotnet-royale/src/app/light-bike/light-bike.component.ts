@@ -21,7 +21,7 @@ import { DataService } from '../services/data.service';
 import { IScore } from '../services/score';
 import { SnakeService } from '../services/snake/snake.service';
 import { ILoggedUser } from '../services/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LivechatService } from '../services/livechat/livechat.service';
 import { SocketioService } from '../services/socketio/socketio.service';
 
@@ -86,7 +86,7 @@ export class lightbikeComponent implements OnInit {
   GameOver:number;
   GameEnd: boolean;
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute) {
     this.currentUser =
     {
       id: 0,
@@ -397,7 +397,7 @@ export class lightbikeComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['game/dotnetroyale/room']);
+    this.router.navigate(['room'], { relativeTo: this.route });
   }
 
 }

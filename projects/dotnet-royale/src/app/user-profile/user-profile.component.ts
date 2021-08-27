@@ -3,7 +3,7 @@ import { PartygameService } from '../services/partygame.service';
 import { IGame } from '../services/game';
 import { IUserScore } from '../services/userscore';
 import { IGameStats } from '../services/gamestats';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../services/user';
 
 @Component({
@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   blackJackGameStats: IGameStats;
   tictactoeGameStats: IGameStats;
 
-  constructor(private router: Router, private partyGameApi: PartygameService) { }
+  constructor(private router: Router, private partyGameApi: PartygameService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.userName = sessionStorage.getItem("userName");
@@ -54,7 +54,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   goToMain(){
-    this.router.navigate(['game/dotnetroyale/main']);
+    this.router.navigate(['main'], { relativeTo: this.route });
   }
 
 }

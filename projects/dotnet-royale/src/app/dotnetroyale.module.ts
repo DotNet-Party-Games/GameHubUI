@@ -27,6 +27,7 @@ import { FakeLoginComponent } from './fake-login/fake-login.component';
 import { TrueblackjackComponent } from './trueblackjack/trueblackjack.component';
 import { VerticalCarouselComponent } from './vertical-carousel/vertical-carousel.component';
 import { lightbikeComponent } from './light-bike/light-bike.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -51,11 +52,10 @@ import { lightbikeComponent } from './light-bike/light-bike.component';
     lightbikeComponent
   ],
   imports: [
-    BrowserModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
+    CommonModule,
+    RouterModule.forChild([
       {path: '', component: FakeLoginComponent},
       {path: 'main', component: MainComponent},
       {path: 'lobby', component: LobbyComponent},
@@ -69,18 +69,8 @@ import { lightbikeComponent } from './light-bike/light-bike.component';
     ]),
     NgbModule
   ],
-  providers: [PartygameService],
-  bootstrap: [AppComponent]
+  providers: [PartygameService]
 })
 
-export class AppModule{}
-// export class AppModule implements DoBootstrap {
-
-//   constructor(injector: Injector) {
-//     const snakeComponent = createCustomElement(SnakeComponent, { injector });
-//     customElements.define('ng-snake', snakeComponent);
-//   }
-
-//   ngDoBootstrap(){}
-// }
+export class DotnetRoyaleModule{}
 

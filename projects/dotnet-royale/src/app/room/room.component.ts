@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SocketioService } from '../services/socketio/socketio.service';
 
@@ -15,7 +15,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   roomId: string;
   userList: string[];
   goToGameSub: Subscription;
-  constructor(private router: Router, private socketService: SocketioService) { }
+  constructor(private router: Router, private socketService: SocketioService, private route: ActivatedRoute) { }
   ngOnDestroy(): void {
     this.goToGameSub.unsubscribe();
   }
@@ -45,7 +45,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   goToLobby(){
     this.leaveRoom(this.username, this.roomId);
-    this.router.navigate(['game/dotnetroyale/lobby']);
+    this.router.navigate(['lobby'], { relativeTo: this.route });
   }
 
   leaveRoom(username:string, roomId:string):void
@@ -78,19 +78,19 @@ export class RoomComponent implements OnInit, OnDestroy {
   {
     switch(p_gameid) {
       case 1: {
-        this.router.navigate(['game/dotnetroyale/snake']);
+        this.router.navigate(['snake'], { relativeTo: this.route });
         break;
       }
       case 2: {
-        this.router.navigate(['game/dotnetroyale/blackjack']);
+        this.router.navigate(['blackjack'], { relativeTo: this.route });
         break;
       }
       case 3: {
-        this.router.navigate(['game/dotnetroyale/tictactoe']);
+        this.router.navigate(['tictactoe'], { relativeTo: this.route });
         break;
       }
       case 4: {
-        this.router.navigate(['game/dotnetroyale/lightbike']);
+        this.router.navigate(['lightbike'], { relativeTo: this.route });
         break;
       }
       default: {

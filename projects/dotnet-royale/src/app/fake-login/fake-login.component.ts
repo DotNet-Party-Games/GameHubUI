@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-fake-login',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class FakeLoginComponent implements OnInit {
 
   username: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class FakeLoginComponent implements OnInit {
   }
 
   goToMain(){
-    this.router.navigate(['game/dotnetroyale/main']);
+    this.router.navigate(['main'], { relativeTo: this.route });
   }
 
   //This code is for test only - to here ************************************************************************
