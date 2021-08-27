@@ -7,6 +7,12 @@
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "strictNullChecks": false,
+    "paths": {
+      "hubservices": [
+        "dist/hubservices/hubservices",
+        "dist/hubservices"
+      ]
+    },
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
