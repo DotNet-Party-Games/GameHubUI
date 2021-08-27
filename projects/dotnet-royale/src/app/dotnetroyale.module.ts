@@ -56,7 +56,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild([
-      {path: '', component: FakeLoginComponent},
+      {path: '', component: MainComponent},
       {path: 'main', component: MainComponent},
       {path: 'lobby', component: LobbyComponent},
       {path: 'room', component: RoomComponent},
