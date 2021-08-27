@@ -4,11 +4,6 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-
-// import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
-
-import { ChatMessage } from 'src/app/gamehub/models/chatmessage.model';
-import { ChatStatus } from 'src/app/gamehub/models/chatstatus.model';
 import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service'; 
 import { UserService } from 'projects/hubservices/src/public-api';
