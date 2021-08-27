@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PartygameService } from '../services/partygame.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,7 +16,7 @@ export class UserProfileComponent implements OnInit {
   blackJackWinLossRatio: number;
   ticTacToeWinLossRatio: number;
 
-  constructor(private router: Router, private partyGameApi: PartygameService) { }
+  constructor(private router: Router, private partyGameApi: PartygameService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.partyGameApi.getUserFromUserName(sessionStorage.getItem("userName"))
@@ -35,7 +36,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   goToMain(){
-    this.router.navigate(['/main']);
+    this.router.navigate(['main'], { relativeTo: this.route.parent });
   }
 
 }

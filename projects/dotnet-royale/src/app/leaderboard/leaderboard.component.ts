@@ -3,7 +3,6 @@ import { PartygameService } from '../services/partygame.service';
 import { Leader } from '../services/leader';
 import { IScore } from '../services/score';
 import { IUser } from '../services/user';
-import { DataService } from '../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -18,7 +17,7 @@ export class LeaderboardComponent implements OnInit {
   tictactoeLeaders: Leader[];
   scores: IScore[];
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private partyGameApi: PartygameService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.snakeLeaders = this.getLeaderBoardByGameId(1);
@@ -42,7 +41,7 @@ export class LeaderboardComponent implements OnInit {
   }
 
   goToMain(){
-    this.router.navigate(['main'], { relativeTo: this.route });
+    this.router.navigate(['main'], { relativeTo: this.route.parent });
   }
 
 }

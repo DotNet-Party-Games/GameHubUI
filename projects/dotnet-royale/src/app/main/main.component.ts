@@ -14,19 +14,21 @@ export class MainComponent implements OnInit {
   }
 
   goToLobby() {
-    this.router.navigate(['lobby'], { relativeTo: this.route });
+    this.router.navigate(['lobby'], { relativeTo: this.route.parent });
   }
 
   goToLeaderboard() {
-    this.router.navigate(['leaderboard'], { relativeTo: this.route });
+    this.router.navigate(['leaderboard'], { relativeTo: this.route.parent });
   }
 
   goToUserProfile() {
-    this.router.navigate(['user-profile'], { relativeTo: this.route });
+    this.router.navigate(['user-profile'], { relativeTo: this.route.parent });
   }
 
   goToRoot(){
-    this.router.navigate(['dotnetroyale'], { relativeTo: this.route });
+    this.router.navigate(['game/dotnetroyale']);
+    // this.router.navigate([''], { relativeTo: this.route.parent });
+    // console.log(this.route.parent);
   }
 
 }
