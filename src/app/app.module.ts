@@ -32,10 +32,10 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
     TeamwindowComponent,
     HomeComponent,
     NavComponent,
-    GamechatComponent,    
+    GamechatComponent,
     IsnotTMComponent,
     IsTMComponent,
-    GameComponent    
+    GameComponent
   ],
   imports: [
     BrowserModule,
@@ -64,8 +64,8 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
-      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
-      {path: "**", redirectTo: "home"}
+      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)}
+      //{path: "**", redirectTo: "home"}
     ]),
     FormsModule,
     ReactiveFormsModule,

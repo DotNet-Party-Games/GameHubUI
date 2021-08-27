@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './livechat.component.html',
   styleUrls: ['./livechat.component.css']
 })
+
 export class LivechatComponent implements OnInit,OnChanges {
 
   public roomId : string;
@@ -76,6 +77,6 @@ export class LivechatComponent implements OnInit,OnChanges {
       if(room) this.UserList = room.users;
     });
   }
-  
+
 
 }

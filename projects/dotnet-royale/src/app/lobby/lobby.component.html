@@ -3,7 +3,7 @@
   <div class="row justify-content-md-center">
     <div class="col col-12">
       <div class="p-2 text-center text-warning" style="background-color: #111;">
-        <img src="assets/images/lobby.png" alt="lobby" style="height: 15vh;">
+        <img src="assets/dotnet-royale/lobby.png" alt="lobby" style="height: 15vh;">
       </div>
     </div>
   </div>
@@ -20,8 +20,8 @@
     <div class="col col-6" style="height: 74vh;">
       <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh">
         <h2>Rooms
-          <button class="btn btn-primary ml-2" (click)="reloadRoomList()"><i class="fas fa-redo"></i></button>
-          <button class="btn btn-primary ml-2" (click)="showInputRoomId()"><i class="fas fa-plus"></i></button>
+          <button class="btn btn-primary" (click)="reloadRoomList()"><i class="fas fa-redo"></i></button>
+          <button class="btn btn-primary m-2" (click)="showInputRoomId()"><i class="fas fa-plus"></i></button>
         </h2>
       </div>
       <div class="bg-dark" style="height: 74vh;">
@@ -34,16 +34,16 @@
           </li>
           <li *ngFor = "let room of rooms" class="list-group-item bg-dark">
             <div *ngIf = "room.id == 'lobby'">
-              <h4>
-                <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger"><i class="fas fa-star"></i></div>
-                Lobby<span class="ml-3 badge badge-info">{{room.users.length}}</span>
+              <h4 class="text-white">
+                <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-star"></i></div>
+                Lobby<span class="m-2 badge badge-info bg-info">{{room.users.length}}</span>
               </h4>
             </div>
             <div *ngIf = "room.id != 'lobby'">
-              <h4>
-              <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger"><i class="fas fa-star"></i></div>
-              <div *ngIf = "room.id != roomId" class="mr-2 badge badge-dark text-dark"><i class="fas fa-square-full"></i></div>
-              {{room.id}}<span class="ml-3 badge badge-info">{{room.users.length}}</span>
+              <h4 class="text-white">
+              <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-star"></i></div>
+              <div *ngIf = "room.id != roomId" class="mr-2 badge badge-dark bg-dark text-dark"><i class="fas fa-square-full"></i></div>
+              {{room.id}}<span class="m-2 badge badge-info bg-info">{{room.users.length}}</span>
                 <button *ngIf = "room.users.length < roomSize" class="btn btn-warning" style="float: right" (click) = "goToRoom(room.id)">
                 <i class="fas fa-sign-in-alt"></i></button>
                 <button *ngIf = "room.users.length >= roomSize" class="btn btn-danger" style="float: right">
@@ -54,7 +54,7 @@
         </ul>
         <div class="col col-12 bg-dark text-center">
           <button class="mb-1 btn btn-warning container" (click)="goToMain()">
-            <img src="assets/images/back.png" alt="back" style="height: 5vh;">
+            <img src="assets/dotnet-royale/back.png" alt="back" style="height: 5vh;">
           </button>
         </div>
       </div>
