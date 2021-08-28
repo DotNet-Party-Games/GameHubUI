@@ -37,10 +37,7 @@ export class GamechatComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    if (this.user != null) {
-      console.log(`User start: ${this.user}`);
-      //this.chatService.startConnection();   
-    }
+    this.isLoading = true;
   }
 
   ngAfterViewInit() {      
@@ -72,12 +69,9 @@ export class GamechatComponent implements OnInit {
   }
 
   private subscribeToEvents(): void {
-    this.isLoading = true;
     this.userService.user.subscribe(user => {
+      if(!this.isLoading) this.isLoading = true;
       this.user = user;
-      if(this.user != null) {
-        this.chatService.startConnection();
-      }
     });
 
     this.chatService.connectionEstablished.subscribe(isConnected => {
