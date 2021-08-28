@@ -13,6 +13,7 @@ import { ChatStatus } from '../models/chatstatus.model';
 export class GameChatService {
   public messageReceived = new EventEmitter<ChatMessage>();
   public connectionEstablished = new BehaviorSubject<Boolean>(false);
+  public connectedToRoom = new BehaviorSubject<Boolean>(false);
   public userEvent = new EventEmitter<ChatStatus>();
   public userAlert = new EventEmitter<ChatAlert>();
 
@@ -37,6 +38,7 @@ export class GameChatService {
         .then(() => {
           console.log(`Connected to room ID: ${roomId}.`)
           this.roomId = roomId;
+          this.connectedToRoom.next(true);
         })
         .catch(err => {
           console.log(err.toString());
@@ -86,9 +88,7 @@ export class GameChatService {
           console.log(error);
         }
       );
-    } else {
-
-    }
+    } 
   }
 
   private registerOnServerEvents(): void {
@@ -103,9 +103,8 @@ export class GameChatService {
         this.userAlert.emit(data);
       });
     }
-    this.connectionEstablished.subscribe(c => {
-      console.log(`connection est :${c}`);
-      this.connectionEst = c
+    this.connectionEstablished.subscribe(connection => {
+      this.connectionEst = connection;
     });
   }
 }

@@ -72,6 +72,7 @@ export class GamechatComponent implements OnInit {
   }
 
   private subscribeToEvents(): void {
+    this.isLoading = true;
     this.userService.user.subscribe(user => {
       this.user = user;
       if(this.user != null) {
@@ -83,6 +84,12 @@ export class GamechatComponent implements OnInit {
       this.connectionEstablished = isConnected;
       if (isConnected) {
         this.chatService.joinChat(this.channelId);
+      }
+    });
+
+    this.chatService.connectedToRoom.subscribe(isConnected => {
+      if (isConnected && this.isLoading) {
+        this.isLoading = false;
       }
     });
 
