@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameChatService, UserService } from 'projects/hubservices/src/public-api';
 import { ITeam } from '../../interfaces/ITeam';
 import { IUser } from '../../interfaces/IUser';
 import { TeamService } from '../../services/teamservice/team.service';
@@ -13,7 +14,10 @@ export class TeamwindowComponent implements OnInit {
   public currentUser: IUser |any;
   public userTeam:ITeam |any;
   public haveTeam: boolean =false;
-  constructor( private teamservice:TeamService) {
+
+  constructor( private teamservice:TeamService,
+    public userService: UserService,
+    private chatService: GameChatService) {
     this.currentUser= {
       id:"",
       username:"",
@@ -37,9 +41,6 @@ export class TeamwindowComponent implements OnInit {
         sessionStorage.setItem('teamName',currentUser.team.name);
         this.haveTeam = true;
       }
-      
     });
-    
   }
-
 }
