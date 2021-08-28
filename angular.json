@@ -1,0 +1,341 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "GameHubUI": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/GameHubUI",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "GameHubUI:build:production"
+            },
+            "development": {
+              "browserTarget": "GameHubUI:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "GameHubUI:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "dotnet-royale": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/dotnet-royale",
+      "sourceRoot": "projects/dotnet-royale/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dotnet-royale",
+            "index": "projects/dotnet-royale/src/index.html",
+            "main": "projects/dotnet-royale/src/main.ts",
+            "polyfills": "projects/dotnet-royale/src/polyfills.ts",
+            "tsConfig": "projects/dotnet-royale/tsconfig.app.json",
+            "assets": [
+              "projects/dotnet-royale/src/favicon.ico",
+              "projects/dotnet-royale/src/assets"
+            ],
+            "styles": [
+              "projects/dotnet-royale/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/dotnet-royale/src/environments/environment.ts",
+                  "with": "projects/dotnet-royale/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "dotnet-royale:build:production"
+            },
+            "development": {
+              "browserTarget": "dotnet-royale:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dotnet-royale:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dotnet-royale/src/test.ts",
+            "polyfills": "projects/dotnet-royale/src/polyfills.ts",
+            "tsConfig": "projects/dotnet-royale/tsconfig.spec.json",
+            "karmaConfig": "projects/dotnet-royale/karma.conf.js",
+            "assets": [
+              "projects/dotnet-royale/src/favicon.ico",
+              "projects/dotnet-royale/src/assets"
+            ],
+            "styles": [
+              "projects/dotnet-royale/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "battleship": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/battleship",
+      "sourceRoot": "projects/battleship/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/battleship",
+            "index": "projects/battleship/src/index.html",
+            "main": "projects/battleship/src/main.ts",
+            "polyfills": "projects/battleship/src/polyfills.ts",
+            "tsConfig": "projects/battleship/tsconfig.app.json",
+            "assets": [
+              "projects/battleship/src/favicon.ico",
+              "projects/battleship/src/assets"
+            ],
+            "styles": [
+              "projects/battleship/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/battleship/src/environments/environment.ts",
+                  "with": "projects/battleship/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "battleship:build:production"
+            },
+            "development": {
+              "browserTarget": "battleship:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "battleship:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/battleship/src/test.ts",
+            "polyfills": "projects/battleship/src/polyfills.ts",
+            "tsConfig": "projects/battleship/tsconfig.spec.json",
+            "karmaConfig": "projects/battleship/karma.conf.js",
+            "assets": [
+              "projects/battleship/src/favicon.ico",
+              "projects/battleship/src/assets"
+            ],
+            "styles": [
+              "projects/battleship/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "hubservices": {
+      "projectType": "library",
+      "root": "projects/hubservices",
+      "sourceRoot": "projects/hubservices/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/hubservices/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/hubservices/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/hubservices/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/hubservices/src/test.ts",
+            "tsConfig": "projects/hubservices/tsconfig.spec.json",
+            "karmaConfig": "projects/hubservices/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "GameHubUI"
+}

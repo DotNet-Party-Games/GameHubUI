@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.container-fluid{
+    overflow: hidden;
+}
+.chat-container{
+    height: 75vh;
+    position: relative;
+    overflow: hidden;
+}
+#chbody{
+    background-image: url('/assets/dotnet-royale/bg1.jpg') ;
+    opacity: 0.6;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 66vh;
+    overflow-y: auto;
+
+}
+.message-container{
+    background-color:white;
+    padding: 2px;
+    border-radius:5px ;
+    width: fit-content;
+    max-width: 90%;
+    margin: 2px;
+    margin-bottom: 5px;
+    color: #111;
+    word-wrap: break-word;
+}
+.messageUsername{
+    color:#111;
+    float: right;
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-style: italic;
+}
+.same-user{
+    display: flex;
+    justify-content: flex-end ;
+}
+.chat-footer{
+    height: 8vh;
+    background-color: #111;
+}
+.form-control{
+    background-color: white;
+    border: 1px solid#111;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+
+
+
+

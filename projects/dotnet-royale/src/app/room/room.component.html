@@ -1,0 +1,75 @@
+<div style="height: 100vh;">
+
+  <div class="row justify-content-md-center">
+    <div class="col col-12">
+      <div class="p-2 text-center text-warning" style="background-color: #111;">
+        <img src="assets/dotnet-royale/room.png" alt="room" style="height: 15vh;">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3 justify-content-md-center" style="height: 70vh;">
+
+    <div class="col col-3">
+      <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh;">
+        <h2>Live Chat in {{roomId}}</h2>
+      </div>
+      <app-livechat></app-livechat>
+    </div>
+
+    <div class="col col-6">
+      <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh">
+        <h2>Players in {{roomId}}</h2>
+      </div>
+      <div class="bg-dark" style="height: 74vh;">
+        <ul class="list-group list-group-flush text-white overflow-auto" style="height: 66vh;">
+          <li *ngFor="let user of userList" class="list-group-item bg-dark">
+            <h4 class="text-white">
+              <div *ngIf = "user == username" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-star"></i></div>
+              <div *ngIf = "user != username" class="mr-2 badge badge-dark bg-dark text-dark"><i class="fas fa-square-full"></i></div>
+              {{user}}
+            </h4>
+          </li>
+        </ul>
+        <div class="col col-12 bg-dark text-center">
+          <button class="btn btn-warning container" (click)="goToLobby()">
+            <img src="assets/dotnet-royale/back.png" alt="back" style="height: 5vh;">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-3" style="height: 80vh;">
+      <div class="p-2 text-center text-white" style="background-color: #111; height: 7vh;">
+        <h2>Options</h2>
+      </div>
+      <div class="bg-dark" style="height: 74vh;">
+        <ul class="list-group list-group-flush text-white overflow-auto" style="height: 66vh;">
+          <li class="list-group-item bg-dark">
+            <button class="btn btn-warning container" (click)="randomGameId()"><h4>Random</h4></button>
+          </li>
+          <li class="list-group-item bg-dark">
+            <button class="btn btn-primary container" (click)="setGameId(1)"><h4>Snake</h4></button>
+          </li>
+          <li class="list-group-item bg-dark">
+            <button class="btn btn-success container" (click)="setGameId(2)"><h4>BlackJack</h4></button>
+          </li>
+          <li class="list-group-item bg-dark">
+            <button class="btn btn-danger container" (click)="setGameId(3)"><h4>TicTacToe</h4></button>
+          </li>
+          <li class="list-group-item bg-dark">
+            <button class="btn btn-secondary container" (click)="setGameId(4)"><h4>Light Bike</h4></button>
+          </li>
+        </ul>
+        <div class="col col-12 bg-dark text-center">
+          <button class="btn btn-primary container" (click)="sendGameId()">
+            <img src="assets/dotnet-royale/start.png" alt="start" style="height: 5vh;">
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

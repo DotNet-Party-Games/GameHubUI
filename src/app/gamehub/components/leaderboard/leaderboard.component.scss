@@ -1,0 +1,82 @@
+.container
+{
+    width: 75%;
+}
+
+ul
+{
+    width: 100%;
+    display: flex;
+}
+
+li
+{
+    text-align: center;
+    flex: 1;
+}
+
+li a
+{
+    color: azure;
+    font: 30px bold Verdana, sans-serif;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+li a:hover 
+{
+    color: azure;
+    opacity: 1;
+    text-shadow: 
+    1px 1px 10px rgb(100, 25, 134);
+}
+
+#leaderboard
+{
+    border: 4px solid black;
+    background-color: rgb(27, 27, 31);
+    padding-top: 0.75%;
+    margin: auto;
+    margin-top: 2%;
+}
+
+#title
+{
+    color: azure;
+    font: 50px bold Arial, serif;
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 5%;
+    text-shadow: 
+    1px 1px 10px #0e9ceefa;
+}
+
+#categorytext
+{
+    color: azure;
+    font: 24px bold Arial, sans-serif;
+    text-shadow: 
+    1px 1px 10px #0e9ceefa;
+}
+
+#tbodytext
+{
+    color: azure;
+}
+
+#gameselect
+{
+    width: 60%;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #0e9ceefa;
+  }
+
+tbody tr {
+    border-color: azure;
+}
+
+thead tr {
+    border-color: azure;
+}

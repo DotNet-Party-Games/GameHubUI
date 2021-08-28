@@ -1,0 +1,73 @@
+<div class="container">
+
+  <!--Display Title-->
+  <div id="title">
+    Team Leaderboards
+  </div>
+
+  <div class="container">
+    <!--Game Select-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+          <a (click)= "GetTeamLeaderboard('partygames')" [ngStyle]="{'text-shadow': SelectedGame == 'partygames' ? '1px 1px 10px red' : '', 'opacity': SelectedGame == 'partygames' ? '1' : ''}">Party Games</a>
+        </li>
+        <li>
+          <a (click)= "GetTeamLeaderboard('songsink')" [ngStyle]="{'text-shadow': SelectedGame == 'songsink' ? '1px 1px 10px red' : '', 'opacity': SelectedGame == 'songsink' ? '1' : ''}">Songs-Ink</a>
+        </li>
+        <li>
+          <a (click)= "GetTeamLeaderboard('battleship')" [ngStyle]="{'text-shadow': SelectedGame == 'battleship' ? '1px 1px 10px red' : '', 'opacity': SelectedGame == 'battleship' ? '1' : ''}">Battleship</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!--Presenting the Leaderboard-->
+    <table id="leaderboard" class="table table-hover table-bordered">
+      <thead id="categorytext">
+        <tr>
+          <td>Team Name</td>
+          <td style="width: 30%">Total Score</td>
+        </tr>
+      </thead>
+      <tbody id="tbodytext">
+        <tr *ngFor="let team of TeamEntry">
+          <td>
+            {{team.teamName}}
+          </td>
+          <td>
+            {{team.score}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Removing the Game selector and team toggle for the leaderboards
+
+    <div class="row" style="margin-top: 1%;">
+    <div class="col-3">
+      <div id="optionscard" class="card">
+        <div class="card-body">
+          <h2 class="card-title" style="color: azure;">Leaderboard Options:</h2>
+          <br>
+          <div id="gameselect">
+            <select class="form-select">
+              <option value="null" disabled selected hidden>Select Game</option>
+              <option value="0">BattleShip</option>
+              <option value="1">PartyGames</option>
+              <option value="2">Songsink</option>
+            </select>
+          </div>
+          <br>
+           <div id="teamtoggle">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+              <label class="form-check-label" for="flexSwitchCheckChecked" style="color: azure;">Toggle Team Leaderboards</label>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+</div> -->

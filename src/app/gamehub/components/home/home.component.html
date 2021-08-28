@@ -1,0 +1,55 @@
+<div class="row" id="main_div">
+    <div class="row text-center" style="height: 30vh;  margin-bottom: 5px;">
+        <h3 style="margin: 5% 0% 0% 0% ; color: #518053;;">WELCOME TO</h3>
+        <img src="assets\images\title2.png" alt="title" style="width:35%; margin: auto;" >
+    </div>
+    <div class="row text-center" style="margin: 0% 0% 3% 0% ;">
+        <div class="col">
+                <h6>NEED HELP?</h6>
+            <a href="" class=" text-decoration-none">join us on our Discord Group</a>
+        </div>
+        <div class="col">
+            <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+                <button (click)="getUserInfo()" class="text-white text-decoration-none btn btn-dark">Play Games</button> 
+            </ng-container>
+            <ng-template #loggedOut>
+                
+            </ng-template>
+        </div>
+        <div class="col">
+            <h6>FIRST TIME HERE?</h6>
+            <a href="" class=" text-decoration-none" >Read our Mannuel</a> 
+        </div>
+    </div>
+    
+</div><br>
+<div class="row text-center text-white" style="margin-left: auto; margin-right: auto;">
+    <div>
+            <h6>HELP US MAKE A BETTER REVABOX</h6>
+            <a class="text-white text-decoration-none btn btn-dark col-2 fst-italic">donate</a> 
+            <hr width="70%" style="margin-right: auto; margin-left: auto; margin-top: 8%;">
+    </div>
+    <div class="row text-center text-white">
+        <div class="col-6" >
+            <h6>ABOUT REVABOX </h6>
+            <p style="color: #0e9ceefa; font-size: small; width: 70%; margin-right: auto; margin-left: auto;">
+                RevaBox Games is a multiplayer party gaming platform and social hub experience.
+                 This web application allows a user to browse and play a series of games available within a social hub. 
+                 Here, as a unique user, you will be able to engage with different party games including Songs-ink (social drawing game), 
+                 Pillow Tactics (a turn / grid based combat game), Battleship, and Dotnet Royale (competitive mini-games).
+                 Within each game, users are able to create a team and compete with each other in 
+                 live competition both in-game and on a global leaderboard.
+            </p>
+            
+        </div>
+        <div class="col">
+            <h6>MADE BY</h6>
+            <p style="color: #0e9ceefa; font-size: small; width: 70%; margin-right: auto; margin-left: auto;">
+                Only the greatest batch to exist of all time.
+            </p>
+        </div>
+    </div>
+    
+    
+    
+</div>
