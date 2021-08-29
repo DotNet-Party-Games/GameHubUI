@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ChatAlert } from '../models/chatalert.model';
 import { ChatMessage } from '../models/chatmessage.model';
 import { ChatStatus } from '../models/chatstatus.model';
+import { AppToastService } from './apptoast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class GameChatService {
   private hubConnection: HubConnection | null = null;
   private roomId: string = "";
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private toastService: AppToastService) {
     this.registerOnServerEvents();
   }
 
@@ -108,6 +109,7 @@ export class GameChatService {
       });
       this.hubConnection.on('Alert', (data: ChatAlert) => {
         this.userAlert.emit(data);
+        this.toastService.show(data.alertType, data.message);
       });
     }
     this.connectionEstablished.subscribe(connection => {
