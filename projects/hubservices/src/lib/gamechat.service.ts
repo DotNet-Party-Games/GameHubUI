@@ -82,6 +82,13 @@ export class GameChatService {
                 console.log('Error while establishing connection, retrying...');
                 setTimeout(() => this.startConnection(), 5000);
               });
+              this.hubConnection.onreconnecting(()=>{
+                this.connectionEstablished.next(false);
+              });
+              this.hubConnection.onreconnected(()=> {
+                this.connectionEstablished.next(true);
+                this.connectionEst = true;
+              })
           }
         },
         error => {
