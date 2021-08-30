@@ -11,7 +11,7 @@ import { LeaderboardService } from '../../services/leaderboardservice/leaderboar
 })
 export class LeaderboardComponent implements OnInit {
 
-  TeamEntry?: ITeamScore[];
+  TeamEntry: ITeamScore[];
   SelectedGame: string = "partygames";
   public user: User | null = null;
 
@@ -33,6 +33,7 @@ export class LeaderboardComponent implements OnInit {
       (result) => {
         this.TeamEntry = result.scores;
         this.SelectedGame = result.id;
+        this.TeamEntry.sort((a, b) => (a.score > b.score ? -1 : 1));
         }
     );
   }
