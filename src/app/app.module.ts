@@ -22,7 +22,8 @@ import { GamechatComponent } from './gamehub/components/gamechat/gamechat.compon
 import { IsnotTMComponent } from './gamehub/components/teamwindow/isNotTeamMember/isnot-tm/isnot-tm.component';
 import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-tm/is-tm.component';
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
-import { DotnetRoyaleModule } from 'projects/dotnet-royale/src/app/app.module';
+import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,10 +34,11 @@ import { DotnetRoyaleModule } from 'projects/dotnet-royale/src/app/app.module';
     TeamwindowComponent,
     HomeComponent,
     NavComponent,
-    GamechatComponent,    
+    GamechatComponent,
     IsnotTMComponent,
     IsTMComponent,
-    GameComponent    
+    GameComponent,
+    LoadingWheelComponent
   ],
   imports: [
     BrowserModule,
@@ -57,21 +59,22 @@ import { DotnetRoyaleModule } from 'projects/dotnet-royale/src/app/app.module';
       }
     }),
     RouterModule.forRoot([
-      {path: "home", component: HomeComponent },
+      {path: '', redirectTo: "home", pathMatch: 'full'},
+      {path: "home", component: HomeComponent},
       {path: "gamelist", component: GamewindowComponent,canActivate: [AuthGuard], },
       {path: "gamelobby", component: GamelobbyComponent, canActivate: [AuthGuard], },
       {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
-      {path: "game/dotnetroyale", loadChildren: () => import('projects/dotnet-royale/src/app/app.module').then(m => m.DotnetRoyaleModule)},
-      {path: "**", redirectTo:"home"}
+      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)}
+      //{path: "**", redirectTo: "home"}
     ]),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    DotnetRoyaleModule.forRoot()
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }

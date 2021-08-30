@@ -1,7 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
+import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
+import { UserService } from 'projects/hubservices/src/public-api';  
+import { User } from 'src/app/gamehub/models/user.model';
+import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
 
 @Component({
@@ -20,43 +24,54 @@ export class IsTMComponent implements OnInit {
   isAccepted:boolean | any = false;
   hasLeft:boolean | any = false;
   requestList : ITeamJoinRequest[] |any = [];
+  cfrm : string |any = '';
+  notifyMe:ChatAlert | any={};
 
+  
+  public user: User | null = null;
+  public connectionEstablished: Boolean = false;
 
   // Constructor
-  constructor(private teamservice:TeamService) { }
-  
-
+  constructor(private teamservice:TeamService,
+    public userService: UserService,
+    private chatService: GameChatService,
+    private ngZone: NgZone) { 
+      this.subscribeToEvents();
+    }
 
   ngOnInit(): void {
       this.GetListOfRequest();
       this.SearchTeam();
-    
   }
 
   // Delete Team
   OnDeleteTeam():void{
+    this.cfrm= confirm("Are You Sure To Delete Team?");
+    if(this.cfrm){
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;
+      sessionStorage.removeItem('teamName');
     });
+  }
     location.reload();
   }
 
   // leave Team
   OnLeaveTeam():void{
+    this.cfrm= confirm("Are You Sure To Delete Team?");
+    if(this.cfrm){
     this.teamservice.leaveTeam().subscribe((left :boolean)=>{
       this.hasLeft = left;
+      sessionStorage.removeItem('teamName');
     });
+  }
     location.reload();
   }
 
   // Get the list Of  all Join team request
   GetListOfRequest():void{
-    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{      
-      requestList.forEach(element => {
-        if(element.user.teamId==null){
-          this.requestList.push(element);
-        }
-      });
+    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{
+      this.requestList =requestList;
     });
   }
 
@@ -69,7 +84,7 @@ export class IsTMComponent implements OnInit {
         this.SearchTeam();
       }
     });
-    location.reload();
+    // location.reload();
   }
 
   SearchTeam():void
@@ -79,4 +94,18 @@ export class IsTMComponent implements OnInit {
      });
    }
 
+  subscribeToEvents(): void {
+    this.userService.user.subscribe(user => {
+      this.user = user;
+    });
+    this.chatService.userAlert.subscribe((alert: ChatAlert) => {
+      this.ngZone.run(() => {
+        console.log(alert);
+        this.notifyMe = alert;
+        if(this.notifyMe.alertType=="NEW TEAM JOIN REQUEST"){
+          this.GetListOfRequest();
+        }
+      });
+    });
+  }
 }

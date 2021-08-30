@@ -3,7 +3,7 @@ import { IScore } from '../../services/score';
 import { PartygameService } from '../../services/partygame.service';
 import { TicTacToeService } from '../../services/TicTacToe/tic-tac-toe.service';
 import { ILoggedUser } from '../../services/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameState } from '../../services/TTTTGameState';
 import { SocketioService } from '../../services/socketio/socketio.service';
 import { Subscription } from 'rxjs';
@@ -39,7 +39,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private ttttService: TicTacToeService, private socketService: SocketioService) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private ttttService: TicTacToeService, private socketService: SocketioService, private route: ActivatedRoute) {
     this.currentUser =
     {
       id: 0,
@@ -240,7 +240,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     return "Cats Game! Nobody";
   }
   goToRoom() {
-    this.router.navigate(['game/dotnetroyale/room']);
+    this.router.navigate(['room'], { relativeTo: this.route });
   }
 
 }

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { Subject, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Subject, of, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 
@@ -11,15 +10,16 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   //public user: User | null = null;
-  private userSub = new Subject<User|null>();
-  public user = this.userSub.asObservable();
+  //private userSub = new Subject<User|null>();
+  //public user = this.userSub.asObservable();
+  public user = new BehaviorSubject<User|null>(null);
 
   constructor(private http: HttpClient, public auth: AuthService) { 
     this.auth.isAuthenticated$.subscribe(isAuth => {
       if (isAuth) {
         this.getUser();
       } else {
-        this.userSub.next(null);
+        this.user.next(null);
       }
     });
   }
@@ -29,7 +29,7 @@ export class UserService {
       .subscribe(
         result => {
           console.log(result);
-          this.userSub.next(result);
+          this.user.next(result);
         },
         error => {
           console.log(error);

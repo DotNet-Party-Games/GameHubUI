@@ -4,18 +4,18 @@
       <ng-container >
 
           <!-- chat body -->
-          <!--<div class="row-md-12" id="chbody">
+           <div class="row-md-12" id="chbody">
               <div *ngFor="let item of messageArray"
-                  [ngClass]= "item?.user === currentUser?.userName && 'same-user'">
+                  [ngClass]= "item?.user === currentUser && 'same-user'">
                   <p class="message-container"><span  class="messageUsername">{{item?.user}}</span> <br>{{item?.message}} </p>
               </div>
-          </div> -->
+          </div>
 
           <!-- chat footer -->
           <div class="row-md-9">
               <div class="row chat-footer">
                   <div class="col-md-10  align-self-center">
-                      <div class="form-group ml-2 mb-0">
+                      <div class="form-group m-2">
                           <input  type="text"
                                   placeholder="type a message"
                                   class="form-control"
@@ -25,7 +25,7 @@
                       </div>
                   </div>
                   <div class="col-md-1 text-center align-self-center">
-                      <button class="btn btn-success fas fa-paper-plane" (click)="sendMessage()"></button>
+                      <button class="btn btn-primary fas fa-paper-plane" (click)="sendMessage()"></button>
                   </div>
               </div>
           </div>

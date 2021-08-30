@@ -1,8 +1,5 @@
 import { IGame } from '../services/game';
-import { LivechatService } from '../services/livechat/livechat.service';
-import { PartygameService } from '../services/partygame.service';
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SocketioService } from '../services/socketio/socketio.service';
 
 @Component({
@@ -10,6 +7,7 @@ import { SocketioService } from '../services/socketio/socketio.service';
   templateUrl: './livechat.component.html',
   styleUrls: ['./livechat.component.css']
 })
+
 export class LivechatComponent implements OnInit,OnChanges {
 
   public roomId : string;
@@ -21,7 +19,7 @@ export class LivechatComponent implements OnInit,OnChanges {
 
   public UserList:string[];
 
-  constructor(private partyGameApi: PartygameService, private socketService: SocketioService )
+  constructor(private socketService: SocketioService)
   {
     this.currentUser = sessionStorage.getItem('userName');
   }
@@ -75,6 +73,6 @@ export class LivechatComponent implements OnInit,OnChanges {
       if(room) this.UserList = room.users;
     });
   }
-  
+
 
 }

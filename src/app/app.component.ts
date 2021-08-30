@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameChatService, UserService } from 'projects/hubservices/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'GameHubUI';
+  title = 'Revabox Games';
+
+  constructor(public userService: UserService, private chatService: GameChatService) {
+    this.subscribeToEvents();
+  }
+
+  subscribeToEvents(): void {
+    this.userService.user.subscribe(user => {
+      if(user != null) {
+        this.chatService.startConnection()
+      }
+    });
+  }
 }
+

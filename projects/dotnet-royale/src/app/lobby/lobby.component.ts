@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IRoom } from '../services/room';
 import { SocketioService } from '../services/socketio/socketio.service';
 
@@ -16,7 +16,7 @@ export class LobbyComponent implements OnInit {
   isInputRoomId: boolean = false;
   roomIdInput: string;
   rooms: IRoom[];
-  constructor(private router: Router, private socketService: SocketioService ) { }
+  constructor(private router: Router, private socketService: SocketioService, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
 
@@ -34,14 +34,14 @@ export class LobbyComponent implements OnInit {
 
   goToRoom(p_roomId: string){
     this.joinRoom(this.username, p_roomId);
-    this.router.navigate(['game/dotnetroyale/room']);
+    this.router.navigate(['room'],  { relativeTo: this.route.parent });
   }
 
   goToMain(){
     this.username = sessionStorage.getItem("userName");
     this.roomId = sessionStorage.getItem("roomId");
     this.leaveRoom(this.username, this.roomId);
-    this.router.navigate(['game/dotnetroyale/main']);
+    this.router.navigate(['main'],  { relativeTo: this.route.parent });
   }
 
   getRoomList(){
