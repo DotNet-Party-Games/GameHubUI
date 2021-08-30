@@ -106,9 +106,6 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
-      if(this.user != null) {
-        this.chatService.startConnection();
-      }
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
