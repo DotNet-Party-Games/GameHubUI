@@ -10,7 +10,7 @@ import { GameState } from '../TTTTGameState';
 export class SocketioService {
 
   private socket: Socket;
-  private url = 'http://localhost:3000';
+  private url = 'https://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket';
   private newGameState = new BehaviorSubject<any>({ x: 1, y: 1 });
   currentGameState = this.newGameState.asObservable();
   private newBlackjack = new BehaviorSubject<any>({});
