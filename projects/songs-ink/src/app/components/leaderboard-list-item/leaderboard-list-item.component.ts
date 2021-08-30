@@ -1,3 +1,4 @@
+import { LeaderBoard } from './../../models/LeaderBoard';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LeaderboardListItemComponent implements OnInit {
 
-  @Input() leaderboardItem: any;
-  active: any;
+  @Input() leaderboardItem: LeaderBoard;
   constructor() { }
 
   ngOnInit(): void {

@@ -1,3 +1,4 @@
+import { LeaderBoard } from './../../models/LeaderBoard';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
 
-  leaderboardItems: any[];
-  activeItem: any;
+  leaderboardItems: LeaderBoard[];
+  activeItem: LeaderBoard;
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
 }
