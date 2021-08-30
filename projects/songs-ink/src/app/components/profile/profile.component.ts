@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Profile } from '../../models/Profile';
 import { CustomCategory } from '../../models/CustomCategory';
-import { CustomWord } from 'src/app/models/CustomWord';
+import { CustomWord } from '../../models/CustomWord';
 import { ProfileService } from '../../services/profile.service';
 import { RouterModule } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { SocketIoService } from 'src/app/services/socketio.service';
-import { LeaderBoard } from 'src/app/models/LeaderBoard';
+import { SocketIoService } from '../../services/socketio.service';
+import { LeaderBoard } from '../../models/LeaderBoard';
 
 @Component({
   selector: 'app-profile',
@@ -96,8 +96,8 @@ export class ProfileComponent implements OnInit {
             }
           });
         }
-        if (response.playerName) {
-          this.socketService.SetUsername(response.playerName)
+        if (response.nickName) {
+          this.socketService.SetUsername(response.nickName)
         }
       }, (error) => {
         //If the backend is unable to find the profile from the email then
@@ -242,5 +242,4 @@ export class ProfileComponent implements OnInit {
         this.newName = "";
       });
   }
-
 }

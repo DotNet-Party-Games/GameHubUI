@@ -3,9 +3,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
-import { Word } from 'src/app/models/Word';
-import { ChooseWordService } from 'src/app/services/choose-word.service';
-import { SocketIoService } from 'src/app/services/socketio.service';
+import { Word } from '../../models/Word';
+import { ChooseWordService } from '../../services/choose-word.service';
+import { SocketIoService } from '../../services/socketio.service';
 import { TimerComponent } from '../timer/timer.component';
 
 @Component({

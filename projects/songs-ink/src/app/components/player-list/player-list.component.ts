@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 
-import { Player } from 'src/app/models/Player';
-import { PlayerListService } from 'src/app/services/player-list.service';
-import { SocketIoService } from 'src/app/services/socketio.service';
+import { Player } from '../../models/Player';
+import { PlayerListService } from '../../services/player-list.service';
+import { SocketIoService } from '../../services/socketio.service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { stringify } from '@angular/compiler/src/util';
 import { Subscription } from 'rxjs';

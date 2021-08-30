@@ -26,20 +26,20 @@ export class ProfileService {
     return this.http.get<LeaderBoard>(`${this.url}/getScoreOfPlayer/${p_userNickName}`);
   }
 
-  // getUserInfo(userEmail: string) : Observable<Profile>
-  // {
-  //   return this.http.get<Profile>(`${this.url}getAPlayer/${userEmail}`);
-  //   //return this.http.get<Profile>(`${this.url}1`);
-  // }
-  // addPlayerProfile(newPlayerProfile: Profile) : Observable<Profile>
-  // {
-  //   return this.http.post<Profile>(this.url+"createNewPlayer",newPlayerProfile, httpOptions);//update url when have endpoint
-  // }
-  // updatePlayerProfile(playerProfile: Profile): Observable<Profile>
-  // {
-  //   return this.http.put<Profile>(this.url+"updatePlayer",playerProfile, httpOptions);
-  //   //return this.http.put<Profile>(this.url+"1",playerProfile);
-  // }
+  getUserInfo(userEmail: string) : Observable<Profile>
+  {
+    return this.http.get<Profile>(`${this.url}getAPlayer/${userEmail}`);
+    //return this.http.get<Profile>(`${this.url}1`);
+  }
+  addPlayerProfile(newPlayerProfile: Profile) : Observable<Profile>
+  {
+    return this.http.post<Profile>(this.url+"createNewPlayer",newPlayerProfile, httpOptions);//update url when have endpoint
+  }
+  updatePlayerProfile(playerProfile: Profile): Observable<Profile>
+  {
+    return this.http.put<Profile>(this.url+"updatePlayer",playerProfile, httpOptions);
+    //return this.http.put<Profile>(this.url+"1",playerProfile);
+  }
 
   addCategory(category: CustomCategory): Observable<CustomCategory>
   {

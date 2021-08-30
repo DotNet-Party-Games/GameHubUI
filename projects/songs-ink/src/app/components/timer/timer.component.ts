@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SocketIoService } from 'src/app/services/socketio.service';
+import { SocketIoService } from '../../services/socketio.service';
 
 @Component({
   selector: 'app-timer',

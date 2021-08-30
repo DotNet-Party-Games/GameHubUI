@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit} from '@angular/core';
-import { SocketIoService } from 'src/app/services/socketio.service';
+import { SocketIoService } from '../../services/socketio.service';
 import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
 

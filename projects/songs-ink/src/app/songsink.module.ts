@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
@@ -9,7 +9,6 @@ import { GameComponent } from './components/game/game.component';
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { PlayerListItemComponent } from './components/player-list-item/player-list-item.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
@@ -66,6 +65,7 @@ import { ProfileCategorylistComponent } from './components/profile-categorylist/
   ],
   imports: [
     RouterModule.forChild([
+      {path: "", component: LobbyComponent},
       {path:"lobby", component: LobbyComponent},
       {path:"room-list", component: RoomListComponent},
       {path: "game", component: GameComponent},
@@ -73,7 +73,7 @@ import { ProfileCategorylistComponent } from './components/profile-categorylist/
       {path:"game", component: GameComponent},
       {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}
     ]),
-    BrowserAnimationsModule,
+    CommonModule,
     MatListModule,
     MatInputModule,
     MatMenuModule,
@@ -85,7 +85,6 @@ import { ProfileCategorylistComponent } from './components/profile-categorylist/
     FontAwesomeModule,
     FormsModule,
     MatDialogModule,
-    CommonModule,
     MatGridListModule
   ],
   providers: [SocketIoService, ProfileComponent]

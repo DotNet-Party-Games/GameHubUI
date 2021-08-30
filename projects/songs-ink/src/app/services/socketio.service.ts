@@ -2,7 +2,7 @@ import { Injectable, Input, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { BehaviorSubject, Subscriber, Subscription } from 'rxjs';
 import { io } from 'socket.io-client';
-import { Room } from 'src/app/models/room';
+import { Room } from '../models/room';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { Chatline } from '../models/chatline';
 import { Player } from '../models/Player';

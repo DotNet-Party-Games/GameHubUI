@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Word } from 'src/app/models/Word';
+import { Word } from '../../models/Word';
 @Component({
   selector: 'app-word',
   templateUrl: './word.component.html',
