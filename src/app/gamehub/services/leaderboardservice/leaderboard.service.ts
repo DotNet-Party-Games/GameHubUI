@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ITeamLeaderboard } from '../../interfaces/ITeamLeaderboard';
 
@@ -9,7 +10,9 @@ import { ITeamLeaderboard } from '../../interfaces/ITeamLeaderboard';
 export class LeaderboardService {
   
   //reference API URL
-  private url = "https://localhost:44327/leaderboard/";
+  //private url = "https://localhost:44327/leaderboard/";
+
+  private url = environment.api.url;
 
   constructor(private http: HttpClient) { }
 
