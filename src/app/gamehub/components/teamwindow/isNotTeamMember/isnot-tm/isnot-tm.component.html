@@ -2,7 +2,6 @@
     <!-- first row with create team button and search team input -->
     <div class="row" style="margin: 20px;">
       <div class="col">
-        {{notification}}
         <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Create New Team</a>
       </div>
       <div class="col">
@@ -17,8 +16,7 @@
     <!-- table that list all the team, each item associated with a join buton -->
     <div class="row text-center" style="margin-top: 40px;">
       <div class="col">
-        <h2>Team List</h2>
-        <span id="sp">{{messageSearch}}</span>
+        <h2 id="title">Team List</h2>
         <table class="table table-dark table-stdiped" style="margin-top: 20px;">
           <!-- thead -->
           <thead>

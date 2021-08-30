@@ -3,9 +3,9 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-import { ChatMessage } from 'src/app/gamehub/models/chatmessage.model';
-import { ChatStatus } from 'src/app/gamehub/models/chatstatus.model';
-import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
+import { UserService } from 'projects/hubservices/src/public-api';  
+import { User } from 'src/app/gamehub/models/user.model';
+import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
 
 @Component({
@@ -25,21 +25,23 @@ export class IsTMComponent implements OnInit {
   hasLeft:boolean | any = false;
   requestList : ITeamJoinRequest[] |any = [];
   cfrm : string |any = '';
-  notification :string | any='';
+  notifyMe:ChatAlert | any={};
+
+  
+  public user: User | null = null;
+  public connectionEstablished: Boolean = false;
 
   // Constructor
   constructor(private teamservice:TeamService,
+    public userService: UserService,
     private chatService: GameChatService,
     private ngZone: NgZone) { 
       this.subscribeToEvents();
     }
-  
-
 
   ngOnInit(): void {
       this.GetListOfRequest();
       this.SearchTeam();
-    
   }
 
   // Delete Team
@@ -48,6 +50,7 @@ export class IsTMComponent implements OnInit {
     if(this.cfrm){
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;
+      sessionStorage.removeItem('teamName');
     });
   }
     location.reload();
@@ -59,6 +62,7 @@ export class IsTMComponent implements OnInit {
     if(this.cfrm){
     this.teamservice.leaveTeam().subscribe((left :boolean)=>{
       this.hasLeft = left;
+      sessionStorage.removeItem('teamName');
     });
   }
     location.reload();
@@ -66,12 +70,8 @@ export class IsTMComponent implements OnInit {
 
   // Get the list Of  all Join team request
   GetListOfRequest():void{
-    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{      
-      requestList.forEach(element => {
-        if(element.user.teamId==null){
-          this.requestList.push(element);
-        }
-      });
+    this.teamservice.GetAllRequestsForJoinTeam(this.teamName).subscribe((requestList:ITeamJoinRequest[])=>{
+      this.requestList =requestList;
     });
   }
 
@@ -84,8 +84,7 @@ export class IsTMComponent implements OnInit {
         this.SearchTeam();
       }
     });
-    this.sendMessage();
-    location.reload();
+    // location.reload();
   }
 
   SearchTeam():void
@@ -95,31 +94,18 @@ export class IsTMComponent implements OnInit {
      });
    }
 
-   subscribeToEvents(): void { 
-    this.chatService.messageReceived.subscribe((message: ChatMessage) => {  
-      this.ngZone.run(() => {   
-          this.notification = message;
-      });  
-    });   
-    this.chatService.userEvent.subscribe((chatEvent: ChatStatus) => {  
-      this.ngZone.run(() => {   
-          console.log(chatEvent);
-      });  
+  subscribeToEvents(): void {
+    this.userService.user.subscribe(user => {
+      this.user = user;
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
         console.log(alert);
+        this.notifyMe = alert;
+        if(this.notifyMe.alertType=="NEW TEAM JOIN REQUEST"){
+          this.GetListOfRequest();
+        }
       });
     });
   }
-  public sendMessage(): void {   
-      var msg: ChatMessage = {
-        senderId: this.currentUser.id,
-        senderName: this.currentUser.username,
-        body: "You have been accepted",
-        timestamp: new Date().getTime(),
-      }
-      this.chatService.sendMessage(msg);
-  }
-
 }

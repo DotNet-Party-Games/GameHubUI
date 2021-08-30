@@ -305,100 +305,33 @@
         }
       }
     },
-    "Songs-ink": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:application": {
-          "strict": true
-        }
-      },
-      "root": "projects/songs-ink",
-      "sourceRoot": "projects/songs-ink/src",
-      "prefix": "app",
+    "hubservices": {
+      "projectType": "library",
+      "root": "projects/hubservices",
+      "sourceRoot": "projects/hubservices/src",
+      "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "outputPath": "dist/Songs-ink",
-            "index": "projects/songs-ink/src/index.html",
-            "main": "projects/songs-ink/src/main.ts",
-            "polyfills": "projects/songs-ink/src/polyfills.ts",
-            "tsConfig": "projects/songs-ink/tsconfig.app.json",
-            "assets": [
-              "projects/songs-ink/src/favicon.ico",
-              "projects/songs-ink/src/assets"
-            ],
-            "styles": [
-              "projects/songs-ink/src/styles.css"
-            ],
-            "scripts": []
+            "project": "projects/hubservices/ng-package.json"
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/songs-ink/src/environments/environment.ts",
-                  "with": "projects/songs-ink/src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
+              "tsConfig": "projects/hubservices/tsconfig.lib.prod.json"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "tsConfig": "projects/hubservices/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "Songs-ink:build:production"
-            },
-            "development": {
-              "browserTarget": "Songs-ink:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "Songs-ink:build"
-          }
-        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/songs-ink/src/test.ts",
-            "polyfills": "projects/songs-ink/src/polyfills.ts",
-            "tsConfig": "projects/songs-ink/tsconfig.spec.json",
-            "karmaConfig": "projects/songs-ink/karma.conf.js",
-            "assets": [
-              "projects/songs-ink/src/favicon.ico",
-              "projects/songs-ink/src/assets"
-            ],
-            "styles": [
-              "projects/songs-ink/src/styles.css"
-            ],
-            "scripts": []
+            "main": "projects/hubservices/src/test.ts",
+            "tsConfig": "projects/hubservices/tsconfig.spec.json",
+            "karmaConfig": "projects/hubservices/karma.conf.js"
           }
         }
       }

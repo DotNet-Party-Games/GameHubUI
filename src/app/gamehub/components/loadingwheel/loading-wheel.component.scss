@@ -1,0 +1,78 @@
+
+$spinner-color-primary: #344955;
+$spinner-color-secondary: #4AD295;
+
+.fancyspinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.ring1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: transparent;
+  animation: 2s fancy infinite alternate;
+  
+  border-left-color: $spinner-color-primary;
+  border-right-color: $spinner-color-primary;
+}
+
+.ring2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: transparent;
+  animation: 2s fancy infinite alternate;
+
+  border-top-color: $spinner-color-secondary;
+  border-bottom-color: $spinner-color-secondary;
+  animation-delay: 1s;
+}
+
+.dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1rem;
+  height: 1rem;
+  background-color: $spinner-color-secondary;
+  position: absolute;
+  border-radius: 50%;
+
+  animation: 4s colorchange infinite alternate;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes fancy {
+  to {
+    transform: rotate(360deg) scale(0.5)
+  }
+}
+
+@keyframes colorchange {
+  from {
+    background-color: $spinner-color-secondary
+  }
+  to {
+    background-color: $spinner-color-primary
+  }
+}
