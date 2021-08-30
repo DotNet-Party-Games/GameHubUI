@@ -1,3 +1,5 @@
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { LeaderboardListItemComponent } from './components/leaderboard-list-item/leaderboard-list-item.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,13 +14,13 @@ import { PlayerListItemComponent } from './components/player-list-item/player-li
 
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
-import {MatInputModule} from '@angular/material/input'; 
-import {MatMenuModule} from '@angular/material/menu'; 
-import {MatIconModule} from '@angular/material/icon'; 
+import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SocketIoService } from './services/socketio.service';
-import {MatTableModule} from '@angular/material/table'; 
-import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatTableModule} from '@angular/material/table';
+import {MatGridListModule} from '@angular/material/grid-list';
 // import { SocketioService } from './services/socketio.service';
 import { ChatComponent } from './components/chat/chat.component';
 import { RoomListComponent, ChooseCategoryDialogComponent } from './components/room-list/room-list.component';
@@ -29,7 +31,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { WordComponent } from './components/word/word.component';
 import { ProfileWordlistComponent } from './components/profile-wordlist/profile-wordlist.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChooseWordComponent } from './components/choose-word/choose-word.component'; 
+import { ChooseWordComponent } from './components/choose-word/choose-word.component';
 import { ChooseWordDialogComponent } from './components/choose-word/choose-word.component';
 import { TimerComponent } from './components/timer/timer.component';
 
@@ -62,6 +64,8 @@ import { ProfileCategorylistComponent } from './components/profile-categorylist/
     TimerComponent,
     ChooseCategoryDialogComponent,
     ProfileCategorylistComponent,
+    LeaderboardComponent,
+    LeaderboardListItemComponent
   ],
   imports: [
     RouterModule.forChild([
