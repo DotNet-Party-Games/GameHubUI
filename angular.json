@@ -335,6 +335,104 @@
           }
         }
       }
+    },
+    "Battleship": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/battleship",
+      "sourceRoot": "projects/battleship/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/Battleship",
+            "index": "projects/battleship/src/index.html",
+            "main": "projects/battleship/src/main.ts",
+            "polyfills": "projects/battleship/src/polyfills.ts",
+            "tsConfig": "projects/battleship/tsconfig.app.json",
+            "assets": [
+              "projects/battleship/src/favicon.ico",
+              "projects/battleship/src/assets"
+            ],
+            "styles": [
+              "projects/battleship/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/battleship/src/environments/environment.ts",
+                  "with": "projects/battleship/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "Battleship:build:production"
+            },
+            "development": {
+              "browserTarget": "Battleship:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "Battleship:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/battleship/src/test.ts",
+            "polyfills": "projects/battleship/src/polyfills.ts",
+            "tsConfig": "projects/battleship/tsconfig.spec.json",
+            "karmaConfig": "projects/battleship/karma.conf.js",
+            "assets": [
+              "projects/battleship/src/favicon.ico",
+              "projects/battleship/src/assets"
+            ],
+            "styles": [
+              "projects/battleship/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   },
   "defaultProject": "GameHubUI"

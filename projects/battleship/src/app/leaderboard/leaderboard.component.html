@@ -1,0 +1,77 @@
+ <!--
+ <!-- <div class="table-container" *ngIf="users.length"> 
+<div class="table-container">
+    <h3>Battleship Leaderboard:</h3>
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex: BobTheGreat" #input>
+    </mat-form-field>  
+    
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+        
+            <!-- User ID Column 
+            <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> Position </th>
+            <td mat-cell *matCellDef="let row"> {{row.position}} </td>
+            </ng-container>
+        
+            <!-- Score Column 
+            <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+            <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+            </ng-container>
+
+            <!-- Game Time Date Column 
+            <ng-container matColumnDef="winratio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Score </th>
+                <td mat-cell *matCellDef="let row"> {{row.winratio}} </td>
+                </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+            <!-- Row shown when there is no matching data.
+            <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter</td>
+            </tr>
+        </table>  
+        </div>
+</div> -->
+
+<!-- <div class="container">
+    <mat-button-toggle-group [(ngModel)]="SoloScoreboard">
+        <mat-button-toggle value="solo">Solo Scores</mat-button-toggle>
+        <mat-button-toggle value="team">Team Scores</mat-button-toggle>
+    </mat-button-toggle-group>-->
+<div class="container"> 
+    <div class="table">
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex: BobTheGreat" #input>
+        </mat-form-field>
+        <table>
+            <thead>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Wins
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngIf="NoData">
+                    <td  colspan="2">No data matching the filter</td>
+                </tr>
+                <tr *ngIf="!NoData">
+                    <td>
+                        <div *ngFor='let score of scores' >
+                            {{score.UserId}}
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div> 
