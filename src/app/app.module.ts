@@ -71,7 +71,8 @@ import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)}
       //{path: "**", redirectTo: "home"}
-    ]),
+      
+    ], { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
