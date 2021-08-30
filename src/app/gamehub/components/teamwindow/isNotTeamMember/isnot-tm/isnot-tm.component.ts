@@ -95,7 +95,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
       })
     }  
     this.GetAllTeam();
-    location.reload();
+    //location.reload();
   }
 
   subscribeToEvents(): void {
@@ -107,7 +107,8 @@ export class IsnotTMComponent implements OnInit, OnChanges {
         console.log(alert);
         this.notifyMe = alert;
         if(this.notifyMe.alertType=="REQUEST APPROVED"){
-          location.reload();
+          //location.reload();
+          this.userService.getUser();
         }
       });
     });

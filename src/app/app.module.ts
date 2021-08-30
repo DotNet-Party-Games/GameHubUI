@@ -23,6 +23,7 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
 import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IsnotTMComponent,
     IsTMComponent,
     GameComponent,
-    LoadingWheelComponent
+    LoadingWheelComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,

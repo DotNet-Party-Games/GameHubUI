@@ -62,6 +62,7 @@ li a:hover
 #tbodytext
 {
     color: azure;
+    font: 16px Arial, sans-serif;
 }
 
 #gameselect
@@ -79,4 +80,10 @@ tbody tr {
 
 thead tr {
     border-color: azure;
+}
+
+.team td
+{
+    font-style: italic;
+    background-color: rgb(52, 106, 177);
 }
