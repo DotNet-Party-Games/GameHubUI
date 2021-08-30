@@ -18,7 +18,7 @@ export class LeaderboardService {
 
   GetTeamLeaderboard(gameName: string): Observable<ITeamLeaderboard>
   {
-    return this.http.get<ITeamLeaderboard>(this.url + "team/" + gameName);
+    return this.http.get<ITeamLeaderboard>(this.url + "/leaderboard/team/" + gameName);
   }
 
 }
