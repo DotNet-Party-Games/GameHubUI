@@ -18,7 +18,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public currentUser: ILoggedUser;
   finalScore: IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null,
   }
   gameState: GameState = {
@@ -106,7 +106,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   newGame() {
     this.gameState.gameStarted = true;
-    
+
     this.gameState.squares = new Array((this.numOfPlayers + 1) ** 2).fill(null);
     this.gameState.currentPlayer = 0;
     this.createGrid();
@@ -162,7 +162,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.socketService.sendAudioTrigger({ audioFile: "youlose", room: this.roomId })
       //make call to service to update score
 
-    } 
+    }
     this.sendTicTacToeGamestate(this.gameState);
 
   }
