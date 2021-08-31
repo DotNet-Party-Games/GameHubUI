@@ -1,5 +1,5 @@
-export interface ITeamScore{
-    Id:number;
-    TeamName:string;
-    Score:number;
+export interface Statistics{
+    userId:string;
+    wins:number;
+    losses:number;
 }
