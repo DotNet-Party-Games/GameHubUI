@@ -6,6 +6,6 @@ export const environment = {
   },
   api: {
     name: 'revboxgamesapi',
-    url: "https://localhost:44327"
+    url: "https://revabox.eastus.cloudapp.azure.com/hubapi"
   }
 };

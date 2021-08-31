@@ -11,36 +11,35 @@ import { TeamService } from '../../services/teamservice/team.service';
 })
 export class TeamwindowComponent implements OnInit {
 
-  public currentUser: IUser |any;
+  public currentUser: IUser | null = null;
   public userTeam:ITeam |any;
   public haveTeam: boolean =false;
 
-  constructor( private teamservice:TeamService,
-    public userService: UserService,
-    private chatService: GameChatService) {
-    this.currentUser= {
-      id:"",
-      username:"",
-      email:"",
-      picture:"",
-      teamId:"",
-      team:"",
-    };
-   }
+  constructor(public userService: UserService) {}
 
 
   ngOnInit(): void {
-    this.GetCurrentUser();
+    this.getCurrentUser();
+    this.subscribeToEvents()
     
   }
 
-  GetCurrentUser():void{
-    this.teamservice.GetUserInfo().subscribe((currentUser : IUser)=>{
-      this.currentUser = currentUser ; 
-      if(currentUser.team!=null){
-        sessionStorage.setItem('teamName',currentUser.team.name);
+  getCurrentUser(): void {
+    this.userService.user.subscribe(currentUser => {
+      this.currentUser = currentUser;
+      console.log(currentUser)
+      if (currentUser != null && currentUser.team != null) {
         this.haveTeam = true;
+        sessionStorage.setItem('teamName', currentUser.team.name);
+      } else {
+        this.haveTeam = false;
       }
+    });
+  }
+
+  subscribeToEvents(): void {
+    this.userService.user.subscribe(user => {
+      this.currentUser = user;;
     });
   }
 }

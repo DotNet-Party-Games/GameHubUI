@@ -10,13 +10,13 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li>
-          <a (click)= "GetTeamLeaderboard('partygames')" [ngStyle]="{'text-shadow': SelectedGame == 'partygames' ? '1px 1px 10px red' : '', 'opacity': SelectedGame == 'partygames' ? '1' : ''}">Party Games</a>
+          <a (click)= "GetTeamLeaderboard('partygames')" [ngStyle]="{'text-shadow': SelectedGame == 'partygames' ? '1px 1px 10px red' : '', 'opacity': SelectedGame === 'partygames' ? '1' : ''}">Party Games</a>
         </li>
         <li>
-          <a (click)= "GetTeamLeaderboard('songsink')" [ngStyle]="{'text-shadow': SelectedGame == 'songsink' ? '1px 1px 10px red' : '', 'opacity': SelectedGame == 'songsink' ? '1' : ''}">Songs-Ink</a>
+          <a (click)= "GetTeamLeaderboard('songsink')" [ngStyle]="{'text-shadow': SelectedGame == 'songsink' ? '1px 1px 10px red' : '', 'opacity': SelectedGame === 'songsink' ? '1' : ''}">Songs-Ink</a>
         </li>
         <li>
-          <a (click)= "GetTeamLeaderboard('battleship')" [ngStyle]="{'text-shadow': SelectedGame == 'battleship' ? '1px 1px 10px red' : '', 'opacity': SelectedGame == 'battleship' ? '1' : ''}">Battleship</a>
+          <a (click)= "GetTeamLeaderboard('battleship')" [ngStyle]="{'text-shadow': SelectedGame == 'battleship' ? '1px 1px 10px red' : '', 'opacity': SelectedGame === 'battleship' ? '1' : ''}">Battleship</a>
         </li>
       </ul>
     </nav>
@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody id="tbodytext">
-        <tr *ngFor="let team of TeamEntry">
+        <tr *ngFor="let team of TeamEntry" [ngClass] = "{'team': team.teamName === user.team.name}">
           <td>
             {{team.teamName}}
           </td>

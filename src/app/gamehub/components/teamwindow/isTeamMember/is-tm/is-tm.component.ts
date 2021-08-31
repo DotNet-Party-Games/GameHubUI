@@ -53,7 +53,8 @@ export class IsTMComponent implements OnInit {
       sessionStorage.removeItem('teamName');
     });
   }
-    location.reload();
+    //location.reload();
+    this.userService.getUser();
   }
 
   // leave Team
@@ -63,9 +64,9 @@ export class IsTMComponent implements OnInit {
     this.teamservice.leaveTeam().subscribe((left :boolean)=>{
       this.hasLeft = left;
       sessionStorage.removeItem('teamName');
+      this.userService.getUser();
     });
-  }
-    location.reload();
+    }
   }
 
   // Get the list Of  all Join team request
@@ -85,6 +86,7 @@ export class IsTMComponent implements OnInit {
       }
     });
     // location.reload();
+    this.userService.getUser();
   }
 
   SearchTeam():void

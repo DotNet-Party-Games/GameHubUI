@@ -56,11 +56,13 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   setGameId(p_gameId: number)
   {
+    this.playSFX("click");
     this.gameId = p_gameId;
   }
 
   randomGameId()
   {
+    this.playSFX("click");
     this.gameId = Math.floor(Math.random() * 3) + 1;
   }
   sendGameId()
@@ -97,6 +99,14 @@ export class RoomComponent implements OnInit, OnDestroy {
 
       }
     }
+  }
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = audioCue;
+    audio.load();
+    audio.play();
   }
 
 }
