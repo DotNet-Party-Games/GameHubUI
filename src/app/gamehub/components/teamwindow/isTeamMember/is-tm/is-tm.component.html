@@ -4,8 +4,8 @@
         <div class="col me-5 mt-3">
             <div class="row">
                 <div class="col"><h2 id="title">Members of {{teamName}}</h2></div>
-                <div class="col"><button class="btn btn-danger" type="submit" (click)="OnDeleteTeam()" *ngIf="myteam.teamOwner==currentUser.id">Delete team</button>
-                    <button class="btn btn-danger" type="submit" (click)="OnLeaveTeam()" *ngIf="myteam.teamOwner!=currentUser.id">Leave team</button></div>
+                <div class="col"><button class="btn btn-danger" type="submit" (click)="deleteTeam()" *ngIf="myteam.teamOwner==currentUser.id">Delete team</button>
+                    <button class="btn btn-danger" type="submit" (click)="openTeamLeaveModal(leaveTeamConfirm)" *ngIf="myteam.teamOwner!=currentUser.id">Leave team</button></div>
             </div>
                 
                 
@@ -55,6 +55,22 @@
         </div>
     </div>  
 </div>
+
+<ng-template #leaveTeamConfirm let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Leave Team</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to leave your team {{myteam.name}}?</p>
+    </div>
+    <div class="modal-footer">
+      <button ngbAutofocus type="button" class="btn btn-success" (click)="leaveTeam()">Send</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
   
   
   

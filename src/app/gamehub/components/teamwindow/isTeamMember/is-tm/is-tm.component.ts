@@ -3,10 +3,11 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-import { UserService } from 'projects/hubservices/src/public-api';  
+import { AppToastService, UserService } from 'projects/hubservices/src/public-api';  
 import { User } from 'src/app/gamehub/models/user.model';
 import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-is-tm',
@@ -30,12 +31,15 @@ export class IsTMComponent implements OnInit {
   
   public user: User | null = null;
   public connectionEstablished: Boolean = false;
+  private modalReference: any = null;
 
   // Constructor
   constructor(private teamservice:TeamService,
     public userService: UserService,
     private chatService: GameChatService,
-    private ngZone: NgZone) { 
+    private ngZone: NgZone,
+    private modalService: NgbModal,
+    private toastService: AppToastService) { 
       this.subscribeToEvents();
     }
 
@@ -45,6 +49,8 @@ export class IsTMComponent implements OnInit {
   }
 
   // Delete Team
+
+  /*
   OnDeleteTeam():void{
     this.cfrm= confirm("Are You Sure To Delete Team?");
     if(this.cfrm){
@@ -67,6 +73,31 @@ export class IsTMComponent implements OnInit {
       this.userService.getUser();
     });
     }
+  }
+  */
+
+  deleteTeam() {
+    this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
+      this.isDeleted = isDeleted;
+      sessionStorage.removeItem('teamName');
+      this.userService.getUser();
+    });
+  }
+
+  leaveTeam() {
+    this.teamservice.leaveTeam().subscribe((left :boolean)=>{
+      this.hasLeft = left;
+      sessionStorage.removeItem('teamName');
+      this.userService.getUser();
+    });
+  }
+
+  openTeamLeaveModal(content: any) {
+    this.modalReference = this.modalService.open(content, { centered: true });
+  }
+
+  closeTeamRequestModal() {
+    this.modalReference.close();
   }
 
   // Get the list Of  all Join team request
