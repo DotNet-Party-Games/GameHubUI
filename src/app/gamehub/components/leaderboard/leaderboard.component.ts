@@ -14,6 +14,7 @@ export class LeaderboardComponent implements OnInit {
   TeamEntry: ITeamScore[];
   SelectedGame: string = "partygames";
   public user: User | null = null;
+  public isLoading: Boolean = false;
 
   constructor(private leaderBoardService: LeaderboardService, public userService: UserService) { 
     // this.leaders.push({playerName:"klaus",score:1500});
@@ -21,27 +22,34 @@ export class LeaderboardComponent implements OnInit {
     // this.leaders.push({playerName:"Sean",score:500});
 
     this.GetUser();
-    }
+  }
 
   ngOnInit(): void {
     this.GetTeamLeaderboard(this.SelectedGame);
+    this.isLoading = true;
   }
 
   GetTeamLeaderboard(gameName: string)
   {
+    this.isLoading = true;
     this.leaderBoardService.GetTeamLeaderboard(gameName).subscribe(
       (result) => {
         this.TeamEntry = result.scores;
         this.SelectedGame = result.id;
         this.TeamEntry.sort((a, b) => (a.score > b.score ? -1 : 1));
-        }
+        this.isLoading = false;
+        },
+      (error) => {
+        console.log(error);
+        console.log("Retrying to get leaderboard...")
+        setTimeout(() => this.GetTeamLeaderboard(gameName), 5000); 
+      }
     );
   }
 
   GetUser()
   {
     this.userService.user.subscribe(user => {
-      // if(!this.isLoading) this.isLoading = true;
       this.user = user;
     });
   }

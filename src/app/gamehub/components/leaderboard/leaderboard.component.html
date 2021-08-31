@@ -22,7 +22,7 @@
     </nav>
 
     <!--Presenting the Leaderboard-->
-    <table id="leaderboard" class="table table-hover table-bordered">
+    <table *ngIf="!isLoading; else loadingpanel" id="leaderboard" class="table table-hover table-bordered">
       <thead id="categorytext">
         <tr>
           <td>Team Name</td>
@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody id="tbodytext">
-        <tr *ngFor="let team of TeamEntry" [ngClass] = "{'team': team.teamName === user.team.name}">
+        <tr *ngFor="let team of TeamEntry" [ngClass] = "{'team': user.team ? team.teamName === user.team.name : false}">
           <td>
             {{team.teamName}}
           </td>
@@ -40,8 +40,15 @@
         </tr>
       </tbody>
     </table>
+
   </div>
 </div>
+
+<ng-template #loadingpanel>
+  <div id="spinner-wrapper" class="container-fluid spinner-wrapper">
+    <app-loading-wheel></app-loading-wheel>
+  </div>
+</ng-template>
 
 
 <!-- Removing the Game selector and team toggle for the leaderboards

@@ -49,33 +49,6 @@ export class IsTMComponent implements OnInit {
   }
 
   // Delete Team
-
-  /*
-  OnDeleteTeam():void{
-    this.cfrm= confirm("Are You Sure To Delete Team?");
-    if(this.cfrm){
-    this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
-      this.isDeleted = isDeleted;
-      sessionStorage.removeItem('teamName');
-    });
-  }
-    //location.reload();
-    this.userService.getUser();
-  }
-
-  // leave Team
-  OnLeaveTeam():void{
-    this.cfrm= confirm("Are You Sure To Delete Team?");
-    if(this.cfrm){
-    this.teamservice.leaveTeam().subscribe((left :boolean)=>{
-      this.hasLeft = left;
-      sessionStorage.removeItem('teamName');
-      this.userService.getUser();
-    });
-    }
-  }
-  */
-
   deleteTeam() {
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;

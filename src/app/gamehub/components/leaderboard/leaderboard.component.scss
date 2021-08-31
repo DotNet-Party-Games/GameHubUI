@@ -88,3 +88,11 @@ thead tr {
     font-style: italic;
     background-color: rgb(52, 106, 177);
 }
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    min-height: 200px;
+    flex-shrink: 1;
+  }
