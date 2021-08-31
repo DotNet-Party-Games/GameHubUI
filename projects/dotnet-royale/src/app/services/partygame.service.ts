@@ -6,6 +6,7 @@ import { IGame } from './game';
 import { map } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { IScore } from './score';
+import { IStat } from './stat';
 import { IGameStats } from './gamestats';
 import { IUserScore } from './userscore';
 
@@ -15,12 +16,13 @@ import { IUserScore } from './userscore';
 export class PartygameService {
   //url referencing the WebAPI
   //private url = "http://20.81.113.152/dotnetroyaleapi/";
-  private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
+  //private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
+  private url = 'http://revabox.eastus.cloudapp.azure.com';
 
  isLoggedIn:boolean;
   currentScore: IScore = {
     gamesId:null,
-    userId:null,
+    userName:null,
     score:null,
   };
   private messageSource = new BehaviorSubject("default message");
@@ -29,30 +31,10 @@ export class PartygameService {
   //service constructor
   constructor(private http: HttpClient) { }
 
-  //login method
-  login(model: FormGroup):Observable<ILoggedUser> {
-    return this.http.post<ILoggedUser>(this.url +'user/getuserfromusernameandpassword/', model);
-  }
-  loggedIn(){
-    return !!(sessionStorage.getItem('userId') && sessionStorage.getItem('userName') && sessionStorage.getItem('userPassword'));
-  }
-
   //AddScore Methoid
   addscore(model: any): Observable<IScore>{
+    console.log("adding score");
     return this.http.post<IScore>(this.url+'user/addScore', model);
-  }
-  updateSnakeStats(model: any): Observable<IScore>{
-    return this.http.post<IScore>(this.url+'user/updateSnakeStats',model);
-  }
-
-  //Register method
-  register(model: any):Observable<ILoggedUser> {
-    return this.http.post<ILoggedUser>(this.url+'user/add',model);
-  }
-  // service method for login an user
-  getUserByUserNameAndPassword(name: string, password: string) : Observable<IUser>
-  {
-    return this.http.get<IUser>(this.url +  name + '/' + password);
   }
 
   getGames() : Observable<IGame[]>
@@ -60,42 +42,58 @@ export class PartygameService {
     return this.http.get<IGame[]>(this.url + "Game");
   }
 
+  updateSnakeStats(model: any): Observable<IScore>{
+    return this.http.post<IScore>(this.url+'user/updateSnakeStats',model);
+  }
+  updateBlackJackStats(model: any): Observable<IScore>{
+    return this.http.post<IScore>(this.url+'user/updateBlackJackStats',model);
+  }
+  updateTicTacToeStats(model: any): Observable<IScore>{
+    console.log("updating tic tok");
+    return this.http.post<IScore>(this.url+'user/updateTicTacToeStats',model);
+  }
+  updateLightBikeStats(model: any): Observable<IScore>{
+    return this.http.post<IScore>(this.url+'user/updateLightBikeStats',model);
+  }
+
   getTop10ScoresByGameId(gameId: number) : Observable<IScore[]>
   {
     return this.http.get<IScore[]>(this.url + "Game/getTop10ScoresByGameId/" + gameId);
   }
-  getScoreHistoryByGameId(gameId: number) : Observable<IScore[]>
+
+  getTop10BlackJackStats() : Observable<IStat[]>
   {
-    return this.http.get<IScore[]>(this.url + "Game/getScoreHistoryByGameId/" + gameId);
+    return this.http.get<IStat[]>(this.url + "Game/getTop10BlackJackStats/");
   }
 
-  getUserFromUserId(userId: number) : Observable<IUser>
+  getTop10TicTacToeStats() : Observable<IStat[]>
   {
-    return this.http.get<IUser>(this.url + "User/getUserFromUserId/" + userId);
+    return this.http.get<IStat[]>(this.url + "Game/getTop10TicTacToeStats/");
   }
 
-  getUserFromUserName(userName: string) : Observable<IUser>
+  getTop10LightBikeStats() : Observable<IStat[]>
   {
-    return this.http.get<IUser>(this.url + "User/getUserFromUserName/" + userName);
+    return this.http.get<IStat[]>(this.url + "Game/getTop10LightBikeStats/");
   }
 
-  getScoreHistoryByUserId(userId: number) :Observable<IUserScore[]>
+  getSnakeGameStatsByUserName(userName: string) : Observable<IGameStats>
   {
-    return this.http.get<IUserScore[]>(this.url + "User/getScoreHistoryByUserId/" + userId);
+    return this.http.get<IGameStats>(this.url + "User/getSnakeGameStatsByUserName/" + userName);
   }
 
-  getSnakeGameStatsByUserId(userId: number) : Observable<IGameStats>
+  getBlackJackGameStatsByUserName(userName: string) : Observable<IGameStats>
   {
-    return this.http.get<IGameStats>(this.url + "User/getSnakeGameStatsByUserId/" + userId);
+    return this.http.get<IGameStats>(this.url + "User/getBlackJackGameStatsByUserName/" + userName);
   }
 
-  getBlackJackGameStatsByUserId(userId: number) : Observable<IGameStats>
+  getTicTacToeGameStatsByUserName(userName: string) : Observable<IGameStats>
   {
-    return this.http.get<IGameStats>(this.url + "User/getBlackJackGameStatsByUserId/" + userId);
+    return this.http.get<IGameStats>(this.url + "User/getTicTacToeGameStatsByUserName/" + userName);
   }
 
-  getTicTacToeGameStatsByUserId(userId: number) : Observable<IGameStats>
+  getLightBikeGameStatsByUserName(userName: string) : Observable<IGameStats>
   {
-    return this.http.get<IGameStats>(this.url + "User/getTicTacToeGameStatsByUserId/" + userId);
+    return this.http.get<IGameStats>(this.url + "User/getLightBikeGameStatsByUserName/" + userName);
   }
+
 }

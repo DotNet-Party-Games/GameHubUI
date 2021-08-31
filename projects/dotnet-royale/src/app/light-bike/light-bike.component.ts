@@ -54,7 +54,7 @@ export class lightbikeComponent implements OnInit {
   public roomId: string;
   finalScore: IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null
   }
   obj: GameState;
@@ -334,7 +334,7 @@ export class lightbikeComponent implements OnInit {
           {
             this.GameEnd = true;
           }
-      
+
           const direction = this.direction$.value;
           const nextField = this.getNextField(game, direction);
           const nextFieldType = this.getFieldType(nextField, game);
@@ -373,11 +373,13 @@ export class lightbikeComponent implements OnInit {
       .subscribe(game => {
         this.game$.next(game);
         if (game.lost) {
-          this.finalScore.gamesId = 1;
-          this.finalScore.score = (this.score * 100) - 100;
-          this.finalScore.userId = parseInt(sessionStorage.getItem('userId'));
-          this.partyGameApi.addscore(this.finalScore).subscribe();
-          this.partyGameApi.updateSnakeStats(this.finalScore).subscribe();
+          this.finalScore.gamesId = 4;
+          this.finalScore.score = 0;
+          this.finalScore.userName = sessionStorage.getItem('userName');
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            this.partyGameApi.updateLightBikeStats(this.finalScore).subscribe(); 
+          });
+          
           this.lost$.next();
         }
       });

@@ -1,0 +1,25 @@
+<!--
+<pre>
+                                   # #  ( )
+                                ___#_#___|__
+                            _  |____________|  _
+                     _=====| | |            | | |==== _
+               =====| |.---------------------------. | |====
+ ---------------------'   .  .  .  .  .  .  .  .   '-------------/
+   \                                                             /
+    \_______________________________________________WWS_________/
+ wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww 
+
+We're working on this game component!!!
+</pre>
+-->
+<!-- <app-room-list></app-room-list> -->
+<div *ngIf="!winner&&!loser">
+<app-gameboard-setup *ngIf="!gameState"></app-gameboard-setup>
+<app-game-board *ngIf="gameState"></app-game-board>
+<app-chat></app-chat>
+</div>
+<div *ngIf="winner" >You Win!!!</div>
+<div *ngIf="loser">You Lose :(</div>

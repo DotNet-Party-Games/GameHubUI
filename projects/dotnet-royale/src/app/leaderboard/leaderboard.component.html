@@ -10,7 +10,7 @@
 
   <div class="row justify-content-md-center text-white"  style="height: 70vh;">
 
-    <div class="col col-4">
+    <div class="col col-3">
       <div class="card bg-dark m-4">
         <div class="card-header text-center" style="background-color: #111;">
           <h3>SNAKE</h3>
@@ -19,7 +19,7 @@
           <table class="table table-sm">
             <tr *ngFor = "let snakeLeader of snakeLeaders" class="text-white bg-dark">
               <td>
-                <i class="fas fa-user-circle mr-2"></i>{{snakeLeader.username | uppercase}}
+                <i class="fas fa-user-circle mr-2"></i>{{snakeLeader.userName | uppercase}}
               </td>
               <td>
                 {{snakeLeader.score}}
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="col col-4">
+    <div class="col col-3">
       <div class="card bg-dark m-4">
         <div class="card-header text-center" style="background-color: #111;">
           <h3>BLACK JACK</h3>
@@ -39,10 +39,10 @@
           <table class="table table-sm">
             <tr *ngFor = "let blackjackLeader of blackjackLeaders" class="text-white bg-dark">
               <td>
-                <i class="fas fa-user-circle mr-2"></i>{{blackjackLeader.username | uppercase}}
+                <i class="fas fa-user-circle mr-2"></i>{{blackjackLeader.userName | uppercase}}
               </td>
               <td>
-                {{blackjackLeader.score}}
+                {{blackjackLeader.winLossRatio}}
               </td>
             </tr>
           </table>
@@ -50,7 +50,7 @@
        </div>
     </div>
 
-    <div class="col col-4">
+    <div class="col col-3">
       <div class="card bg-dark m-4">
         <div class="card-header text-center" style="background-color: #111;">
           <h3>TIC-TAC-TOE</h3>
@@ -59,10 +59,30 @@
           <table class="table table-sm">
             <tr *ngFor = "let tictactoeLeader of tictactoeLeaders" class="text-white bg-dark">
               <td>
-                <i class="fas fa-user-circle mr-2"></i>{{tictactoeLeader.username | uppercase}}
+                <i class="fas fa-user-circle mr-2"></i>{{tictactoeLeader.userName | uppercase}}
               </td>
               <td>
-                {{tictactoeLeader.score}}
+                {{tictactoeLeader.winLossRatio}}
+              </td>
+            </tr>
+          </table>
+        </div>
+       </div>
+    </div>
+
+    <div class="col col-3">
+      <div class="card bg-dark m-4">
+        <div class="card-header text-center" style="background-color: #111;">
+          <h3>LIGHT BIKE</h3>
+        </div>
+        <div class="m-2 overflow-auto">
+          <table class="table table-sm">
+            <tr *ngFor = "let lightbikeLeader of lightbikeLeaders" class="text-white bg-dark">
+              <td>
+                <i class="fas fa-user-circle mr-2"></i>{{lightbikeLeader.userName | uppercase}}
+              </td>
+              <td>
+                {{lightbikeLeader.winLossRatio}}
               </td>
             </tr>
           </table>
