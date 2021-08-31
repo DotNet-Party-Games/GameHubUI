@@ -24,7 +24,11 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
 import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
+import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 
+
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {}};
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SocketIoModule.forRoot(config),
     AuthModule.forRoot({
       domain: environment.auth.domain,
       clientId: environment.auth.clientId,
@@ -67,7 +72,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
-      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)}
+      {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
+      {path:"game/battleship", component:RoomComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
       //{path: "**", redirectTo: "home"}
     ]),
     FormsModule,
