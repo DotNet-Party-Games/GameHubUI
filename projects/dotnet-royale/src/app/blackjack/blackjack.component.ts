@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 export interface Blackjack {
-  
+
   hdstand : any; // dealer stand
   hdpoints : any; // dealer points
   hdhand : any; // dealer hand
@@ -44,7 +44,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
 
   finalScore : IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null,
   }
 
@@ -95,14 +95,14 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   }
 
   public roomId: string;
-  ngOnInit(): void {    
+  ngOnInit(): void {
     bj.hdstand = document.getElementById("deal-stand");
     bj.hdpoints = document.getElementById("deal-points");
     bj.hdhand = document.getElementById("deal-cards");
     bj.hpstand = document.getElementById("play-stand0");
     bj.hppoints = document.getElementById("play-points0");
     bj.hphand = document.getElementById("play-cards0");
-   
+
     bj.hpstand2 = document.getElementById("play-stand1");
     bj.hppoints2 = document.getElementById("play-points1");
     bj.hphand2 = document.getElementById("play-cards1");
@@ -163,7 +163,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       for(let i = 0; i < this.players.length; i++) {
         this.join(this.players[i], this.roomId);
       }
-      
+
   }
 
   join (username:string, roomId:string):void{
@@ -186,7 +186,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
 
 
 var bj = {
-  
+
   hdstand : null, // dealer stand
   hdpoints : null, // dealer points
   hdhand : null, // dealer hand
@@ -238,7 +238,7 @@ var bj = {
     bj.dstand = false;  bj.pstand = false; bj.pstand2 = false;// bj.pstand3 = false; bj.pstand4 = false;
     bj.hdpoints.innerHTML = "?"; bj.hppoints.innerHTML = 0; bj.hppoints2.innerHTML = 0;  //bj.hppoints3.innerHTML = 0;  bj.hppoints4.innerHTML = 0;
     bj.hdhand.innerHTML = ""; bj.hphand.innerHTML = ""; bj.hphand2.innerHTML = "";// bj.hphand3.innerHTML = ""; bj.hphand4.innerHTML = "";
-    // bj.hdpoints.value = 0; 
+    // bj.hdpoints.value = 0;
     // console.log(`Dealer points is ${bj.hdpoints.value}`);
     // bj.hppoints.value = 0;
     // console.log(`Player points is ${bj.hppoints.value}`);
@@ -273,7 +273,7 @@ var bj = {
       bj.turn = i; bj.draw(); bj.draw();
     }
 
-    // bj.turn = 0; bj.draw(); bj.turn = 1; bj.draw(); 
+    // bj.turn = 0; bj.draw(); bj.turn = 1; bj.draw();
     // bj.turn = 0; bj.draw(); bj.turn = 1; bj.draw();
 
     // (C4) LUCKY 21 ON FIRST DRAW?
@@ -283,8 +283,8 @@ var bj = {
     }
 
     bj.winner = bj.check();
-    if (bj.winner == null && bj.winner2 == null && bj.winner3 == null && bj.winner4 == null) { 
-      bj.turn = 0; 
+    if (bj.winner == null && bj.winner2 == null && bj.winner3 == null && bj.winner4 == null) {
+      bj.turn = 0;
     }
     console.log('BJ turn in start function before is ' + bj.turn);
     if(bj.turn == bj.players.length) {
@@ -478,7 +478,7 @@ var bj = {
         if ((bj.winner==null || bj.winner==0) && bj.ppoints4==21) {
           bj.winner4 = 0; message += "Player4 wins with a Blackjack!";
         }
-        
+
 
         // DEALER WINS
         if (bj.winner==null && bj.winner2== null  && bj.dpoints==21) {
@@ -486,7 +486,7 @@ var bj = {
         }
         if(bj.players.length == 1) {
           if (bj.winner == null && bj.dpoints==21) {
-            bj.winner = 1; 
+            bj.winner = 1;
             message = "Dealer wins with a Blackjack!";
           }
         }
@@ -513,7 +513,7 @@ var bj = {
     // (F3) WHO GONE BUST?
     if (bj.winner == null) {
       if(bj.players.length==1)
-      {     
+      {
         //Player GONE BUST
         if (bj.ppoints>21) {
           bj.winner = 1;
@@ -522,13 +522,13 @@ var bj = {
 
         // DEALER GONE BUST
         if (bj.dpoints>21) {
-          bj.winner = 0; 
+          bj.winner = 0;
           message = "Dealer has gone bust - Players wins!";
         }
       }
 
       if(bj.players.length==2)
-      {     
+      {
         //Player GONE BUST
         if (bj.ppoints>21) {
           bj.winner = 1;
@@ -543,20 +543,20 @@ var bj = {
         }
         if(bj.ppoints>21 && bj.ppoints2>21)
         {
-          bj.winner = 1; 
+          bj.winner = 1;
           bj.winner2 = 1;
           message = "All Players have gone bust. Dealer wins."
         }
         // DEALER GONE BUST
         if (bj.dpoints>21) {
-          bj.winner = 0; 
+          bj.winner = 0;
           bj.winner2 = 0;
           message = "Dealer has gone bust - Players wins!";
         }
       }
 
       if(bj.players.length==3)
-      {     
+      {
         //Player GONE BUST
         if (bj.ppoints>21) {
           bj.winner = 1;
@@ -577,14 +577,14 @@ var bj = {
         }
         if(bj.ppoints>21 && bj.ppoints2>21 && bj.ppoints3>21)
         {
-          bj.winner= 1; 
+          bj.winner= 1;
           bj.winner2 = 1;
           bj.winner3 = 1;
           message = "All Players have gone bust. Dealer wins."
         }
         // DEALER GONE BUST
         if (bj.dpoints>21) {
-          bj.winner= 0; 
+          bj.winner= 0;
           bj.winner2 = 0;
           bj.winner3 = 0;
           message = "Dealer has gone bust - Players wins!";
@@ -592,7 +592,7 @@ var bj = {
       }
 
       if(bj.players.length==4)
-      {     
+      {
         //Player GONE BUST
         if (bj.ppoints>21) {
           bj.winner = 1;
@@ -623,15 +623,15 @@ var bj = {
           bj.winner= 1;
           bj.winner2 = 1;
           bj.winner3 = 1;
-          bj.winner4 = 1; 
+          bj.winner4 = 1;
           message = "All Players have gone bust. Dealer wins."
         }
         // DEALER GONE BUST
         if (bj.dpoints>21) {
-          bj.winner = 0; 
+          bj.winner = 0;
           bj.winner2 = 0;
           bj.winner3 = 0;
-          bj.winner4 = 0; 
+          bj.winner4 = 0;
           message = "Dealer has gone bust - Players wins!";
         }
       }
@@ -656,7 +656,7 @@ var bj = {
     if (bj.winner == null && bj.dstand && bj.pstand && bj.pstand2 && bj.players.length == 2) {
       // DEALER HAS MORE POINTS
       if (bj.dpoints > bj.ppoints) {
-        bj.winner = 1; 
+        bj.winner = 1;
         message = "Dealer beats Player with " + bj.dpoints + " points!";
       }
       if(bj.dpoints > bj.ppoints2) {
@@ -669,7 +669,7 @@ var bj = {
       }
       // PLAYER HAS MORE POINTS
       if (bj.dpoints < bj.ppoints) {
-        bj.winner = 0; 
+        bj.winner = 0;
         message += "Player wins with " + bj.ppoints + " points!";
       }
       if(bj.dpoints < bj.ppoints2) {
@@ -688,7 +688,7 @@ var bj = {
     if (bj.winner == null && bj.dstand && bj.pstand && bj.pstand2 && bj.pstand3 && bj.players.length == 3) {
       // DEALER HAS MORE POINTS
       if (bj.dpoints > bj.ppoints) {
-        bj.winner = 1; 
+        bj.winner = 1;
         message = "Dealer beats Player with " + bj.dpoints + " points!";
       }
       if(bj.dpoints > bj.ppoints2) {
@@ -705,7 +705,7 @@ var bj = {
       }
       // PLAYER HAS MORE POINTS
       if (bj.dpoints < bj.ppoints) {
-        bj.winner = 0; 
+        bj.winner = 0;
         message += "Player wins with " + bj.ppoints + " points!";
       }
       if(bj.dpoints < bj.ppoints2) {
@@ -731,7 +731,7 @@ var bj = {
     if (bj.winner == null && bj.dstand && bj.pstand && bj.pstand2 && bj.pstand3 && bj.pstand4 && bj.players.length == 4) {
       // DEALER HAS MORE POINTS
       if (bj.dpoints > bj.ppoints) {
-        bj.winner = 1; 
+        bj.winner = 1;
         message = "Dealer beats Player with " + bj.dpoints + " points!";
       }
       if(bj.dpoints > bj.ppoints2) {
@@ -752,7 +752,7 @@ var bj = {
       }
       // PLAYER HAS MORE POINTS
       if (bj.dpoints < bj.ppoints) {
-        bj.winner = 0; 
+        bj.winner = 0;
         message += "Player wins with " + bj.ppoints + " points!";
       }
       if(bj.dpoints < bj.ppoints2) {
@@ -824,8 +824,8 @@ var bj = {
 
     // (G3) CONTINUE GAME IF NO WINNER
     var winner = bj.check();
-    if (bj.winner==null && bj.winner2==null && bj.winner3==null && bj.winner4==null) { 
-      bj.next(); 
+    if (bj.winner==null && bj.winner2==null && bj.winner3==null && bj.winner4==null) {
+      bj.next();
     }
   },
 
@@ -834,51 +834,51 @@ var bj = {
     // (H1) SET STAND STATUS
     if (bj.turn == bj.players.length) {
       bj.dstand = true; bj.hdstand.classList.add("stood");
-    } 
+    }
     else if (bj.turn == 0) {
-      bj.pstand = true; 
+      bj.pstand = true;
       bj.hpstand.classList.add("stood");
     }
     else if (bj.turn == 1) {
-      bj.pstand2 = true; 
+      bj.pstand2 = true;
       bj.hpstand2.classList.add("stood");
     }
     else if (bj.turn == 2) {
-      bj.pstand3 = true; 
+      bj.pstand3 = true;
       bj.hpstand3.classList.add("stood");
     }
     else if (bj.turn == 3) {
-      bj.pstand4 = true; 
+      bj.pstand4 = true;
       bj.hpstand4.classList.add("stood");
     }
 
     // (H2) END GAME OR KEEP GOING?
     var winner = (bj.pstand && bj.dstand) ? bj.check() : null ;
-    if (winner==null) { 
-      bj.next(); 
+    if (winner==null) {
+      bj.next();
     }
     if(bj.players.length == 1) {
       var winner = (bj.pstand && bj.dstand) ? bj.check() : null ;
-      if (winner==null) { 
-        bj.next(); 
+      if (winner==null) {
+        bj.next();
       }
     }
     if(bj.players.length == 2) {
       var winner = (bj.pstand && bj.dstand && bj.pstand2) ? bj.check() : null ;
-      if (winner==null) { 
-        bj.next(); 
+      if (winner==null) {
+        bj.next();
       }
     }
     if(bj.players.length == 3) {
       var winner = (bj.pstand && bj.dstand && bj.pstand2 && bj.pstand3) ? bj.check() : null ;
-      if (winner==null) { 
-        bj.next(); 
+      if (winner==null) {
+        bj.next();
       }
     }
     if(bj.players.length == 4) {
       var winner = (bj.pstand && bj.dstand && bj.pstand2 && bj.pstand3 && bj.pstand4) ? bj.check() : null ;
-      if (winner==null) { 
-        bj.next(); 
+      if (winner==null) {
+        bj.next();
       }
     }
   },
@@ -915,7 +915,7 @@ var bj = {
     // }
 
     // // (I2) PLAYER IS NEXT
-    // else 
+    // else
     // {
     //   if(bj.turn == lastTurn)
     //   {
@@ -923,10 +923,10 @@ var bj = {
     //     {
     //       bj.turn = 0; bj.ai();
     //     }
-       
+
     //   }
     //     else{
-    //     if (bj.pstand) { 
+    //     if (bj.pstand) {
     //       bj.turn = 0; bj.ai();
     //     } // SKIP PLAYER TURN IF STOOD
     //   }

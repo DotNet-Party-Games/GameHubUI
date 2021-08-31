@@ -18,7 +18,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public currentUser: ILoggedUser;
   finalScore: IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null,
   }
   gameState: GameState = {
@@ -62,9 +62,9 @@ export class BoardComponent implements OnInit, OnDestroy {
       console.log(data);
       if (!this.pullPlayer) {
         this.gameState.playerList = data;
-        
+
         this.thisPlayer = this.gameState.playerList.indexOf(this.thisPlayerName);
-        
+
         this.numOfPlayers = this.gameState.playerList.length;
         this.gameState.squares = new Array((this.numOfPlayers + 1) ** 2).fill(null);
         if (this.thisPlayer == 0) {
@@ -96,7 +96,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   newGame() {
     this.gameState.gameStarted = true;
-    
+
     this.gameState.squares = new Array((this.numOfPlayers + 1) ** 2).fill(null);
     this.gameState.currentPlayer = 0;
     this.createGrid();
@@ -148,7 +148,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.gameState.isOver = true;
       this.playAudio("youwon");
       this.socketService.sendAudioTrigger({ audioFile: "youlose", room: this.roomId })
-    } 
+    }
     this.sendTicTacToeGamestate(this.gameState);
 
   }
