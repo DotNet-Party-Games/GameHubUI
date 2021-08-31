@@ -41,7 +41,8 @@ import { CommonModule } from '@angular/common';
 
 
 // creates configuration for module to operate off?
-const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {}};
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {}};
 
 @NgModule({
   declarations: [

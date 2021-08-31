@@ -28,7 +28,9 @@ import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 
 
-const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {}};
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {path:"/battleshipsocket/socket.io/"}};
+
 @NgModule({
   declarations: [
     AppComponent,
