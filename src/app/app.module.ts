@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { GamelobbyComponent } from './gamehub/components/gamelobby/gamelobby.component';
 import { GamewindowComponent } from './gamehub/components/gamewindow/gamewindow.component';
 import { LeaderboardComponent } from './gamehub/components/leaderboard/leaderboard.component';
 import { TeamwindowComponent } from './gamehub/components/teamwindow/teamwindow.component';
@@ -29,7 +28,6 @@ import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GamelobbyComponent,
     GamewindowComponent,
     LeaderboardComponent,
     TeamwindowComponent,
@@ -64,7 +62,6 @@ import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
       {path: '', redirectTo: "home", pathMatch: 'full'},
       {path: "home", component: HomeComponent},
       {path: "gamelist", component: GamewindowComponent,canActivate: [AuthGuard], },
-      {path: "gamelobby", component: GamelobbyComponent, canActivate: [AuthGuard], },
       {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
