@@ -1,13 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
-import { Profile } from '../../models/Profile';
+import { Component, OnInit} from '@angular/core';
 import { CustomCategory } from '../../models/CustomCategory';
 import { CustomWord } from '../../models/CustomWord';
 import { ProfileService } from '../../services/profile.service';
-import { RouterModule } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SocketIoService } from '../../services/socketio.service';
 import { LeaderBoard } from '../../models/LeaderBoard';
+import { UserService } from 'projects/hubservices/src/public-api';
 
 @Component({
   selector: 'app-profile',
@@ -16,16 +12,7 @@ import { LeaderBoard } from '../../models/LeaderBoard';
 })
 export class ProfileComponent implements OnInit {
 
-  currentPlayer: Profile = {
-    currentScore: 0,
-    email: "",
-    playerScore: 0,
-    playerName: "",
-    gamesPlayed: 0,
-    id: 0,
-    customWords: []
-  };
-  tempName: string | undefined;
+  
   newWord: string;
 
   category: CustomCategory = {
@@ -38,99 +25,54 @@ export class ProfileComponent implements OnInit {
     CustomWordName: ""
   }
   newCategory: string;
-  newName: string = "";
   wordAddCost: number = -100;
-  categoryAddCost: number = -250;
+  categoryAddCost: number = -500;
 
   userCategories: CustomCategory[];
+  userWords: CustomWord[];
   categoryName: string;
 
   player: LeaderBoard;
 
-  constructor(private profApi: ProfileService, public auth: AuthService, private socketService: SocketIoService) { }
+  constructor(private userService: UserService, private profApi: ProfileService) { }
 
   ngOnInit(): void {
-    // on startup get the profile from the data base
-    this.userCategories = [];
+    
     this.player = {
       currentScore: 0,
       overallScore: 0,
       nickName: ""
     };
-    this.auth.user$.subscribe(
-      (response) => {
-        this.player.nickName = <string>response?.nickname;
-        this.getUserInfo(this.player.nickName);
-        // this.currentPlayer.email = response?.email;
-        // this.tempName = response?.nickname; // should always be defined 
-        // this.getUserInfo(this.currentPlayer.email!);
-      }
-    );
-  }
-
-
-  getUserInfo(p_nickName: string) {
-    this.profApi.getUserScore(p_nickName).subscribe(
-      (response) => {
+    
+    this.userService.user.subscribe(response => {
+      this.player.nickName = <string>response?.username;
+    });
+    this.profApi.getUserScore(this.player.nickName).subscribe( (response => {
+      if(response) {
         this.player.currentScore = response.currentScore;
         this.player.overallScore = response.overallScore;
         this.player.id = response.id;
-        // this.currentPlayer.id = response.id;
-        // this.currentPlayer.playerName = response.playerName;
-        // this.currentPlayer.gamesPlayed = response.gamesPlayed;
-        // this.currentPlayer.currentScore = response.currentScore;
-        // this.currentPlayer.playerScore = response.playerScore;
-        // this.currentPlayer.customWords = response.customWords;
-        // this.socketService.currentLoggedIn = response;
-        if(response.id)
-        {
-          this.profApi.getCustomCategories(<number>this.player.id).subscribe(response => {
-            for (let item of response)
-            {
-              this.userCategories.push(
-                {
-                  id: item.id,
-                  playerId: item.playerId,
-                  customCategoryName: item.customCategoryName                }
-              )
-            }
-          });
-        }
-        if (response.nickName) {
-          this.socketService.SetUsername(response.nickName)
-        }
-      }, (error) => {
-        //If the backend is unable to find the profile from the email then
-        //it throws an error, when it does it creates the player profile
-        this.currentPlayer.playerName = this.tempName;
-        
-        this.profApi.addPlayerProfile(this.currentPlayer).subscribe(
-          (response) => {
-            this.currentPlayer.id = response.id;
-            if (response.playerName) {
-              this.socketService.SetUsername(this.tempName!)
-            }
-          }
-        );
       }
-    );
-  }
-  // I think having the parameter is irrelevant since the current profile is the only
-  // one being updated but Ill leave it like this.
-  updatePlayerProfile(profile: Profile) {
-    this.profApi.updatePlayerProfile(profile).subscribe();
-  }
+      else {
+        this.profApi.addPlayer(this.player.nickName).subscribe( (response => {
+          this.player.id = response.id;
+        }))
+      }
+    }))
 
+    this.userCategories = [];
+  }
+    
   addCategory() {  
     if(!this.newCategory) {
       alert("Please enter a category.");
       return;
     }
-    if (this.currentPlayer.currentScore < Math.abs(this.categoryAddCost)) {
+    if (this.player.currentScore < Math.abs(this.categoryAddCost)) {
       alert("You do not have enough points to add a category");
       return;
     }
-    this.category.playerId = this.currentPlayer.id;
+    this.category.playerId = this.player.id;
     this.category.customCategoryName = this.newCategory;
     this.profApi.addCategory(this.category).subscribe( result => {
       this.userCategories.push(
@@ -138,7 +80,6 @@ export class ProfileComponent implements OnInit {
           id: result.id,
           playerId: result.playerId,
           customCategoryName: result.customCategoryName
-
         }
       )
     });
@@ -159,87 +100,20 @@ export class ProfileComponent implements OnInit {
     }   
   }
 
-  addCustomWord() {
-    if (!this.newWord) {
-      alert("Please enter a word");
-      return;
-    }
-    
-    if (this.currentPlayer.currentScore < Math.abs(this.wordAddCost)) {
-      alert("You do not have enough points to add a word");
-      return;
-    }
-
-    this.word.PlayerId = this.currentPlayer.id;
-    this.word.CustomWordName = this.newWord;
-    this.profApi.addPlayerWord(this.word);
-
-  }
-
   addWord() {
     if (!this.newWord) {
       alert("Please enter a word");
       return;
     }
-    
-    if (this.currentPlayer.currentScore < Math.abs(this.wordAddCost)) {
+    if (this.player.currentScore < Math.abs(this.wordAddCost)) {
       alert("You do not have enough points to add a word");
       return;
     }
-  
-    this.profApi.getUserInfo(this.currentPlayer.email!).subscribe(
-      (response) => {
-        this.currentPlayer.id = response.id;
-        this.currentPlayer.playerName = response.playerName;
-        this.currentPlayer.gamesPlayed = response.gamesPlayed;
-        this.currentPlayer.currentScore = response.currentScore;
-        this.currentPlayer.playerScore = response.playerScore;
-        this.currentPlayer.customWords = response.customWords;
-
-        this.currentPlayer.customWords.push(this.newWord);
-        this.currentPlayer.currentScore += this.wordAddCost;
-        this.newWord = "";
-        this.updatePlayerProfile(this.currentPlayer);
-      });
-
+    this.word.PlayerId = this.player.id;
+    this.word.CustomWordName = this.newWord;
+    this.profApi.addPlayerWord(this.word);
   }
+
   removeWord(wordToRemove: string) {
-
-
-    this.profApi.getUserInfo(this.currentPlayer.email!).subscribe(
-      (response) => {
-        this.currentPlayer.id = response.id;
-        this.currentPlayer.playerName = response.playerName;
-        this.currentPlayer.gamesPlayed = response.gamesPlayed;
-        this.currentPlayer.currentScore = response.currentScore;
-        this.currentPlayer.playerScore = response.playerScore;
-        this.currentPlayer.customWords = response.customWords;
-        let index = this.currentPlayer.customWords.indexOf(wordToRemove);
-        if (index > -1) // if index is >= to len of arr then it is -1 
-        {
-          this.currentPlayer.customWords.splice(index, 1); //removes the word to be removed
-        }
-        this.updatePlayerProfile(this.currentPlayer); //update player profile with new list
-      });
-  }
-  changeUserName() {
-
-    this.profApi.getUserInfo(this.currentPlayer.email!).subscribe(
-      (response) => {
-        this.currentPlayer.id = response.id;
-        this.currentPlayer.playerName = response.playerName;
-        this.currentPlayer.gamesPlayed = response.gamesPlayed;
-        this.currentPlayer.currentScore = response.currentScore;
-        this.currentPlayer.playerScore = response.playerScore;
-        this.currentPlayer.customWords = response.customWords;
-        if (!this.newName || this.newName == this.currentPlayer.playerName) {
-          alert("Please enter a new usename");
-          return;
-        }
-        this.currentPlayer.playerName = this.newName;
-        this.socketService.SetUsername(this.currentPlayer.playerName);
-        this.updatePlayerProfile(this.currentPlayer);
-        this.newName = "";
-      });
   }
 }

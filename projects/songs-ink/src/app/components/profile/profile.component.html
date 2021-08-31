@@ -2,37 +2,24 @@
     <span>
         <h4>Player Info</h4>
         <div>
-            <p>Email: {{currentPlayer.email}}</p>
+            <p>Username: {{player.nickName}}</p>
         </div>
         <div>
-            <p>Username: {{currentPlayer.playerName}}</p>
-            <form (ngSubmit)="changeUserName()">
-                <div>
-                    <label for="text"><b>Update username:  </b></label>
-                    <input type="text" name="text" id="newName" [(ngModel)]="newName">
-                    <input type="submit" value="Update" class="btn btn-primary">
-                </div>
-                
-            </form>
+            <p>Total Score: {{player.overallScore}}</p>
         </div>
         <div>
-            <p>Games Played: {{currentPlayer.gamesPlayed}}</p>
-        </div>
-        <div>
-            <p>Total Score: {{currentPlayer.playerScore}}</p>
-        </div>
-        <div>
-            <p>Current Score: {{currentPlayer.currentScore}}</p>
+            <p>Current Score: {{player.currentScore}}</p>
         </div>
     </span>
     <span>
         <h4>Categories</h4>
-        <app-profile-categorylist *ngFor="let category of userCategories" 
-            [category]="category.customCategoryName"
+        <app-profile-categorylist *ngFor="let category of userCategories; let i = index" 
+            [(ngModel)]="userCategories[i].customCategoryName"
+            (category)="category.customCategoryName"
             (onRemoveCategory)="removeCategory(category.customCategoryName)">
         </app-profile-categorylist>
-        <app-profile-wordlist *ngFor="let word of currentPlayer.customWords" [word]="word"
-            (onRemoveWord)="removeWord(word)"></app-profile-wordlist>
+        <app-profile-wordlist *ngFor="let word of userWords" [word]="word.CustomWordName"
+            (onRemoveWord)="removeWord(word.CustomWordName)"></app-profile-wordlist>
         <div>
 
             <form (ngSubmit)="addCategory()">
@@ -43,7 +30,7 @@
                 </div>
             </form>
 
-            <form (ngSubmit)="addCustomWord()">
+            <form (ngSubmit)="addWord()">
                 <div >
                     <label for="text"><b>Add a word</b> ({{wordAddCost * -1}} points)</label>
                     <input type="text" name="text" id="newWord" [(ngModel)]="newWord">
