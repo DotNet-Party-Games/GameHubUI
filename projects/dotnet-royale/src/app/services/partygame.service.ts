@@ -19,7 +19,6 @@ export class PartygameService {
   //private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
   private url = 'http://revabox.eastus.cloudapp.azure.com';
 
-
  isLoggedIn:boolean;
   currentScore: IScore = {
     gamesId:null,
