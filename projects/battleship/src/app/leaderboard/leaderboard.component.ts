@@ -1,74 +1,9 @@
-/*import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-
-import { ScoreapiService } from '../services/scoreapi.service';
-import { ILeaderboard } from '../services/ILeaderBoard';
-
-export interface MockScore {
-  username: number,
-  wins: number,
-  winratio: number,
-  position: number
-}
-
-@Component({
-  selector: 'app-leaderboard',
-  templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css']
-})
-export class LeaderboardComponent implements OnInit {
-  board:ILeaderboard={
-    Id:1,
-    Scores:[]
-  }
-  Leaderboard:ILeaderboard = this.board;
-  SoloScoreboard:string ="solo";
-  NoData:boolean=true;
-  constructor(private ScoreApi:ScoreapiService) { 
-
-  }
-
-  ngOnInit(): void 
-  {
-    //this.ScoreApi.GetTeamLeaderBoard().subscribe(response=> this.TeamScores = response);
-    const scoreObserver={
-      next:(x: any)=> {this.Leaderboard=x; this.Leaderboard.Scores.sort((a, b) => (a.Score > b.Score) ? -1 : 1); this.NoData=false},
-      error:(err: any)=> console.log(err),  
-    }
-    this.ScoreApi.GetIndividualLeaderboard().subscribe(scoreObserver);
-  }
-
-/*   ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => {
-    });
-
-  }
-
-   getAllScore()
-  {
-    this.ScoreApi.getAllScores().subscribe(
-      (response) => {
-        this.scores = response;
-        this.scores.sort((a, b) => (a.scoreValue > b.scoreValue) ? -1 : 1);  // sort array from greatest to least
-        this.dataSource = new MatTableDataSource(Array.from(this.scores));
-        console.log(this.scores);
-      }
-    )
-    
-  } 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-  }
-}*/
-
-  
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { IScore } from './score';
-import { ScoreapiService } from '../services/scoreapi.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IUserScore } from '../services/IUserScores';
 import { ILeaderboard } from '../services/ILeaderBoard';
+import { StatisticapiService } from '../services/statisticapi.service';
 
 export interface MockScore {
   scoreId: number,
@@ -162,7 +97,7 @@ export class LeaderboardComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) mockSort: MatSort;
 
-  constructor(private ScoreApi:ScoreapiService) { 
+  constructor(private StatsApi:StatisticapiService) { 
     this.scores = new Array<IUserScore>();
     this.dataSource = new MatTableDataSource();
     MOCK_DATA.sort((a, b) => (a.scoreValue > b.scoreValue) ? -1 : 1);
@@ -176,7 +111,7 @@ export class LeaderboardComponent implements OnInit, AfterViewInit {
       next:(x: any)=> {this.Leaderboard=x; this.Leaderboard.Scores.sort((a, b) => (a.Score > b.Score) ? -1 : 1); this.NoData=false},
       error:(err: any)=> console.log(err),  
     }
-    this.ScoreApi.GetIndividualLeaderboard().subscribe(scoreObserver);
+    this.StatsApi.GetIndividualLeaderboard().subscribe(scoreObserver);
   }
 
   ngAfterViewInit() {
@@ -188,7 +123,7 @@ export class LeaderboardComponent implements OnInit, AfterViewInit {
 
   GetIndividualLeaderboard()
   {
-    this.ScoreApi.GetIndividualLeaderboard().subscribe(
+    this.StatsApi.GetIndividualLeaderboard().subscribe(
       (response) => {
         this.scores = response.Scores;
         this.scores.sort((a, b) => (a.Score > b.Score) ? -1 : 1);  // sort array from greatest to least

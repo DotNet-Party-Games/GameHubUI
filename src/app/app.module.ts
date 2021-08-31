@@ -25,7 +25,10 @@ import { GameComponent } from './gamehub/components/gamewindow/game/game.compone
 import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
+import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 
+
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {}};
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,7 @@ import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SocketIoModule.forRoot(config),
     AuthModule.forRoot({
       domain: environment.auth.domain,
       clientId: environment.auth.clientId,

@@ -1,12 +1,13 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute ,Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { BattleshipDeployService } from '../services/battleship-deploy.service';
 import { GameStateService } from '../services/gamestate.service';
 import { RoomService } from '../services/room.service';
 import { Ship } from '../services/ship';
 import { Orientation, Airplane } from '../services/airplane';
+import { relative } from 'path';
 
 @Component({
   selector: 'app-gameboard-setup',
@@ -22,7 +23,14 @@ export class GameboardSetupComponent implements OnInit {
   selectedShip: string;  // name of the ship selected to be placed
   isVertical: boolean = false;  // isRotated
   ships: Ship[] = new Array(5);
-  roomNum: number;
+  playerOneReady:boolean = false;
+  playerTwoReady:boolean = false;
+  playerThreeReady:boolean = false;
+  playerFourReady:boolean = false;
+  isWater:boolean = true;
+  size:number;
+  playerNumber:number;
+  roomNum: string;
   userId: string;  // this can now be username
   opponentId: string;  // this can also now be username
   shipsDeployed: boolean;
@@ -30,19 +38,21 @@ export class GameboardSetupComponent implements OnInit {
   opponentReady:boolean=false;
   ready1:boolean=false;
   ready2:boolean=false;
-  viewBoard: string = "sea";  // tells the browser which gameboard to actively view; default should be "sea"
+  viewBoard: boolean = true;  // tells the browser which gameboard to actively view; default should be "sea"
   airplanes: Airplane[] = new Array(4);
   airplanesDeployed: boolean;
   airplaneOrientation: Orientation;
   selectedAirplane: string;
   importedOrientation = Orientation;
   userControl:string;
+  users:string[] = [];
+  roomFull:boolean = false;
+  gameStarted:boolean = false;
 
-  constructor(public auth: AuthService, private deploy:BattleshipDeployService, private router:Router, private roomservice:RoomService, private gamestate:GameStateService) {
+  constructor(public auth: AuthService, private deploy:BattleshipDeployService, private router:Router, private roomservice:RoomService, private gamestate:GameStateService, private route:ActivatedRoute) {
     this.userControl = "";
     this.height = new Array(10);
     this.width = new Array(10);
-
     for(let i = 0; i < 10; i++){
       this.test[i] = new Array(10);
       for(let j=0; j<10; j++){
@@ -71,66 +81,65 @@ export class GameboardSetupComponent implements OnInit {
     this.shipsDeployed = false;
     this.airplanesDeployed = false;
     this.airplaneOrientation = Orientation.Vertical;
-    /*this.auth.idTokenClaims$.subscribe(
-      (response) => {
-        console.log(response);
-        if (response?.iat) {
-          this.userId = response.iat
-        }
-      }
-    );*/
   }
-
   ngOnInit(): void {
-    this.roomservice.currentRoom.subscribe(response => {this.roomNum= parseInt(response.id), console.log("Room num: "+response.id)});
 
-    this.gamestate.startingNavy.ocean = new Array(10);
-    this.gamestate.startingNavy.oceanLegend = new Array(10);
-    this.gamestate.startingNavy.craft = new Array(10);
+    this.roomservice.currentRoom.subscribe(response => this.roomNum = response);
+    this.gamestate.isWater.subscribe(environ => this.isWater = environ);
+    this.gamestate.roomFull.subscribe(full=>this.roomFull=full);
+    
+
+    this.gamestate.startingBoard.refNumber = new Array(10);
+    this.gamestate.startingBoard.legend = new Array(10);
+    this.gamestate.startingBoard.craft = new Array(10);
+
+    this.gamestate.EnemyStartingBoard.refNumber = new Array(10);
+    this.gamestate.EnemyStartingBoard.legend = new Array(10);
+    this.gamestate.EnemyStartingBoard.craft = new Array(10);
+
     for (let i = 0; i < 10; i ++) {
-      this.gamestate.startingNavy.ocean[i] = new Array(10);
-      this.gamestate.startingNavy.oceanLegend[i] = new Array(10);
-      this.gamestate.startingNavy.craft[i] = new Array(10);
+      this.gamestate.startingBoard.refNumber[i] = new Array(10);
+      this.gamestate.startingBoard.legend[i] = new Array(10);
+      this.gamestate.startingBoard.craft[i] = new Array(10);
+      this.gamestate.EnemyStartingBoard.refNumber[i] = new Array(10);
+      this.gamestate.EnemyStartingBoard.legend[i] = new Array(10);
+      this.gamestate.EnemyStartingBoard.craft[i] = new Array(10);
       for(let j = 0; j < 10; j ++) {
-        this.gamestate.startingNavy.ocean[i][j] = new Array(2);
-        this.gamestate.startingNavy.oceanLegend[i][j] = new Array(2);
-        this.gamestate.startingNavy.craft[i][j] = new Array(2);
-        this.gamestate.startingNavy.ocean[i][j][0] = 0;
-        this.gamestate.startingNavy.oceanLegend[i][j][0] = "water";
+        this.gamestate.startingBoard.refNumber[i][j] = new Array(2);
+        this.gamestate.startingBoard.legend[i][j] = new Array(2);
+        this.gamestate.startingBoard.craft[i][j] = new Array(2);
+        this.gamestate.EnemyStartingBoard.refNumber[i][j] = new Array(2);
+        this.gamestate.EnemyStartingBoard.legend[i][j] = new Array(2);
+        this.gamestate.EnemyStartingBoard.craft[i][j] = new Array(2);
+        
+        this.gamestate.startingBoard.refNumber[i][j][0] = 0;
+        this.gamestate.startingBoard.legend[i][j][0] = "water";
+        this.gamestate.startingBoard.craft[i][j][0] = "None";
+        this.gamestate.EnemyStartingBoard.refNumber[i][j][0] = 0;
+        this.gamestate.EnemyStartingBoard.legend[i][j][0] = "water";
+        this.gamestate.EnemyStartingBoard.craft[i][j][0] = "None";
 
-        this.gamestate.startingNavy.craft[i][j][0] = "None";
-		
-		// not sure if this is needed for transferring air layer
-        this.gamestate.startingNavy.ocean[i][j][1] = 0;
-        this.gamestate.startingNavy.oceanLegend[i][j][1] = "air";
+        this.gamestate.startingBoard.refNumber[i][j][1] = 0;
+        this.gamestate.startingBoard.legend[i][j][1] = "air";
+        this.gamestate.startingBoard.craft[i][j][1] = "None";
+        this.gamestate.EnemyStartingBoard.refNumber[i][j][1] = 0;
+        this.gamestate.EnemyStartingBoard.legend[i][j][1] = "air";
+        this.gamestate.EnemyStartingBoard.craft[i][j][1] = "None";
      }
     }
-    this.gamestate.opponentReady.subscribe(turn=>{this.opponentReady=turn, this.ready2=true;});
+    this.gamestate.playerOneReady.subscribe(turn=>this.playerOneReady=turn);
+    this.gamestate.playerTwoReady.subscribe(turn=>this.playerTwoReady=turn); 
+    this.gamestate.playerThreeReady.subscribe(turn=>this.playerThreeReady=turn);
+    this.gamestate.playerFourReady.subscribe(turn=>this.playerFourReady=turn);
+    this.gamestate.maxSize.subscribe(size=>this.size=size);
+    // this.gamestate.isWater.subscribe(water=>this.isWater=water);
+    this.gamestate.playerNumber.subscribe(numbers=> this.playerNumber=numbers);
+    this.gamestate.isWater.subscribe(envir => this.viewBoard = envir); 
+    this.gamestate.gameStarted.subscribe(started=>this.gameStarted=started);
   }
-/*   SetUpRoom() {
-    if (this.roomNum && this.userId && this.opponentId) {
-		this.BApi.Reset(this.roomNum).subscribe(
-		  (response) => {
-			this.BApi.SetUp(this.roomNum, this.userId, this.opponentId).subscribe(
-			  response => { console.log(response["user1"]);  // probably don't need to console log this?
-				  alert("Room has been created!");
-			  }
-			);
-		  }
-		)
-	}
-	else
-    {
-      alert("Need to have valid room number (not 0), user ID, and opponent ID!");
-    }
-  } */
 
   cycleBoardView() {
-    if (this.viewBoard == "sea") {
-      this.viewBoard = "air";
-    } else if (this.viewBoard == "air") {
-      this.viewBoard = "sea";
-    }
+    this.viewBoard=!this.viewBoard;
   }
 
   resetControl() {
@@ -1128,39 +1137,94 @@ export class GameboardSetupComponent implements OnInit {
   }
 
   Deploy(){
+    if(this.isWater){
     for(let i = 0; i < 5; i++){
       if(this.ships[i].placed == false){
         alert("Not all ships have been placed!");
         return;
       }
     }
-    for(let j=0; j<4; j++){
-      if(this.airplanes[j].placed==false){
-        alert("Not all planes have been placed!");
+    this.shipsDeployed = true;
+    this.sendtoserver();
+  }
+  if(!this.isWater){
+    for(let i = 0; i < 4; i++){
+      if(this.airplanes[i].placed == false){
+        alert("Not all airplanes have been placed!");
         return;
       }
     }
-    this.shipsDeployed = true;
-    this.ready1=true;
+    this.airplanesDeployed = true;
     this.sendtoserver();
   }
 
+  }
+
   sendtoserver(){
-    this.gamestate.startingNavy.oceanLegend=this.test;
-    this.gamestate.InterpretOcean(this.gamestate.startingNavy.ocean,this.gamestate.startingNavy.oceanLegend, this.gamestate.startingNavy.craft);
-    this.gamestate.SendPlayerBoard(this.gamestate.startingNavy);
-    if(this.opponentReady){
-      this.gamestate.StartGame();
-      
-    }else{
-      this.gamestate.ReadyUp();
-    }
+    this.gamestate.startingBoard.legend=this.test;
+    this.gamestate.InterpretBoard(this.gamestate.startingBoard.refNumber,this.gamestate.startingBoard.legend, this.gamestate.startingBoard.craft);
+    this.gamestate.SendPlayerBoard(this.gamestate.startingBoard);
+    
+    if(this.size==4){
+      console.log(this.playerNumber);
+      switch (this.playerNumber) {
+        case 1:
+          if(this.playerTwoReady&&this.playerThreeReady&&this.playerFourReady){
+            this.gamestate.StartGame()
+          } else{
+            this.gamestate.ReadyUp();
+          }
+          break;
+        case 2:
+          if(this.playerOneReady&&this.playerThreeReady&&this.playerFourReady){
+            this.gamestate.StartGame()
+          } else{
+            this.gamestate.ReadyUp();
+          }
+          break;
+        case 3:
+          if(this.playerOneReady&&this.playerTwoReady&&this.playerFourReady){
+            this.gamestate.StartGame()
+          } else{
+            this.gamestate.ReadyUp();
+          }
+          break;
+        case 4:
+          if(this.playerOneReady&&this.playerTwoReady&&this.playerThreeReady){
+            this.gamestate.StartGame()
+          } else{
+            this.gamestate.ReadyUp();
+          }
+          break;
+        default:
+          break;
+      }
+    } else if(this.size == 2){
+        switch (this.playerNumber) {
+          case 1:
+            if(this.playerTwoReady){
+              this.gamestate.StartGame()
+            } else{
+              this.gamestate.ReadyUp();
+            }
+            break;
+          case 2:
+            if(this.playerOneReady){
+              this.gamestate.StartGame()
+            } else{
+              this.gamestate.ReadyUp();
+            }
+            break;
+          default:
+            break;
+        }
+      }
   }
 
   LeaveRoom(){
     this.deploy.leaveRoom(this.roomNum);
     console.log("leaving room");
-    this.router.navigate(["/roomlist"]);
+    this.router.navigate(["/roomlist"], {relativeTo:this.route.parent});
   }
 
   CannotPlaceError(s:string){
@@ -1170,5 +1234,11 @@ export class GameboardSetupComponent implements OnInit {
       alert("Can't place {"+ this.selectedAirplane + "} at location {" + this.selected[0] + "," + this.selected[1]+ "}!");
     }
     
+  }
+
+  ngOnDestroy(){
+      if(!this.gameStarted){
+        this.gamestate.LeaveRoom();
+      }
   }
 }

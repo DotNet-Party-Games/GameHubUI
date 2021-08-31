@@ -26,7 +26,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.rooms = this.roomService.rooms;
-    this._roomSub = this.roomService.currentRoom.subscribe(room => this.currentRoom = room.id);
+    this._roomSub = this.roomService.currentRoom.subscribe(room => this.currentRoom = room);
   }
 
   ngOnDestroy() {

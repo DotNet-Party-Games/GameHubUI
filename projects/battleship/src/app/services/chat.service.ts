@@ -6,9 +6,9 @@ import { Observable, Observer } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatService {
-  message: string;
+  message = this.socket.fromEvent<string>('get message');
   broadcast:string;
-  messages = this.socket.fromEvent<string[]>('get message');
+  messages: Observable<string[]>;
 
   // initialize socket object
   constructor(private socket: Socket) { }
@@ -16,5 +16,6 @@ export class ChatService {
   sendMessage(message: string) {
     this.socket.emit('message', message);
   }
+
   
 }

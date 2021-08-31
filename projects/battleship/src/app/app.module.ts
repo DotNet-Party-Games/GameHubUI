@@ -56,7 +56,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
     RoomListComponent,
     RoomComponent,
     ChatComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
   ],
   imports: [
       BrowserModule,
@@ -95,6 +95,5 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       multi: true,
     }
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

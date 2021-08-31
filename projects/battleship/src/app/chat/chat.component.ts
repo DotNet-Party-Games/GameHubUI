@@ -16,16 +16,20 @@ export class ChatComponent implements OnInit {
   socket: Socket;
   message: string;
   data:string;
-  messages:Observable<string[]>;
+  messages:string[] = [];
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
-    this.messages = this.chatService.messages;
+    this.chatService.message.subscribe((message:string) =>{
+      this.messages.unshift(message);
+    });
   }
 
   SendMessage() {
+    if(this.message!=""){
     this.chatService.sendMessage(this.message);
+    }
     this.message = '';
   }
 }

@@ -1,13 +1,13 @@
-<div class="chat-messages">
-    <div class="chat-messages-show-container">
-        <ul class="chat-messages-show-list" id="message-list" *ngFor="let chat of messages | async">
+<div class="chat-messages" >
+    <div class="chat-messages-show-container" style="overflow-y:auto; display:flex; flex-direction:column-reverse">
+        <ul class="chat-messages-show-list" id="message-list" *ngFor="let chat of messages">
             <li >
                 {{chat}}
             </li>
         </ul>
     </div>
     <div class="chat-messages-create-container"> 
-        <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
+        <input class="chat-messages-create-input" type="text" (keyup.enter)="SendMessage()" [(ngModel)]="message">
         <button  class="chat-messages-create-button" (click)="SendMessage()"> Send </button>
     </div>
 </div>

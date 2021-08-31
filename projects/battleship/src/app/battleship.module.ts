@@ -29,7 +29,6 @@ import { GameComponent } from './game/game.component';
 import { LoginComponent } from './login/login.component';
 
 import { environment } from 'src/environments/environment';
-import { AuthModule } from '@auth0/auth0-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { GameBoardComponent } from './game-board/game-board.component';
@@ -42,7 +41,7 @@ import { CommonModule } from '@angular/common';
 
 
 // creates configuration for module to operate off?
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {}};
 
 @NgModule({
   declarations: [
@@ -63,7 +62,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       FlexLayoutModule,
       FormsModule,
       ReactiveFormsModule,
-      BrowserAnimationsModule,
       MatToolbarModule,
       MatInputModule,
       MatCardModule,
@@ -71,14 +69,13 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       MatIconModule,
       MatButtonModule,
       MatSlideToggleModule,
-      BrowserAnimationsModule,
       MatTableModule,
       MatDividerModule,
       MatButtonToggleModule,
       MatSlideToggleModule,
       MatSelectModule,
       MatProgressSpinnerModule,
-      SocketIoModule.forRoot(config),
+
       MatSortModule
   ],
   providers: [

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IStatistic } from '../profile/statistic';
+
+import { ILeaderboard } from './ILeaderBoard';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,11 @@ export class StatisticapiService {
   // {
   //   return this.http.get<IStatistic>(this.url + "Statistic" + "/get/" + userId.toString);
   // }
-  getUserStats() : Observable<IStatistic>
-  {
-    return this.http.get<IStatistic>(this.url + "Statistic" + "/get/1");
+  GetIndividualLeaderboard():Observable<ILeaderboard>{
+    return this.http.get<ILeaderboard>(this.url+"");
   }
+  UpdateStatistics(){
+    return this.http.post(this.url+"StatisticsController/update", {})
+  }
+
 }

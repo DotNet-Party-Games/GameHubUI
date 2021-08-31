@@ -1,232 +1,199 @@
 import { Injectable, Input } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Observer } from 'rxjs';
-import { INavy } from './gameboard';
+import { IBoard, IUser } from './gameboard';
 
 @Injectable({
     providedIn: 'root'
   })
   export class GameStateService {
+
+    //Updated on each shot
     currentTurn = this.socket.fromEvent<boolean>('turn change');
-    playerBoardUpdate = this.socket.fromEvent<INavy>('enemy shoots');
-    playerName = this.socket.fromEvent<string>('player name');
-    enemyName = this.socket.fromEvent<string>('enemy name');
-    enemyFleet = this.socket.fromEvent<INavy>('enemy fleet');
+
+    //Updated on each enemy shot
+    TeamBoard = this.socket.fromEvent<IBoard>('enemy shoots');
+
+    //Updated on each team shot
+    EnemyBoard = this.socket.fromEvent<IBoard>('team shoots');
+
+    EnemyStartingBoard:IBoard = new IBoard;
+
+    teammateBoard = this.socket.fromEvent<IBoard>('teammate start');
+    enemyAirStartBoard = this.socket.fromEvent<IBoard>('enemy air start');
+    enemySeaStartBoard = this.socket.fromEvent<IBoard>('enemy sea start');
+
+
+    //Updated on each shot
     statusMessage = this.socket.fromEvent<string>('status message');
-    startingNavy:INavy = new INavy;
+
+    startingBoard:IBoard = new IBoard;
+    teamBoard:IBoard = new IBoard;
+
+    //Updated once everyone is ready
     gameStarted = this.socket.fromEvent<boolean>('game active status');
-    opponentReady = this.socket.fromEvent<boolean>('opponent ready');
+
+    //Updated on each person readying up
+    playerOneReady = this.socket.fromEvent<boolean>('player one ready');
+    playerTwoReady = this.socket.fromEvent<boolean>('player two ready');
+    playerThreeReady = this.socket.fromEvent<boolean>('player three ready');
+    playerFourReady = this.socket.fromEvent<boolean>('player four ready');
+
+    //Gets updated on the winning shot (Inside 'win shot')
     winner = this.socket.fromEvent<boolean>('winner');
+
+    //Gets updated on the winning shot (Inside 'win shot')
     loser = this.socket.fromEvent<boolean>('loser');
+
+    //Gets updated upon joining a room (inside AddUserToList())
+    userList = this.socket.fromEvent<string[]>('user list');
+
+    //Gets updated upon joining a room (inside AddUserToList())
+    isWater = this.socket.fromEvent<boolean>('is water');
+
+    //Gets updated upon joining a room (inside AddUserToList())
+    playerteam = this.socket.fromEvent<boolean>('player team');
+
+    //Gets updated upon joining a room (inside AddUserToList())
+    maxSize = this.socket.fromEvent<number>('max size');
+
+    playerNumber = this.socket.fromEvent<number>('player number');
+
+    roomFull = this.socket.fromEvent<boolean>('room full');
+
+    currentPlayer = this.socket.fromEvent<number>('current player turn');
+
+    win:boolean;
+
+    size:number;
+
+    environ:boolean;
+
+    usersInRoom:string[];
+
+    currentPlayerstatic:number;
+
   
     // initialize socket object
-    constructor(private socket: Socket) { }
-    
-    SendPlayerBoard(navy:INavy){
-        this.socket.emit('send player board to opponent', navy);
-        this.socket.once('enemy fleet', ()=>this.socket.emit('send player board to opponent', this.startingNavy));
+    constructor(private socket: Socket) {
+      this.winner.subscribe(result => this.win = result);
+      this.maxSize.subscribe(result => this.size=result);
+      this.isWater.subscribe(result=>this.environ=result);
+      this.userList.subscribe(result=>this.usersInRoom = result);
+      this.teammateBoard.subscribe(result=>this.teamBoard=result);
+      this.currentPlayer.subscribe(result=>this.currentPlayerstatic=result)
+      this.enemyAirStartBoard.subscribe(result=>{
+          for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+              this.EnemyStartingBoard.legend[i][j][1]=result.legend[i][j][1]
+              this.EnemyStartingBoard.refNumber[i][j][1]=result.refNumber[i][j][1];
+              this.EnemyStartingBoard.craft[i][j][1]=result.craft[i][j][1];
+            }
+          }
+      });
+      this.enemySeaStartBoard.subscribe(result=>{
+        for (let i = 0; i < 10; i++) {
+          for (let j = 0; j < 10; j++) {
+            this.EnemyStartingBoard.legend[i][j][0]=result.legend[i][j][0];
+            this.EnemyStartingBoard.refNumber[i][j][0]=result.refNumber[i][j][0];
+            this.EnemyStartingBoard.craft[i][j][0]=result.craft[i][j][0];
+          }
+        }
+      });
     }
-
-    SendShot(updatedBoard:INavy, status:string){
-        this.socket.emit('send shot',updatedBoard);
+    SendPlayerBoard(board:IBoard){
+        this.socket.emit('send board', board);
+    }
+    SendShot(updatedBoard:IBoard, status:string){
+        this.socket.emit('send shot', updatedBoard);
         this.socket.emit('status message', status);
     }
-
-    UpdateNames(player:string){
-      this.socket.emit('update name', player);
-    }
-
     ReadyUp(){
       this.socket.emit('player ready');
     }
-
     StartGame(){
+      this.InterpretBoard(this.EnemyStartingBoard.refNumber,this.EnemyStartingBoard.legend,this.EnemyStartingBoard.craft);
+      this.InterpretBoard(this.startingBoard.refNumber,this.startingBoard.legend,this.startingBoard.craft);
+      this.TeamBoard.subscribe(result=>this.startingBoard = result);
+      this.EnemyBoard.subscribe(result=>this.EnemyStartingBoard = result);
+      this.socket.emit('starting boards',({board1:this.startingBoard, board2:this.EnemyStartingBoard}));
       this.socket.emit('start game');
+      
+
     }
     LeaveRoom(){
-      this.socket.emit("Leave Room");
+      if(this.win){
+        this.socket.emit('back to lobby after game')
+      } else{
+        this.socket.emit("leave room");
+      }
     }
-
     WinningShot(){
       this.socket.emit('win shot');
       
     }
-
-
-
-    InterpretOcean(item: number[][][], baseOcean: string[][][], craft: string[][][]) {
+    InterpretBoard(item: number[][][], itemLegend: string[][][], craft: string[][][]) {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
-          switch (baseOcean[i][j][0]) {
-            case "water":
-              item[i][j][0] = 0;
-              craft[i][j][0] = "None";
-              break;
-            case "hit":
-              item[i][j][0] = 1;
-              craft[i][j][0] = "None";
-              break;
-            case "miss":
-              item[i][j][0] = 2;
-              craft[i][j][0] = "None";
-              break;
-            case "destroyed":
-              item[i][j][0] = 3;
-              craft[i][j][0] = "None";
-              break;
-            case "destroyed":
-              item[i][j][0] = 4;
-              craft[i][j][0] = "None";
-              break;
-            case "water":
-              item[i][j][0] = 5;
-              craft[i][j][0] = "None";
-              break;
-            case "patrolboatr1":
-              item[i][j][0] = 6;
-              craft[i][j][0] = "Patrol";
-              break;
-            case "patrolboatr2":
-              item[i][j][0] = 7;
-              craft[i][j][0] = "Patrol";
-              break;
-            case "patrolboat1":
-              item[i][j][0] = 8;
-              craft[i][j][0] = "Patrol";
-              break;
-            case "patrolboat2":
-              item[i][j][0] = 9;
-              craft[i][j][0] = "Patrol";
-              break;
-            case "submariner1":
-              item[i][j][0] = 10;
-              craft[i][j][0] = "Submarine";
-              break;
-            case "submariner2":
-              item[i][j][0] = 11;
-              craft[i][j][0] = "Submarine";
-              break;
-            case "submariner3":
-              item[i][j][0] = 12;
-              craft[i][j][0] = "Submarine";
-              break;
-            case "submarine1":
-              item[i][j][0] = 13;
-              craft[i][j][0] = "Submarine";
-              break;
-            case "submarine2":
-              item[i][j][0] = 14;
-              craft[i][j][0] = "Submarine";
-              break;
-            case "submarine3":
-              item[i][j][0] = 15;
-              craft[i][j][0] = "Submarine";
-              break;
-            case "destroyerr1":
-              item[i][j][0] = 16;
-              craft[i][j][0] = "Destroyer";
-              break;
-            case "destroyerr2":
-              item[i][j][0] = 17;
-              craft[i][j][0] = "Destroyer";
-              break;
-            case "destroyerr3":
-              item[i][j][0] = 18;
-              craft[i][j][0] = "Destroyer";
-              break;
-            case "destroyer1":
-              item[i][j][0] = 19;
-              craft[i][j][0] = "Destroyer";
-              break;
-            case "destroyer2":
-              item[i][j][0] = 20;
-              craft[i][j][0] = "Destroyer";
-              break;
-            case "destroyer3":
-              item[i][j][0] = 21;
-              craft[i][j][0] = "Destroyer";
-              break;
-            case "battleshipr1":
-              item[i][j][0] = 22;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleshipr2":
-              item[i][j][0] = 23;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleshipr3":
-              item[i][j][0] = 24;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleshipr4":
-              item[i][j][0] = 25;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleship1":
-              item[i][j][0] = 26;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleship2":
-              item[i][j][0] = 27;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleship3":
-              item[i][j][0] = 28;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "battleship4":
-              item[i][j][0] = 29;
-              craft[i][j][0] = "Battleship";
-              break;
-            case "aircraftcarrierr1":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 30;
-              break;
-            case "aircraftcarrierr2":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 31;
-              break;
-            case "aircraftcarrierr3":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 32;
-              break;
-            case "aircraftcarrierr4":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 33;
-              break;
-            case "aircraftcarrierr5":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 34;
-              break;
-            case "aircraftcarrier1":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 35;
-              break;
-            case "aircraftcarrier2":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 36;
-              break;
-            case "aircraftcarrier3":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 37;
-              break;
-            case "aircraftcarrier4":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 38;
-              break;
-            case "aircraftcarrier5":
-              craft[i][j][0] = "Carrier";
-              item[i][j][0] = 39;
-              break;
-            default:
-              item[i][j][0] = 0;
-              craft[i][j][0] = "None";
-              break;
+          for(let k = 0; k < 2; k++){
+            switch (itemLegend[i][j][k]) {
+              case "water":
+                item[i][j][k] = 0;
+                craft[i][j][k] = "None";
+                break;
+              case "air":
+                craft[i][j][k] = "None";
+                item[i][j][k] = 0;
+                break;
+              default:
+                item[i][j][k] = 0;
+                craft[i][j][k] = "None";
+                break;
+            }
+            switch (itemLegend[i][j][k].substring(0,6)) {
+              case "plane1":
+                item[i][j][k] = 4;
+                craft[i][j][k] = "Helicopter";
+                break;
+              case "plane2":
+                item[i][j][k] = 5;
+                craft[i][j][k] = "Stealth";
+                break;
+              case "plane3":
+                item[i][j][k] = 6;
+                craft[i][j][k] = "Fighter1";
+                break;
+              case "plane4":
+                item[i][j][k] = 7;
+                craft[i][j][k] = "Fighter2";
+                break;
+              case "patrol":
+                item[i][j][k] = 8;
+                craft[i][j][k] = "Patrol";
+                break;
+              case "submar":
+                item[i][j][k] = 9;
+                craft[i][j][k] = "Submarine";
+                break;
+              case "destro":
+                item[i][j][k] = 10;
+                craft[i][j][k] = "Destroyer";
+                break;
+              case "battle":
+                item[i][j][k] = 11;
+                craft[i][j][k] = "Battleship";
+                break;
+              case "aircra":
+                item[i][j][k] = 12;
+                craft[i][j][k] = "Carrier";
+                break;
+              default:
+                break;
+            }
           }
         }
       }
     }
-
-
+    
   }
   

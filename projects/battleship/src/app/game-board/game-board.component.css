@@ -227,3 +227,305 @@ img {
     color: ivory;
     background-color: black;
 }
+/* air layer assets */
+td.air {
+  background-image: url("../../assets/cloud.png");
+}
+td.airhit {
+  background-image: url("../../assets/air_hit.png");
+}
+td.airmiss {
+  background-image: url("../../assets/air_miss.png");
+}
+
+td.airplaneDestroyed {
+  background-image: url("../../assets/plane_destroyed.png");
+}
+
+td.plane1_1 {
+  background-image: url("../../assets/plane1_1.png");
+}
+
+td.plane1_1_R1 {
+  background-image: url("../../assets/plane1_1_R1.png");
+}
+
+td.plane1_1_R2 {
+  background-image: url("../../assets/plane1_1_R2.png");
+}
+
+td.plane1_1_R3 {
+  background-image: url("../../assets/plane1_1_R3.png");
+}
+
+td.plane1_2 {
+  background-image: url("../../assets/plane1_2.png");
+}
+
+td.plane1_2_R1 {
+  background-image: url("../../assets/plane1_2_R1.png");
+}
+
+td.plane1_2_R2 {
+  background-image: url("../../assets/plane1_2_R2.png");
+}
+
+td.plane1_2_R3 {
+  background-image: url("../../assets/plane1_2_R3.png");
+}
+
+td.plane2_1 {
+  background-image: url("../../assets/plane2_1.png");
+}
+
+td.plane2_1_R1 {
+  background-image: url("../../assets/plane2_1_R1.png");
+}
+
+td.plane2_1_R2 {
+  background-image: url("../../assets/plane2_1_R2.png");
+}
+
+td.plane2_1_R3 {
+  background-image: url("../../assets/plane2_1_R3.png");
+}
+
+td.plane2_2 {
+  background-image: url("../../assets/plane2_2.png");
+}
+
+td.plane2_2_R1 {
+  background-image: url("../../assets/plane2_2_R1.png");
+}
+
+td.plane2_2_R2 {
+  background-image: url("../../assets/plane2_2_R2.png");
+}
+
+td.plane2_2_R3 {
+  background-image: url("../../assets/plane2_2_R3.png");
+}
+
+td.plane2_3 {
+  background-image: url("../../assets/plane2_3.png");
+}
+
+td.plane2_3_R1 {
+  background-image: url("../../assets/plane2_3_R1.png");
+}
+
+td.plane2_3_R2 {
+  background-image: url("../../assets/plane2_3_R2.png");
+}
+
+td.plane2_3_R3 {
+  background-image: url("../../assets/plane2_3_R3.png");
+}
+
+td.plane2_4 {
+  background-image: url("../../assets/plane2_4.png");
+}
+
+td.plane2_4_R1 {
+  background-image: url("../../assets/plane2_4_R1.png");
+}
+
+td.plane2_4_R2 {
+  background-image: url("../../assets/plane2_4_R2.png");
+}
+
+td.plane2_4_R3 {
+  background-image: url("../../assets/plane2_4_R3.png");
+}
+
+td.plane3_1 {
+  background-image: url("../../assets/plane3_1.png");
+}
+
+td.plane3_1_R1 {
+  background-image: url("../../assets/plane3_1_R1.png");
+}
+
+td.plane3_1_R2 {
+  background-image: url("../../assets/plane3_1_R2.png");
+}
+
+td.plane3_1_R3 {
+  background-image: url("../../assets/plane3_1_R3.png");
+}
+
+td.plane3_2 {
+  background-image: url("../../assets/plane3_2.png");
+}
+
+td.plane3_2_R1 {
+  background-image: url("../../assets/plane3_2_R1.png");
+}
+
+td.plane3_2_R2 {
+  background-image: url("../../assets/plane3_2_R2.png");
+}
+
+td.plane3_2_R3 {
+  background-image: url("../../assets/plane3_2_R3.png");
+}
+
+td.plane3_3 {
+  background-image: url("../../assets/plane3_3.png");
+}
+
+td.plane3_3_R1 {
+  background-image: url("../../assets/plane3_3_R1.png");
+}
+
+td.plane3_3_R2 {
+  background-image: url("../../assets/plane3_3_R2.png");
+}
+
+td.plane3_3_R3 {
+  background-image: url("../../assets/plane3_3_R3.png");
+}
+
+td.plane3_4 {
+  background-image: url("../../assets/plane3_4.png");
+}
+
+td.plane3_4_R1 {
+  background-image: url("../../assets/plane3_4_R1.png");
+}
+
+td.plane3_4_R2 {
+  background-image: url("../../assets/plane3_4_R2.png");
+}
+
+td.plane3_4_R3 {
+  background-image: url("../../assets/plane3_4_R3.png");
+}
+
+td.plane3_5 {
+  background-image: url("../../assets/plane3_5.png");
+}
+
+td.plane3_5_R1 {
+  background-image: url("../../assets/plane3_5_R1.png");
+}
+
+td.plane3_5_R2 {
+  background-image: url("../../assets/plane3_5_R2.png");
+}
+
+td.plane3_5_R3 {
+  background-image: url("../../assets/plane3_5_R3.png");
+}
+
+td.plane3_6 {
+  background-image: url("../../assets/plane3_6.png");
+}
+
+td.plane3_6_R1 {
+  background-image: url("../../assets/plane3_6_R1.png");
+}
+
+td.plane3_6_R2 {
+  background-image: url("../../assets/plane3_6_R2.png");
+}
+
+td.plane3_6_R3 {
+  background-image: url("../../assets/plane3_6_R3.png");
+}
+
+td.plane4_1 {
+  background-image: url("../../assets/plane4_1.png");
+}
+
+td.plane4_1_R1 {
+  background-image: url("../../assets/plane4_1_R1.png");
+}
+
+td.plane4_1_R2 {
+  background-image: url("../../assets/plane4_1_R2.png");
+}
+
+td.plane4_1_R3 {
+  background-image: url("../../assets/plane4_1_R3.png");
+}
+
+td.plane4_2 {
+  background-image: url("../../assets/plane4_2.png");
+}
+
+td.plane4_2_R1 {
+  background-image: url("../../assets/plane4_2_R1.png");
+}
+
+td.plane4_2_R2 {
+  background-image: url("../../assets/plane4_2_R2.png");
+}
+
+td.plane4_2_R3 {
+  background-image: url("../../assets/plane4_2_R3.png");
+}
+
+td.plane4_3 {
+  background-image: url("../../assets/plane4_3.png");
+}
+
+td.plane4_3_R1 {
+  background-image: url("../../assets/plane4_3_R1.png");
+}
+
+td.plane4_3_R2 {
+  background-image: url("../../assets/plane4_3_R2.png");
+}
+
+td.plane4_3_R3 {
+  background-image: url("../../assets/plane4_3_R3.png");
+}
+
+td.plane4_4 {
+  background-image: url("../../assets/plane4_4.png");
+}
+
+td.plane4_4_R1 {
+  background-image: url("../../assets/plane4_4_R1.png");
+}
+
+td.plane4_4_R2 {
+  background-image: url("../../assets/plane4_4_R2.png");
+}
+
+td.plane4_4_R3 {
+  background-image: url("../../assets/plane4_4_R3.png");
+}
+
+td.plane4_5 {
+  background-image: url("../../assets/plane4_5.png");
+}
+
+td.plane4_5_R1 {
+  background-image: url("../../assets/plane4_5_R1.png");
+}
+
+td.plane4_5_R2 {
+  background-image: url("../../assets/plane4_5_R2.png");
+}
+
+td.plane4_5_R3 {
+  background-image: url("../../assets/plane4_5_R3.png");
+}
+
+td.plane4_6 {
+  background-image: url("../../assets/plane4_6.png");
+}
+
+td.plane4_6_R1 {
+  background-image: url("../../assets/plane4_6_R1.png");
+}
+
+td.plane4_6_R2 {
+  background-image: url("../../assets/plane4_6_R2.png");
+}
+
+td.plane4_6_R3 {
+  background-image: url("../../assets/plane4_6_R3.png");
+}
