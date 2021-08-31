@@ -9,10 +9,12 @@ import { GameState } from '../TTTTGameState';
 })
 export class SocketioService {
 
-  private socket: Socket;
+  //private url = 'http://localhost:3000';
   //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
   private url = 'http://revabox.eastus.cloudapp.azure.com';
-  //private url = "http://localhost:3001"
+
+  private socket: Socket;
+
   private newGameState = new BehaviorSubject<any>({ x: 1, y: 1 });
   currentGameState = this.newGameState.asObservable();
   private newBlackjack = new BehaviorSubject<any>({});
@@ -22,12 +24,10 @@ export class SocketioService {
   private playerList = new BehaviorSubject<any>({});
   currentPlayerList = this.playerList.asObservable();
 
-  //private url = 'http://20.81.113.152/dotnetroyalesocket/';
-  //private url = 'https://pgsocketserver.herokuapp.com/';
   constructor() {
     this.socket = io(this.url, { path: '/dotnetroyalesocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] });
   }
-  // ================= General Room Stuff ============================== 
+  // ================= General Room Stuff ==============================
   joinRoom(data): void {
     this.socket.emit('join', data);
     sessionStorage.setItem('roomId', data.room);
@@ -125,7 +125,7 @@ export class SocketioService {
         observer.next(data));
       });
     }
-    
+
 
   //==================== Black Jack Stuff ==========================
   sendBlackJackData(data): void {
