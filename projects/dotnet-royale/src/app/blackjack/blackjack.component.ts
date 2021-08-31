@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ReservedOrUserEventNames } from 'socket.io-client/build/typed-events';
 import { BlackjackService } from '../services/blackjack/blackjack.service';
-import { IScore } from 'src/app/services/score';
+import { IScore } from '../services/score';
 import { PartygameService } from '../services/partygame.service';
 import { ILoggedUser } from '../services/user';
 import { Router } from '@angular/router';
