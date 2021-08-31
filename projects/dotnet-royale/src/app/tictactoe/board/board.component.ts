@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       password: "",
       userName: ""
     }
-    this.currentUser.id = parseInt(sessionStorage.getItem('userId'));
+   
     this.currentUser.userName = sessionStorage.getItem('userName');
     this.currentUser.password = sessionStorage.getItem('userPassword');
   }
@@ -85,7 +85,29 @@ export class BoardComponent implements OnInit, OnDestroy {
       //update game data with new data from server
       this.gameState=data;
       if(this.gameState.winner){
-        //call to add score to game
+        if(this.gameState.winner == this.thisPlayerName)
+        {
+          this.finalScore.gamesId=3;
+          this.finalScore.userName = this.thisPlayerName;
+          this.finalScore.score=1;
+          console.log("sending winner score");
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            console.log("insinde addscore");
+            this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
+          });
+        }else{
+          //call to add score to game
+        this.finalScore.gamesId=3;
+        this.finalScore.userName = this.thisPlayerName;
+        this.finalScore.score=0;
+        console.log("sending LOSER score");
+        this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+          console.log("insinde addscore");
+          this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
+        });
+        
+        }
+        
       }
 
     });
@@ -161,6 +183,12 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.playAudio("youwon");
       this.socketService.sendAudioTrigger({ audioFile: "youlose", room: this.roomId })
       //make call to service to update score
+      // this.finalScore.gamesId=3;
+      //   this.finalScore.userName = this.thisPlayerName;
+      //   this.finalScore.score=1;
+      //   console.log("sending winner score");
+      //   this.partyGameApi.addscore(this.finalScore);
+      //   this.partyGameApi.updateTicTacToeStats(this.finalScore);
 
     }
     this.sendTicTacToeGamestate(this.gameState);
