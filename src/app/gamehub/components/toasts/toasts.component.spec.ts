@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GamelobbyComponent } from './gamelobby.component';
+import { ToastsComponent } from './toasts.component';
 
-describe('GamelobbyComponent', () => {
-  let component: GamelobbyComponent;
-  let fixture: ComponentFixture<GamelobbyComponent>;
+describe('ToastsComponent', () => {
+  let component: ToastsComponent;
+  let fixture: ComponentFixture<ToastsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamelobbyComponent ]
+      declarations: [ ToastsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GamelobbyComponent);
+    fixture = TestBed.createComponent(ToastsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

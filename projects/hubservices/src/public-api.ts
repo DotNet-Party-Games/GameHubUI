@@ -4,3 +4,4 @@
 
 export * from './lib/gamechat.service';
 export * from './lib/user.service';
+export * from './lib/apptoast.service';

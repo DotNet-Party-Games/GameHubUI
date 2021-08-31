@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { GamelobbyComponent } from './gamehub/components/gamelobby/gamelobby.component';
 import { GamewindowComponent } from './gamehub/components/gamewindow/gamewindow.component';
 import { LeaderboardComponent } from './gamehub/components/leaderboard/leaderboard.component';
 import { TeamwindowComponent } from './gamehub/components/teamwindow/teamwindow.component';
@@ -24,11 +23,11 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
 import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GamelobbyComponent,
     GamewindowComponent,
     LeaderboardComponent,
     TeamwindowComponent,
@@ -38,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IsnotTMComponent,
     IsTMComponent,
     GameComponent,
-    LoadingWheelComponent
+    LoadingWheelComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,
@@ -62,14 +62,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       {path: '', redirectTo: "home", pathMatch: 'full'},
       {path: "home", component: HomeComponent},
       {path: "gamelist", component: GamewindowComponent,canActivate: [AuthGuard], },
-      {path: "gamelobby", component: GamelobbyComponent, canActivate: [AuthGuard], },
       {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)}
       //{path: "**", redirectTo: "home"}
-    ]),
+      
+    ], { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
