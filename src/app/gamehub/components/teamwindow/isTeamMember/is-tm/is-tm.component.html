@@ -1,97 +1,100 @@
-<div *ngIf="!isLoading; else loadingpanel" class="container-fluid text-white">
-    <div class="row">
-        <!-- list of my team members column -->
-        <div class="col me-5 mt-3">
-            <div class="row">
-                <div class="col"><h2 id="title">Members of {{teamName}}</h2></div>
-                <div class="col"><button class="btn btn-danger" type="submit" (click)="openModal(deleteTeamConfirm)" *ngIf="myteam.teamOwner==currentUser.id">Delete team</button>
-                    <button class="btn btn-danger" type="submit" (click)="openModal(leaveTeamConfirm)" *ngIf="myteam.teamOwner!=currentUser.id">Leave team</button></div>
-            </div>
-                
-                
-                <table class="table table-dark" style="margin-top: 20px;">
-                    <!-- thead -->
-                    <thead>
-                        <tr>
-                          <th>Profile</th>
-                          <th>User Name</th>
-                        </tr>            
-                    </thead>
-                    <!-- tbody -->
-                    <tbody>
-                        <tr *ngFor = "let member of myteam.users">
-                          <td><img src="{{member.picture}}" alt="" style="border-radius:100% ; width: 6%;"></td>
-                          <td >{{ member.username}}</td>
-                        </tr>
-                      
-                    </tbody> 
-                    <!-- tfoot -->
-                    <tfoot>
-            
-                    </tfoot>       
-                </table>
-             
+<div *ngIf="!isLoading; else loadingpanel" class="container-fluid text-white" id="team-container">
+  <div class="d-none d-md-flex" id="team-content">
+    <div id="team-content" class="row">
+      <!-- list of my team members column -->
+      <div class="col me-5 mt-3">
+        <div class="row">
+          <div class="col">
+            <h2 id="title">Members of {{teamName}}</h2>
+          </div>
+          <div class="col"><button class="btn btn-danger" type="submit" (click)="openModal(deleteTeamConfirm)"
+              *ngIf="myteam.teamOwner==currentUser.id">Delete team</button>
+            <button class="btn btn-danger" type="submit" (click)="openModal(leaveTeamConfirm)"
+              *ngIf="myteam.teamOwner!=currentUser.id">Leave team</button>
+          </div>
         </div>
-        <!-- Requests column -->
-        <div class="col-4 mt-3" *ngIf="myteam.teamOwner==currentUser.id">
-            <div class="row">
-                <h2 id="title">My requests</h2>
-            </div>
-                <table class="table table-dark" style="margin-top: 20px;">
-                    <thead>
-                        <tr>
-                          <th>Requesters</th>
-                          <th></th>
-                        </tr>            
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let request of requestList">
-                            <td>{{request.user.username}}</td>
-                            <td><a class="btn btn-primary" (click)="AcceptOrDeny(request.id,true)">Accept</a></td>
-                        </tr>
-                    </tbody>                
-                </table>
+        <table class="table table-dark" style="margin-top: 20px;">
+          <!-- thead -->
+          <thead>
+            <tr>
+              <th>Profile</th>
+              <th>User Name</th>
+            </tr>
+          </thead>
+          <!-- tbody -->
+          <tbody>
+            <tr *ngFor="let member of myteam.users">
+              <td><img src="{{member.picture}}" alt="" style="border-radius:100% ; width: 6%;"></td>
+              <td>{{ member.username}}</td>
+            </tr>
+
+          </tbody>
+          <!-- tfoot -->
+          <tfoot>
+
+          </tfoot>
+        </table>
+
+      </div>
+      <!-- Requests column -->
+      <div class="col-4 mt-3" *ngIf="myteam.teamOwner==currentUser.id">
+        <div class="row">
+          <h2 id="title">My requests</h2>
         </div>
-    </div>  
+        <table class="table table-dark" style="margin-top: 20px;">
+          <thead>
+            <tr>
+              <th>Requesters</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let request of requestList">
+              <td>{{request.user.username}}</td>
+              <td><a class="btn btn-primary" (click)="AcceptOrDeny(request.id,true)">Accept</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <app-gamechat></app-gamechat>
 </div>
 
 <ng-template #leaveTeamConfirm let-modal>
-    <div class="modal-header bg-dark text-white">
-      <h4 class="modal-title">Leave Team</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body bg-dark text-white">
-      <p>Are you sure you want to leave your team {{myteam.name}}?</p>
-    </div>
-    <div class="modal-footer bg-dark text-white">
-      <button ngbAutofocus type="button" class="btn btn-primary" (click)="leaveTeam()">Leave</button>
-      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
-    </div>
-  </ng-template>
+  <div class="modal-header bg-dark text-white">
+    <h4 class="modal-title">Leave Team</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-dark text-white">
+    <p>Are you sure you want to leave your team {{myteam.name}}?</p>
+  </div>
+  <div class="modal-footer bg-dark text-white">
+    <button ngbAutofocus type="button" class="btn btn-primary" (click)="leaveTeam()">Leave</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
 
-  <ng-template #deleteTeamConfirm let-modal >
-    <div class="modal-header bg-dark text-white">
-      <h4 class="modal-title">Delete Team</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body bg-dark text-white">
-      <p>Are you sure you want to disband your team {{myteam.name}}? This will cause all members to be teamless.</p>
-    </div>
-    <div class="modal-footer bg-dark text-white">
-      <button ngbAutofocus type="button" class="btn btn-primary" (click)="deleteTeam()">Disband</button>
-      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
-    </div>
-  </ng-template>
+<ng-template #deleteTeamConfirm let-modal>
+  <div class="modal-header bg-dark text-white">
+    <h4 class="modal-title">Delete Team</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-dark text-white">
+    <p>Are you sure you want to disband your team {{myteam.name}}? This will cause all members to be teamless.</p>
+  </div>
+  <div class="modal-footer bg-dark text-white">
+    <button ngbAutofocus type="button" class="btn btn-primary" (click)="deleteTeam()">Disband</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
 
-  <ng-template #loadingpanel>
-    <div id="spinner-wrapper" class="container-fluid spinner-wrapper">
-      <app-loading-wheel></app-loading-wheel>
-    </div>
-  </ng-template>
-  
-  
-  
+<ng-template #loadingpanel>
+  <div id="spinner-wrapper" class="container-fluid spinner-wrapper">
+    <app-loading-wheel></app-loading-wheel>
+  </div>
+</ng-template>

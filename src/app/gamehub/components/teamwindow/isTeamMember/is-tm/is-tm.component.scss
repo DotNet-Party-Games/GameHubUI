@@ -17,3 +17,15 @@ button{
     background-color: transparent;
     min-height: 400px;
   }
+  #team-container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    padding: 0px;
+  }
+
+  #team-content {
+    display: flex;
+    min-height: 100%;
+    margin: 0px;
+    flex-grow: 1;
+  }
