@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'projects/hubservices/src/models/user.model';
+import { UserService } from 'projects/hubservices/src/public-api';
 import { ITeamScore } from '../../interfaces/ITeamScores';
 import { LeaderboardService } from '../../services/leaderboardservice/leaderboard.service';
 
@@ -9,15 +11,17 @@ import { LeaderboardService } from '../../services/leaderboardservice/leaderboar
 })
 export class LeaderboardComponent implements OnInit {
 
-  TeamEntry?: ITeamScore[];
+  TeamEntry: ITeamScore[];
   SelectedGame: string = "partygames";
+  public user: User | null = null;
 
-  constructor(private leaderBoardService: LeaderboardService) { 
+  constructor(private leaderBoardService: LeaderboardService, public userService: UserService) { 
     // this.leaders.push({playerName:"klaus",score:1500});
     // this.leaders.push({playerName:"Iram",score:1000});
     // this.leaders.push({playerName:"Sean",score:500});
 
-  }
+    this.GetUser();
+    }
 
   ngOnInit(): void {
     this.GetTeamLeaderboard(this.SelectedGame);
@@ -29,8 +33,17 @@ export class LeaderboardComponent implements OnInit {
       (result) => {
         this.TeamEntry = result.scores;
         this.SelectedGame = result.id;
+        this.TeamEntry.sort((a, b) => (a.score > b.score ? -1 : 1));
         }
     );
+  }
+
+  GetUser()
+  {
+    this.userService.user.subscribe(user => {
+      // if(!this.isLoading) this.isLoading = true;
+      this.user = user;
+    });
   }
 
 }

@@ -78,6 +78,8 @@ export class GamechatComponent implements OnInit {
       this.connectionEstablished = isConnected;
       if (isConnected) {
         this.chatService.joinChat(this.channelId);
+      } else {
+        this.isLoading = true;
       }
     });
 

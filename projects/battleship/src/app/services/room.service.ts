@@ -2,6 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
+import { UserService } from 'projects/hubservices/src/public-api';
 import { Room } from '../models/room.model';
 
 @Injectable({
@@ -13,10 +14,11 @@ export class RoomService {
   currentRoom = this.socket.fromEvent<string>('room');
   rooms = this.socket.fromEvent<string[]>('rooms');
   roomSize = 2;
-  testName = this.roomId();
+  testName:string;
 
   // constructor initializes socket use
-  constructor(private socket: Socket, private router:Router, private route:ActivatedRoute) { 
+  constructor(private socket: Socket, private router:Router, private route:ActivatedRoute, private userService:UserService) { 
+    this.userService.user.subscribe(result=>this.testName=result.username);
     this.socket.emit('first connection', this.testName);
   }
 
@@ -40,6 +42,15 @@ export class RoomService {
       roomId += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return roomId;
+  }
+
+  UpdateScores(){
+    this.socket.on('winner', ()=>{
+
+    })
+    this.socket.on('loser', ()=>{
+        
+    })
   }
 
   joinTeam(friendID:string){

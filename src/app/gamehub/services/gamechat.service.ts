@@ -1,12 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { Console } from 'console';
 import { environment } from 'src/environments/environment';
 import { ChatAlert } from '../models/chatalert.model';
 import { ChatMessage } from '../models/chatmessage.model';
 import { ChatStatus } from '../models/chatstatus.model';
-import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'

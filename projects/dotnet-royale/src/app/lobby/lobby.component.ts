@@ -78,5 +78,12 @@ export class LobbyComponent implements OnInit {
   hideInputRoomId(){
     this.isInputRoomId = false;
   }
-
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = audioCue;
+    audio.load();
+    audio.play();
+  }
 }
