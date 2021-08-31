@@ -411,7 +411,7 @@ export class lightbikeComponent implements OnInit {
   {
     let audio = <HTMLAudioElement>document.getElementById('sfx');
     audio.volume= 0.1;
-    audio.src = audioCue;
+    audio.src = "location of audio" + audioCue + ".mp3";
     audio.load();
     audio.play();
   }

@@ -19,15 +19,3 @@ export class TicTacToeService {
 
 }
 
-
-/* Copy all this garbage into the socket index.js when Seunghoon is done
-// Hopefully this will work without any trouble
-socket.on('play audio', (data) => {
-  io.to(data.room).emit('receive audio', {gameboard: data.audioFile});
-}
-
-
-
-
-
-*/

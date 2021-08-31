@@ -4,6 +4,7 @@ import { io, Socket } from 'socket.io-client';
 import { BehaviorSubject } from 'rxjs';
 import { BoardComponent } from '../../tictactoe/board/board.component';
 import { GameState } from '../TTTTGameState';
+import { gamestate } from '../../blackjack/bjgamestate';
 @Injectable({
   providedIn: 'root'
 })
@@ -132,10 +133,12 @@ export class SocketioService {
     this.socket.emit('blackjack', data)
   }
 
-  getBlackJackData(): void {
-    this.socket.on('new blackjack', (data) => {
-      this.newBlackjack.next(data);
-    })
+  getBlackJackData(): Observable<gamestate> {
+    return new Observable(obs => {
+      this.socket.on('new blackjack', (data) => {
+        obs.next(data);
+      });
+    });
   }
 
 
