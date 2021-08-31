@@ -8,9 +8,8 @@ import { BoardComponent } from '../../tictactoe/board/board.component';
 export class TicTacToeService {
 
   //private url = 'http://localhost:3000';
-  //private url = 'http://20.81.113.152/dotnetroyalesocket/';
-  //private url = 'https://pgsocketserver.herokuapp.com/';
-  private url = 'https://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
+  //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
+  private url = 'http://revabox.eastus.cloudapp.azure.com';
   
   private socket: Socket;
 

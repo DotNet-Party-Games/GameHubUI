@@ -8,9 +8,8 @@ import { io, Socket } from 'socket.io-client';
 export class LivechatService {
 
   //private url = 'http://localhost:3000';
-  //private url = 'http://20.81.113.152/dotnetroyalesocket/';
-  //private url = 'https://pgsocketserver.herokuapp.com/';
-  private url = 'https://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
+  //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
+  private url = 'http://revabox.eastus.cloudapp.azure.com';
 
   private socket: Socket;
 
