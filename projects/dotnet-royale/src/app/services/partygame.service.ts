@@ -16,7 +16,9 @@ import { IUserScore } from './userscore';
 export class PartygameService {
   //url referencing the WebAPI
   //private url = "http://20.81.113.152/dotnetroyaleapi/";
-  private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
+  //private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
+  private url = 'http://revabox.eastus.cloudapp.azure.com';
+
 
  isLoggedIn:boolean;
   currentScore: IScore = {
@@ -32,6 +34,7 @@ export class PartygameService {
 
   //AddScore Methoid
   addscore(model: any): Observable<IScore>{
+    console.log("adding score");
     return this.http.post<IScore>(this.url+'user/addScore', model);
   }
 
@@ -47,6 +50,7 @@ export class PartygameService {
     return this.http.post<IScore>(this.url+'user/updateBlackJackStats',model);
   }
   updateTicTacToeStats(model: any): Observable<IScore>{
+    console.log("updating tic tok");
     return this.http.post<IScore>(this.url+'user/updateTicTacToeStats',model);
   }
   updateLightBikeStats(model: any): Observable<IScore>{
