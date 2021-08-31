@@ -5,6 +5,7 @@ import { Profile } from '../models/Profile';
 import { CustomCategory } from '../models/CustomCategory';
 import { CustomWord } from '../models/CustomWord';
 import { LeaderBoard } from '../models/LeaderBoard';
+import { Leader } from 'projects/dotnet-royale/src/app/services/leader';
 
 const httpOptions = 
 {
@@ -17,13 +18,18 @@ const httpOptions =
   providedIn: 'root'
 })
 export class ProfileService {
-  private url = "https://localhost:5001/api/Main/";
+  private url = "http://localhost:5002/api/Main/";
   
   constructor(private http: HttpClient) { }
 
+  addPlayer(p_userNickName: string): Observable<LeaderBoard>
+  {
+    return this.http.post<LeaderBoard>(`${this.url}AddPlayer/${p_userNickName}`, httpOptions);
+  }
+
   getUserScore(p_userNickName: string): Observable<LeaderBoard>
   {
-    return this.http.get<LeaderBoard>(`${this.url}/getScoreOfPlayer/${p_userNickName}`);
+    return this.http.get<LeaderBoard>(`${this.url}getScoreOfPlayer/${p_userNickName}`);
   }
 
   getUserInfo(userEmail: string) : Observable<Profile>
