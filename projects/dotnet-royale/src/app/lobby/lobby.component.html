@@ -41,8 +41,8 @@
             </div>
             <div *ngIf = "room.id != 'lobby'">
               <h4 class="text-white">
-              <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-star"></i></div>
-              <div *ngIf = "room.id != roomId" class="mr-2 badge badge-dark bg-dark text-dark"><i class="fas fa-square-full"></i></div>
+              <div *ngIf = "room.id == roomId" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-door-closed"></i></div>
+              <div *ngIf = "room.id != roomId" class="mr-2 badge badge-dark bg-dark text-dark"><i class="fas fa-door-closed"></i></div>
               {{room.id}}<span class="m-2 badge badge-info bg-info">{{room.users.length}}</span>
                 <button *ngIf = "room.users.length < roomSize" class="btn btn-warning" style="float: right" (click) = "goToRoom(room.id)">
                 <i class="fas fa-sign-in-alt"></i></button>
