@@ -373,11 +373,13 @@ export class lightbikeComponent implements OnInit {
       .subscribe(game => {
         this.game$.next(game);
         if (game.lost) {
-          this.finalScore.gamesId = 1;
-          this.finalScore.score = (this.score * 100) - 100;
+          this.finalScore.gamesId = 4;
+          this.finalScore.score = 0;
           this.finalScore.userName = sessionStorage.getItem('userName');
-          this.partyGameApi.addscore(this.finalScore).subscribe();
-          this.partyGameApi.updateSnakeStats(this.finalScore).subscribe();
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            this.partyGameApi.updateLightBikeStats(this.finalScore).subscribe(); 
+          });
+          
           this.lost$.next();
         }
       });

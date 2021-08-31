@@ -449,8 +449,10 @@ export class LayoutComponent implements OnInit {
           this.finalScore.gamesId = 1;
           this.finalScore.score = (this.score * 100) - 100;
           this.finalScore.userName = sessionStorage.getItem('userName');
-          this.partyGameApi.addscore(this.finalScore).subscribe();
-          this.partyGameApi.updateSnakeStats(this.finalScore).subscribe();
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            this.partyGameApi.updateSnakeStats(this.finalScore).subscribe();
+          });
+          
           this.lost$.next();
         }
       });
