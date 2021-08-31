@@ -1,0 +1,133 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<br><br>
+<button (click)="LeaveRoom()">Leave Room</button>
+<button class ="btn btn-primary" *ngIf="size==4" (click)="cycleBoardView()">Change board</button>
+<ng-container *ngIf="view">
+<table align="center">
+  <tbody>
+    <tr>
+      <td *ngIf="turn">Your turn</td>
+      <td></td>
+      <td></td>
+      <td *ngIf="!turn">Enemy turn</td>
+    </tr>
+    <tr>
+      <td>Your Ocean</td>
+      <td></td>
+      <td>Enemy Ocean</td>
+    </tr>
+    <tr>
+      <td>
+        <table class="table table-bordered border-primary" style="height: fit-content; width: 575px; ">
+          <tbody>
+            <tr *ngFor="let row of height; let y = index">
+              <td *ngFor="let col of width; let x = index" class="{{TeamBoard.legend[x][y][0]}}">{{x}},{{y}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+            <td></td>
+      <td>
+        <table class="table table-bordered border-primary" style="height: fit-content; width: 575px;">
+          <tbody>
+            <tr *ngFor="let row of height; let y = index">
+              <ng-container *ngFor="let col of width; let x = index">
+                <ng-container *ngIf="isWater">
+              <td *ngIf="EnemyBoard.refNumber[x][y][0] < 4;" class="{{EnemyBoard.legend[x][y][0]}}" (click)="Attack(x,y,0)">{{x}},{{y}}   </td>
+              <td *ngIf="EnemyBoard.refNumber[x][y][0] > 3;" class="water"  (click)="Attack(x,y,0)">{{x}},{{y}}   </td>
+                </ng-container>
+                <ng-container *ngIf="!isWater">
+                  <td *ngIf="EnemyBoard.refNumber[x][y][0] < 4;" class="{{EnemyBoard.legend[x][y][0]}}">{{x}},{{y}}   </td>
+                  <td *ngIf="EnemyBoard.refNumber[x][y][0] > 3;" class="water">{{x}},{{y}}   </td>
+                </ng-container>
+            </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ng-container *ngIf="isWater">
+<div align="center">Opponent's Remaining Ships</div>
+<div align="center">
+  <img *ngIf ="carrier!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/AircraftCarrier.png"> 
+  <img *ngIf ="battle!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/Battleship.png"> 
+  <img *ngIf ="dest!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/Destroyer.png"> 
+  <img *ngIf ="sub!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/Submarine.png"> 
+  <img *ngIf ="patrol!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/PatrolBoat.png"> 
+</div>
+</ng-container>
+</ng-container>
+<ng-container *ngIf="!view">
+  <table align="center">
+    <tbody>
+      <tr>
+        <td align="center" *ngIf="turn">Your turn</td>
+        <td></td>
+        <td></td>
+        <td align="center" *ngIf="!turn">Enemy turn</td>
+      </tr>
+      <tr>
+        <td align="center">Your Ocean</td>
+        <td></td>
+        <td align="center">Enemy Ocean</td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered border-primary" style="height: fit-content; width: 575px; ">
+            <tbody>
+              <tr *ngFor="let row of height; let y = index">
+                <td *ngFor="let col of width; let x = index" class="{{TeamBoard.legend[x][y][1]}}">{{x}},{{y}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+              <td></td>
+        <td>
+          <table class="table table-bordered border-primary" style="height: fit-content; width: 575px;">
+            <tbody>
+              <tr *ngFor="let row of height; let y = index">
+                <ng-container *ngFor="let col of width; let x = index">
+                  <ng-container *ngIf="!isWater">
+                <td *ngIf="EnemyBoard.refNumber[x][y][1] < 4;" class="{{EnemyBoard.legend[x][y][1]}}" (click)="Attack(x,y,1)">{{x}},{{y}}   </td>
+                <td *ngIf="EnemyBoard.refNumber[x][y][1] > 3;" class="air"  (click)="Attack(x,y,1)">{{x}},{{y}}   </td>
+                  </ng-container>
+                  <ng-container *ngIf="isWater">
+                    <td *ngIf="EnemyBoard.refNumber[x][y][1] < 4;" class="{{EnemyBoard.legend[x][y][1]}}">{{x}},{{y}}   </td>
+                    <td *ngIf="EnemyBoard.refNumber[x][y][1] > 3;" class="air">{{x}},{{y}}   </td>
+                  </ng-container>
+              </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-container *ngIf="!isWater">
+  <div align="center">Opponent's Remaining Planes</div>
+  <div align="center">
+    <img *ngIf ="heli!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/plane1.png"> 
+    <img *ngIf ="stealth!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/plane2.png"> 
+    <img *ngIf ="fight1!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/plane3.png"> 
+    <img *ngIf ="fight2!=0" style="align-items: center; margin-right: 5px;" src="./../../../../../src/assets/battleship/plane4.png"> 
+  </div>
+  </ng-container>
+  </ng-container>
+<p>Sounds:
+    Splash: https://freesound.org/people/petenice/sounds/9508/
+    By: petenice
+    
+    Explosion, Ship Sinking: Sound effects obtained from https://www.zapsplat.com
+
+    Victory music: https://freesound.org/s/475148/
+    By: rezyma
+
+    Loss Music: https://www.bands.army.mil/music/buglecalls/taps.asp
+    By: US Army Band
+
+    Ship Sinking Music:  
+</p>
