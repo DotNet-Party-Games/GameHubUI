@@ -21,4 +21,9 @@ export class LobbyComponent implements OnInit {
     this.router.navigate(['profile'], {relativeTo: this.route.parent})
   }
 
+  viewLeaderBoard()
+  {
+    this.router.navigate(['leaderboard'], {relativeTo: this.route.parent})
+  }
+
 }

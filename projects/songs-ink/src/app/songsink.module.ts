@@ -75,6 +75,7 @@ import { ProfileCategorylistComponent } from './components/profile-categorylist/
       {path: "game", component: GameComponent},
       {path:"login", component: LoginComponent},
       {path:"game", component: GameComponent},
+      {path:"leaderboard", component: LeaderboardComponent},
       {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}
     ]),
     CommonModule,
