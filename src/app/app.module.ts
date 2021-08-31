@@ -28,9 +28,7 @@ import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 
 
-// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
-const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/battleshipsocket/', options: {path:"/battleshipsocket/socket.io/"}};
-
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +73,7 @@ const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
-      {path:"game/battleship", component:RoomComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
+      {path:"game/battleship", component:GameComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
       //{path: "**", redirectTo: "home"}
     ]),
     FormsModule,

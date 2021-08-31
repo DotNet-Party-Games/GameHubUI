@@ -23,13 +23,13 @@ export class RoomService {
   // based off events in server
   joinRoom(id: string) {
     this.socket.emit('join room', id);
-    this.router.navigate(['/game', {relativeTo:this.route.parent}]);
+    this.router.navigate(['/game/battleship/gamescreen']);
   }
 
   addRoom() {
     console.log(this.roomSize);
     this.socket.emit('add a room', { id: this.roomId(), maxPlayers: this.roomSize });
-    this.router.navigate(['/game', {relativeTo:this.route.parent}]);
+    this.router.navigate(['/game/battleship/gamescreen']);
   }
 
   // function to make a random room id that can be parsed into a number for api calls

@@ -42,8 +42,9 @@
 // import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 
-// creates configuration for module to operate off?
-// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+// // creates configuration for module to operate off?
+// // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
 
 // @NgModule({
 //   declarations: [
@@ -82,10 +83,7 @@
 //       MatProgressSpinnerModule,
 //       SocketIoModule.forRoot(config),
 //       HttpClientModule,
-//       AuthModule.forRoot({
-//         domain: environment.domain,
-//         clientId: environment.clientId
-//       }),
+
 //       MatSortModule
 //   ],
 //   providers: [

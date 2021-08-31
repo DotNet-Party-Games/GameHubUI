@@ -76,7 +76,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       MatSlideToggleModule,
       MatSelectModule,
       MatProgressSpinnerModule,
-
       MatSortModule
   ],
   providers: [

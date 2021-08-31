@@ -571,3 +571,14 @@ td.plane4_6_R3 {
     float: left;
     margin-left: 5px;
 }
+
+.sidenav {
+    background-color: white;
+    height: 80%;
+    left: 10;
+    overflow-x: hidden;
+    padding-top: 0;
+    position: fixed;
+    top: 20.75%;
+    width: 10%;
+}
