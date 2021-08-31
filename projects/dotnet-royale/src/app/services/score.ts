@@ -3,6 +3,6 @@
 export interface IScore
 {
   gamesId: number;
-  userId: number;
+  userName: string;
   score: number;
 }

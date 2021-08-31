@@ -1,80 +1,88 @@
 /* (A) SHARED */
 /* (A1) CONTAINERS */
 #deal-wrap, #play-wrap {
-    min-height: 120px;
-  }
-  #deal-data, #play-data {
-    padding: 10px;
-    color: #333;
-  }
-  #winner{
-    overflow: hidden;
-    background: #008000;
-    color: #fff;
-  }
-  #deal-stand, #play-stand, #play-stand0,#play-stand1,#play-stand2,#play-stand3 {
-    display: none;
-    padding: 5px;
-    background: #ab2323;
-    color: #fff;
-  }
-  #deal-stand.stood, #play-stand.stood { display: inline-block; }
+  min-height: 120px;
+}
 
-  /* (A2) CARDS */
-  #deal-cards, #play-cards, #play-cards0, #play-cards1, #play-cards2, #play-cards3 {
-    color: #fff;
-    font-size: 40px;
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-gap: 10px;
-    padding: 7vh;
-  }
-  .bj-card {
-    box-sizing: border-box;
-    font-size: 20px;
-    text-align: center;
-    padding: 10px;
-    width: 100%;
-    background: #fff;
-    border: 1px solid #eaeaea;
-  }
+#deal-data, #play-data {
+  padding: 10px;
+  color: #333;
+}
 
-  /* (B) DEALER'S CARDS */
-  #deal-wrap { background: #343a40; }
-  #deal-data { background: #0275d8;}
-  #deal-data { font-size: 20px;
-              font-weight: bold;
-              color: #fff; }
-  #deal-first .front { display: none; }
-  #deal-first.show .back { display: none; }
-  #deal-first.show .front { display: block; }
+#winner{
+  overflow: hidden;
+  background: #008000;
+  color: #fff;
+}
 
-  /* (C) PLAYER'S CARDS */
-  #play-wrap { background: #343a40;}
-  #play-data { background: #d9534f;}
-  #play-data { font-size: 20px;
-    font-weight: bold;
-    color: #fff; }
+#deal-stand, #play-stand {
+  display: none;
+  padding: 5px;
+  background: #ab2323;
+  color: #fff;
+}
+  
+#deal-stand.stood, #play-stand.stood { 
+  display: inline-block; 
+}
 
-  /* (D) PLAY CONTROLS */
-  #play-control {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-gap: 1px;
-    padding: 1px;
-  }
-  #play-control input {
-    font-size: 20px;
-    font-weight: bold;
-    box-sizing: border-box;
-    cursor: pointer;
-    border: 0;
-    padding: 10px 0;
-    background: #0275d8;
-    color: #fff;
-    width: 100%;
-  }
-  #playc-hit, #playc-stand { display: block; }
-  #play-control.started { grid-template-columns: 50% 50%; }
-  #play-control.started #playc-start { display: none; }
-  #play-control.started #playc-hit, #play-control.started #playc-stand { display: block; }
+/* (A2) CARDS */
+#deal-cards, #play-cards {
+  color: #fff;
+  font-size: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  padding: 7vh;
+}
+
+.bj-card {
+  box-sizing: border-box;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eaeaea;
+}
+
+/* (B) DEALER'S CARDS */
+#deal-wrap { background: #343a40; }
+#deal-data { background: #0275d8;}
+#deal-data { font-size: 20px;
+            font-weight: bold;
+            color: #fff; }
+#deal-first .front { display: none; }
+#deal-first.show .back { display: none; }
+#deal-first.show .front { display: block; }
+
+/* (C) PLAYER'S CARDS */
+#play-wrap { background: #343a40;}
+#play-data { background: #d9534f;}
+#play-data { font-size: 20px;
+  font-weight: bold;
+  color: #fff; }
+
+/* (D) PLAY CONTROLS */
+#play-control {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 1px;
+  padding: 1px;
+}
+
+#play-control input {
+  font-size: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 0;
+  padding: 10px 0;
+  background: #0275d8;
+  color: #fff;
+  width: 100%;
+}
+#playc-hit, #playc-stand { display: block; }
+#play-control.started { grid-template-columns: 50% 50%; }
+#play-control.started #playc-start { display: none; }
+#play-control.started #playc-hit, #play-control.started #playc-stand { display: block; }

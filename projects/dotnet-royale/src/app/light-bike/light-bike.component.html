@@ -3,6 +3,8 @@
     <!--- This is Snake Game-->
     <ng-container *ngIf="game$ | async as game">
       <div style = "float:right;">
+        <audio id="bgmusic"></audio>
+        <audio id="sfx"></audio>
       <h5>Lives: {{lives}}</h5>  
       </div> 
       <div style="text-align:center">

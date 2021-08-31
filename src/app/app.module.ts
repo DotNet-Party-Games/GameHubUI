@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { GamelobbyComponent } from './gamehub/components/gamelobby/gamelobby.component';
 import { GamewindowComponent } from './gamehub/components/gamewindow/gamewindow.component';
 import { LeaderboardComponent } from './gamehub/components/leaderboard/leaderboard.component';
 import { TeamwindowComponent } from './gamehub/components/teamwindow/teamwindow.component';
@@ -26,13 +25,13 @@ import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
 
 
 const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
 @NgModule({
   declarations: [
     AppComponent,
-    GamelobbyComponent,
     GamewindowComponent,
     LeaderboardComponent,
     TeamwindowComponent,
@@ -42,7 +41,8 @@ const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com
     IsnotTMComponent,
     IsTMComponent,
     GameComponent,
-    LoadingWheelComponent
+    LoadingWheelComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +67,6 @@ const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com
       {path: '', redirectTo: "home", pathMatch: 'full'},
       {path: "home", component: HomeComponent},
       {path: "gamelist", component: GamewindowComponent,canActivate: [AuthGuard], },
-      {path: "gamelobby", component: GamelobbyComponent, canActivate: [AuthGuard], },
       {path: "leaderboard", component: LeaderboardComponent, canActivate: [AuthGuard], },
       {path: "teamwindow", component: TeamwindowComponent, canActivate: [AuthGuard], },
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
@@ -75,7 +74,8 @@ const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
       {path:"game/battleship", component:GameComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
       //{path: "**", redirectTo: "home"}
-    ]),
+      
+    ], { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

@@ -1,5 +1,5 @@
 <div style="height: 100vh;">
-
+  <audio id="sfx"></audio>
   <div class="row justify-content-md-center">
     <div class="col col-12">
       <div class="p-2 text-center text-warning" style="background-color: #111;">
@@ -25,8 +25,8 @@
         <ul class="list-group list-group-flush text-white overflow-auto" style="height: 66vh;">
           <li *ngFor="let user of userList" class="list-group-item bg-dark">
             <h4 class="text-white">
-              <div *ngIf = "user == username" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-star"></i></div>
-              <div *ngIf = "user != username" class="mr-2 badge badge-dark bg-dark text-dark"><i class="fas fa-square-full"></i></div>
+              <div *ngIf = "user == username" class="mr-2 badge badge-danger bg-danger"><i class="fas fa-user"></i></div>
+              <div *ngIf = "user != username" class="mr-2 badge badge-dark bg-dark text-dark"><i class="fas fa-user"></i></div>
               {{user}}
             </h4>
           </li>

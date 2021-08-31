@@ -21,6 +21,7 @@ li a
     font: 30px bold Verdana, sans-serif;
     opacity: 0.5;
     cursor: pointer;
+    transition: .3s ease;
 }
 
 li a:hover 
@@ -62,6 +63,7 @@ li a:hover
 #tbodytext
 {
     color: azure;
+    font: 16px Arial, sans-serif;
 }
 
 #gameselect
@@ -79,4 +81,10 @@ tbody tr {
 
 thead tr {
     border-color: azure;
+}
+
+.team td
+{
+    font-style: italic;
+    background-color: rgb(52, 106, 177);
 }

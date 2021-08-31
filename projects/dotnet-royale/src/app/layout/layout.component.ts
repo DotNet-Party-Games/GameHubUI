@@ -47,7 +47,7 @@ export class LayoutComponent implements OnInit {
   public roomId: string;
   finalScore: IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null
   }
   obj: GameState;
@@ -321,7 +321,7 @@ export class LayoutComponent implements OnInit {
           {
             this.GameEnd = true;
           }
-      
+
           // this.snakePositionDisplay = [].concat(this.snakePositionDisplay, this.SnakeGameState);
           // this.snakePositionDisplay = [].concat(this.snakePositionDisplay, this.SnakeGameState);
 
@@ -369,7 +369,7 @@ export class LayoutComponent implements OnInit {
           //   else
           //   {
           //     this.tempSnake = this.SnakeGameState;
-          //     this.SnakeGameState2 = this.SnakeGameState; 
+          //     this.SnakeGameState2 = this.SnakeGameState;
           //   }
           // }
           //subscription.unsubscribe();
@@ -448,7 +448,7 @@ export class LayoutComponent implements OnInit {
         if (game.lost) {
           this.finalScore.gamesId = 1;
           this.finalScore.score = (this.score * 100) - 100;
-          this.finalScore.userId = parseInt(sessionStorage.getItem('userId'));
+          this.finalScore.userName = sessionStorage.getItem('userName');
           this.partyGameApi.addscore(this.finalScore).subscribe();
           this.partyGameApi.updateSnakeStats(this.finalScore).subscribe();
           this.lost$.next();
@@ -471,6 +471,23 @@ export class LayoutComponent implements OnInit {
 
   goToRoom() {
     this.router.navigate(['room', { relativeTo: this.route }]);
+  }
+
+  playMusic()
+  {
+    let audio = <HTMLAudioElement>document.getElementById('bgmusic');
+    audio.volume= 0.1;
+    audio.src = "";
+    audio.load();
+    audio.play();
+  }
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = audioCue;
+    audio.load();
+    audio.play();
   }
 
 }
