@@ -82,6 +82,7 @@ export class IsTMComponent implements OnInit {
       sessionStorage.removeItem('teamName');
       this.userService.getUser();
     });
+    this.closeModal()
   }
 
   leaveTeam() {
@@ -90,13 +91,14 @@ export class IsTMComponent implements OnInit {
       sessionStorage.removeItem('teamName');
       this.userService.getUser();
     });
+    this.closeModal()
   }
 
-  openTeamLeaveModal(content: any) {
-    this.modalReference = this.modalService.open(content, { centered: true });
+  openModal(content: any) {
+    this.modalReference = this.modalService.open(content, { centered: true,  });
   }
 
-  closeTeamRequestModal() {
+  closeModal() {
     this.modalReference.close();
   }
 

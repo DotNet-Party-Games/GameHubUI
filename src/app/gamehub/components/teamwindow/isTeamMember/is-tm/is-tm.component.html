@@ -4,8 +4,8 @@
         <div class="col me-5 mt-3">
             <div class="row">
                 <div class="col"><h2 id="title">Members of {{teamName}}</h2></div>
-                <div class="col"><button class="btn btn-danger" type="submit" (click)="deleteTeam()" *ngIf="myteam.teamOwner==currentUser.id">Delete team</button>
-                    <button class="btn btn-danger" type="submit" (click)="openTeamLeaveModal(leaveTeamConfirm)" *ngIf="myteam.teamOwner!=currentUser.id">Leave team</button></div>
+                <div class="col"><button class="btn btn-danger" type="submit" (click)="openModal(deleteTeamConfirm)" *ngIf="myteam.teamOwner==currentUser.id">Delete team</button>
+                    <button class="btn btn-danger" type="submit" (click)="openModal(leaveTeamConfirm)" *ngIf="myteam.teamOwner!=currentUser.id">Leave team</button></div>
             </div>
                 
                 
@@ -37,7 +37,6 @@
             <div class="row">
                 <h2 id="title">My requests</h2>
             </div>
-                
                 <table class="table table-dark" style="margin-top: 20px;">
                     <thead>
                         <tr>
@@ -57,17 +56,33 @@
 </div>
 
 <ng-template #leaveTeamConfirm let-modal>
-    <div class="modal-header">
+    <div class="modal-header bg-dark text-white">
       <h4 class="modal-title">Leave Team</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body bg-dark text-white">
       <p>Are you sure you want to leave your team {{myteam.name}}?</p>
     </div>
-    <div class="modal-footer">
-      <button ngbAutofocus type="button" class="btn btn-success" (click)="leaveTeam()">Send</button>
+    <div class="modal-footer bg-dark text-white">
+      <button ngbAutofocus type="button" class="btn btn-primary" (click)="leaveTeam()">Leave</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteTeamConfirm let-modal >
+    <div class="modal-header bg-dark text-white">
+      <h4 class="modal-title">Delete Team</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body bg-dark text-white">
+      <p>Are you sure you want to disband your team {{myteam.name}}? This will cause all members to be teamless.</p>
+    </div>
+    <div class="modal-footer bg-dark text-white">
+      <button ngbAutofocus type="button" class="btn btn-primary" (click)="deleteTeam()">Disband</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
     </div>
   </ng-template>

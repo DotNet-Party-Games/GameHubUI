@@ -76,17 +76,17 @@
   </div>
 
   <ng-template #confirmTeamRequest let-modal>
-    <div class="modal-header">
+    <div class="modal-header bg-dark text-white">
       <h4 class="modal-title">Send Request</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body bg-dark text-white">
       <p>Send a request to join Team {{selectedTeamName}}?</p>
     </div>
-    <div class="modal-footer">
-      <button ngbAutofocus type="button" class="btn btn-success" (click)="sendJoinTeamRequest()">Send</button>
+    <div class="modal-footer bg-dark text-white">
+      <button ngbAutofocus type="button" class="btn btn-success" (click)="sendJoinTeamRequest()">Leave</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
     </div>
   </ng-template>
