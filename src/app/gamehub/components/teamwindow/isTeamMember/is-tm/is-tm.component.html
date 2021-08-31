@@ -1,4 +1,4 @@
-<div class="container-fluid text-white">
+<div *ngIf="!isLoading; else loadingpanel" class="container-fluid text-white">
     <div class="row">
         <!-- list of my team members column -->
         <div class="col me-5 mt-3">
@@ -84,6 +84,12 @@
     <div class="modal-footer bg-dark text-white">
       <button ngbAutofocus type="button" class="btn btn-primary" (click)="deleteTeam()">Disband</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #loadingpanel>
+    <div id="spinner-wrapper" class="container-fluid spinner-wrapper">
+      <app-loading-wheel></app-loading-wheel>
     </div>
   </ng-template>
   

@@ -9,3 +9,11 @@
 button{
     float: left;
 }
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    background-color: transparent;
+    min-height: 400px;
+  }

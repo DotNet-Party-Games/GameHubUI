@@ -32,6 +32,7 @@ export class IsTMComponent implements OnInit {
   public user: User | null = null;
   public connectionEstablished: Boolean = false;
   private modalReference: any = null;
+  public isLoading: Boolean = false;
 
   // Constructor
   constructor(private teamservice:TeamService,
@@ -44,6 +45,7 @@ export class IsTMComponent implements OnInit {
     }
 
   ngOnInit(): void {
+      this.isLoading = true;
       this.GetListOfRequest();
       this.SearchTeam();
   }
@@ -99,6 +101,7 @@ export class IsTMComponent implements OnInit {
    {
      this.teamservice.GetSearchedTeamsByName(this.teamName).subscribe((team : ITeam)=>{
        this.myteam = team;
+       this.isLoading = false;
      });
    }
 

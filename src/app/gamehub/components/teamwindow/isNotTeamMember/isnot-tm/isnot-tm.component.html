@@ -17,7 +17,7 @@
     <div class="row text-center" style="margin-top: 40px;">
       <div class="col">
         <h2 id="title">Team List</h2>
-        <table class="table table-dark table-stdiped" style="margin-top: 20px;">
+        <table *ngIf="!isLoading; else loadingpanel" class="table table-dark table-stdiped" style="margin-top: 20px;">
           <!-- thead -->
           <thead>
               <tr>
@@ -86,7 +86,13 @@
       <p>Send a request to join Team {{selectedTeamName}}?</p>
     </div>
     <div class="modal-footer bg-dark text-white">
-      <button ngbAutofocus type="button" class="btn btn-success" (click)="sendJoinTeamRequest()">Leave</button>
+      <button ngbAutofocus type="button" class="btn btn-success" (click)="sendJoinTeamRequest()">Send</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #loadingpanel>
+    <div id="spinner-wrapper" class="container-fluid spinner-wrapper">
+      <app-loading-wheel></app-loading-wheel>
     </div>
   </ng-template>

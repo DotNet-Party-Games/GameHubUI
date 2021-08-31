@@ -13,33 +13,28 @@ export class TeamwindowComponent implements OnInit {
 
   public currentUser: IUser | null = null;
   public userTeam:ITeam |any;
-  public haveTeam: boolean =false;
+  public haveTeam: boolean = false;
+  public isLoading: Boolean = true;
 
   constructor(public userService: UserService) {}
 
 
   ngOnInit(): void {
-    this.getCurrentUser();
+    this.isLoading = true;
     this.subscribeToEvents()
     
   }
 
-  getCurrentUser(): void {
-    this.userService.user.subscribe(currentUser => {
-      this.currentUser = currentUser;
-      console.log(currentUser)
-      if (currentUser != null && currentUser.team != null) {
+  subscribeToEvents(): void {
+    this.userService.user.subscribe(user => {
+      this.currentUser = user;
+      if (user != null && user.team != null) {
         this.haveTeam = true;
-        sessionStorage.setItem('teamName', currentUser.team.name);
+        sessionStorage.setItem('teamName', user.team.name);
       } else {
         this.haveTeam = false;
       }
-    });
-  }
-
-  subscribeToEvents(): void {
-    this.userService.user.subscribe(user => {
-      this.currentUser = user;;
+      this.isLoading = false;
     });
   }
 }

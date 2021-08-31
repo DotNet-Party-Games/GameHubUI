@@ -26,7 +26,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   searchKey: string |any = '';
   cfrm : string |any = '';
   notifyMe:ChatAlert | any={};
-
+  public isLoading: Boolean = false;
   public selectedTeamName: string | null;
 
   @Input()
@@ -37,7 +37,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   private modalReference: any = null;
 
   
-   constructor( private teamservice:TeamService,
+  constructor( private teamservice:TeamService,
     public userService: UserService,
     private chatService: GameChatService,
     private ngZone: NgZone,
@@ -46,18 +46,26 @@ export class IsnotTMComponent implements OnInit, OnChanges {
       this.subscribeToEvents();
     }
  
-   ngOnInit(): void {
+  ngOnInit(): void {
+    this.isLoading = true;
      this.GetAllTeam();
    }
  
-   ngOnChanges(): void{ }
+  ngOnChanges(): void{ }
    // get the list of all teams
-   GetAllTeam():void
-   {
-     this.teamservice.GetAllTeams().subscribe((teamList : ITeam[])=>{
-       this.teams = teamList;
-     })
-   }
+  GetAllTeam(): void {
+     this.teamservice.GetAllTeams().subscribe(
+      (teamList : ITeam[])=>{
+        this.teams = teamList;
+        this.isLoading = false;
+      }, 
+      (error) => {
+        console.log(error);
+        console.log("Retrying to get teams...")
+        setTimeout(() => this.GetAllTeam(), 5000); 
+      }
+    )
+  }
  
    //Get list of Team base on search
    OnSearchTeam():void
