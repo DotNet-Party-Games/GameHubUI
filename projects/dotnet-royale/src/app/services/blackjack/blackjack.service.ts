@@ -7,13 +7,15 @@ import { BlackjackComponent } from '../../blackjack/blackjack.component';
 })
 export class BlackjackService {
 
-  private socket: Socket;
-  private url='http://localhost:3000';
+  //private url = 'http://localhost:3000';
   //private url = 'http://20.81.113.152/dotnetroyalesocket/';
   //private url = 'https://pgsocketserver.herokuapp.com/';
+  private url = 'https://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
+
+  private socket: Socket;
   private newBlackjack = new BehaviorSubject<any>({});
   currentBlackjack = this.newBlackjack.asObservable();
-  constructor() { 
+  constructor() {
     this.socket = io(this.url, {transports:['websocket','pulling','flashsocket']});
   }
 

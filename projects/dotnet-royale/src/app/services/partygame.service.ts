@@ -13,7 +13,7 @@ import { IUserScore } from './userscore';
   providedIn: 'root'
 })
 export class PartygameService {
-  // url referencing the WebAPI
+  //url referencing the WebAPI
   //private url = "http://20.81.113.152/dotnetroyaleapi/";
   private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
 
