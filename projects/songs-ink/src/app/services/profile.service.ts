@@ -32,6 +32,11 @@ export class ProfileService {
     return this.http.get<LeaderBoard>(`${this.url}getScoreOfPlayer/${p_userNickName}`);
   }
 
+  getPlayers(): Observable<LeaderBoard[]>
+  {
+    return this.http.get<LeaderBoard[]>(`${this.url}getPlayers`);
+  }
+
   getUserInfo(userEmail: string) : Observable<Profile>
   {
     return this.http.get<Profile>(`${this.url}getAPlayer/${userEmail}`);
