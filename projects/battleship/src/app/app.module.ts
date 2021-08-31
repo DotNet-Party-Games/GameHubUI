@@ -82,10 +82,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       MatProgressSpinnerModule,
       SocketIoModule.forRoot(config),
       HttpClientModule,
-      AuthModule.forRoot({
-        domain: environment.domain,
-        clientId: environment.clientId
-      }),
+
       MatSortModule
   ],
   providers: [

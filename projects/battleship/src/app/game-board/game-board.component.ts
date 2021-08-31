@@ -140,7 +140,22 @@ playaudio(action:string){
       audio.play();
       break;
     case "sink":
-      audio.src = "./../../../../../src/assets/battleship/bubbling.mp3"
+      audio.src = "./../../../../../src/assets/battleship/bubbling.mp3";
+      audio.load();
+      audio.play();
+      break;
+    case "crash":
+      audio.src= "./../../../../../src/assets/battleship/Plane Crash.mp3";
+      audio.load();
+      audio.play();
+      break;
+    case "airhit":
+      audio.src="./../../../../../src/assets/battleship/Strafe.mp3";
+      audio.load();
+      audio.play();
+      break;
+    case "airmiss":
+      audio.src="./../../../../../src/assets/battleship/plane flying.mp3";
       audio.load();
       audio.play();
       break;
@@ -264,11 +279,10 @@ playaudio(action:string){
         if(this.EnemyBoard.craft[i][j][1] == craft){
           this.EnemyBoard.refNumber[i][j][1] = 3;
           this.EnemyBoard.legend[i][j][1] = "airplaneDestroyed";
-          
+          this.playaudio("crash");
         }
       }
     }
-    
   }
   LeaveRoom(){
     this.router.navigate(["/roomlist"], {relativeTo:this.route.parent});

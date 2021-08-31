@@ -1224,7 +1224,7 @@ export class GameboardSetupComponent implements OnInit {
   LeaveRoom(){
     this.deploy.leaveRoom(this.roomNum);
     console.log("leaving room");
-    this.router.navigate(["/roomlist"], {relativeTo:this.route.parent});
+    this.router.navigate(["/game/battleship/roomlist"]);
   }
 
   CannotPlaceError(s:string){
