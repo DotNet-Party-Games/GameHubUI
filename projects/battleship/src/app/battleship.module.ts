@@ -75,7 +75,6 @@ const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com
       MatSlideToggleModule,
       MatSelectModule,
       MatProgressSpinnerModule,
-
       MatSortModule
   ],
   providers: [

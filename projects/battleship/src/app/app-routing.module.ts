@@ -19,7 +19,7 @@ const routes: Routes = [
     component: RoomComponent
   },
   {
-    path: 'game',
+    path: 'gamescreen',
     component: GameComponent,
     canActivate: [ AuthGuard ]
   },
