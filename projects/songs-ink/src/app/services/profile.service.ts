@@ -5,7 +5,7 @@ import { Profile } from '../models/Profile';
 import { CustomCategory } from '../models/CustomCategory';
 import { CustomWord } from '../models/CustomWord';
 import { LeaderBoard } from '../models/LeaderBoard';
-//import { Leader } from 'projects/dotnet-royale/src/app/services/leader';
+
 
 const httpOptions = 
 {
@@ -40,7 +40,6 @@ export class ProfileService {
   getUserInfo(userEmail: string) : Observable<Profile>
   {
     return this.http.get<Profile>(`${this.url}getAPlayer/${userEmail}`);
-    //return this.http.get<Profile>(`${this.url}1`);
   }
   addPlayerProfile(newPlayerProfile: Profile) : Observable<Profile>
   {
@@ -49,7 +48,6 @@ export class ProfileService {
   updatePlayerProfile(playerProfile: Profile): Observable<Profile>
   {
     return this.http.put<Profile>(this.url+"updatePlayer",playerProfile, httpOptions);
-    //return this.http.put<Profile>(this.url+"1",playerProfile);
   }
 
   addCategory(category: CustomCategory): Observable<CustomCategory>

@@ -68,7 +68,6 @@ export class ProfileCategorylistComponent implements OnInit {
     else 
     {
       alert("That word does not exist");
-      return;
     }
   }
 }

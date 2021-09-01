@@ -3,7 +3,7 @@ import { LeaderboardListItemComponent } from './components/leaderboard-list-item
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,7 +21,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { SocketIoService } from './services/socketio.service';
 import {MatTableModule} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
-// import { SocketioService } from './services/socketio.service';
 import { ChatComponent } from './components/chat/chat.component';
 import { RoomListComponent, ChooseCategoryDialogComponent } from './components/room-list/room-list.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -31,14 +30,13 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { WordComponent } from './components/word/word.component';
 import { ProfileWordlistComponent } from './components/profile-wordlist/profile-wordlist.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChooseWordComponent } from './components/choose-word/choose-word.component';
-import { ChooseWordDialogComponent } from './components/choose-word/choose-word.component';
+import { ChooseWordComponent, ChooseWordDialogComponent} from './components/choose-word/choose-word.component';
 import { TimerComponent } from './components/timer/timer.component';
 
 
 const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com', options: {path: '/songsinksocket/socket.io', transports: ['websocket', 'pulling', 'flashsocket'] } };
 
-import { AuthGuard, AuthModule } from '@auth0/auth0-angular';
+import { AuthGuard} from '@auth0/auth0-angular';
 import { JukeboxComponent } from './components/jukebox/jukebox.component';
 import { ProfileCategorylistComponent } from './components/profile-categorylist/profile-categorylist.component';
 

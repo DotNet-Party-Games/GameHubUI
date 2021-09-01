@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,BehaviorSubject  } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import { BehaviorSubject } from 'rxjs';
-
 import { GameState } from '../TTTTGameState';
-import { gamestate } from '../../blackjack/bjgamestate';
+import { Bjgamestate } from '../../blackjack/bjgamestate';
 @Injectable({
   providedIn: 'root'
 })
@@ -131,7 +129,7 @@ export class SocketioService {
     this.socket.emit('blackjack', data)
   }
 
-  getBlackJackData(): Observable<gamestate> {
+  getBlackJackData(): Observable<Bjgamestate> {
     return new Observable(obs => {
       this.socket.on('new blackjack', (data) => {
         obs.next(data);

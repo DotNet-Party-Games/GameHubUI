@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingWheelComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    //empty
+  }
 
   ngOnInit(): void {
+    //empty
   }
 
 }

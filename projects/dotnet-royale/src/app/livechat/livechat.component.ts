@@ -1,5 +1,5 @@
 import { IGame } from '../services/game';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SocketioService } from '../services/socketio/socketio.service';
 
 @Component({

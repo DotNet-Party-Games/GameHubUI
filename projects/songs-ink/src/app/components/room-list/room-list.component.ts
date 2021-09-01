@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit, AfterViewChecked, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy,AfterViewChecked, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -30,9 +30,6 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.categories = [];
     let rooms2:string[];
     this._roomsub = this.SocketService.currentRoom.subscribe(room => this.currentRoom = room);
-    // this.SocketService.getRooms().subscribe((room:string)=> {
-    //   this.rooms.push(room)
-    // });
     this.SocketService.setUpRoomList();
     this._roomsub2 = this.SocketService.roomList.subscribe(rooms => this.rooms = rooms);
     if (!this.rooms) {
@@ -41,6 +38,7 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngAfterViewChecked(){
+    //empty
   }
 
   loadRoom(id: string) {
@@ -58,8 +56,6 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   getRooms(){
     this.rooms=this.SocketService.roomListstatic;
-    // this._roomsub2.unsubscribe();
-    // this._roomsub2 = this.SocketService.roomList.subscribe(rooms => this.rooms = rooms);
   }
 
   ngOnDestroy() {

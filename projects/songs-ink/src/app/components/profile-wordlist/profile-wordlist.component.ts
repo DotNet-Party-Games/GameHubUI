@@ -12,10 +12,12 @@ export class ProfileWordlistComponent implements OnInit {
   @Input() word: CustomWord;
   faTimes = faTimes;
 
-  constructor() { }
+  constructor() { 
+    //empty
+  }
 
   ngOnInit(): void {
-
+    //empty
   }
 
   removeWord(word: CustomWord)

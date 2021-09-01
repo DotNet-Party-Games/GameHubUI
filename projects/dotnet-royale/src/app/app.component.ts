@@ -21,6 +21,7 @@ export class AppComponent implements OnDestroy {
     this.livechatService.leaveRoom({room: this.roomId, user: this.username});
   }
   ngOnDestroy(): void {
+    //empty
   }
 
 }
