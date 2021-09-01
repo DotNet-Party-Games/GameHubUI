@@ -1,0 +1,71 @@
+@import '../../mat-vars';
+canvas {
+    width: 600px;
+    height: 600px;
+    background-color: white;
+}
+#button-red {
+    background-color: red;
+}
+#button-green {
+    background-color: green;
+}
+#button-yellow {
+    background-color: yellow;
+    color: black;
+}
+#button-blue {
+    background-color: blue;
+}
+#button-black {
+    background-color: black;
+}
+#button-brown {
+    background-color: #521515;
+}
+
+#brush-small {
+    font-size: large;
+}
+
+#brush-medium {
+    font-size: x-large;
+}
+
+#brush-large {
+    font-size: xx-large;
+}
+
+
+#button-clear {
+    background-color: red;
+}
+
+.active{
+pointer-events: all;
+}
+
+.inactive{
+pointer-events: none;
+
+}
+
+.shown{
+display: block;
+}
+
+.hidden{
+display:none;
+}
+
+#draw-options {
+    margin-left: 20px;
+    background-color: $myAccentColor;
+    border: $myPrimaryColor solid 6px;
+    width: 500px;
+    height: 220px;
+}
+
+#canvas-element {
+    display: flex;
+}
