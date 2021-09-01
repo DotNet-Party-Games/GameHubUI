@@ -114,7 +114,7 @@ export class IsTMComponent implements OnInit {
       this.user = user;
       if (user && user.team) {
         this.chatService.connectionEstablished.subscribe(isConnected => {
-          if(isConnected) {
+          if (isConnected) {
             this.chatService.joinChat(user.teamId);
           }
         })
@@ -122,7 +122,6 @@ export class IsTMComponent implements OnInit {
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
-        console.log(alert);
         this.notifyMe = alert;
         if(this.notifyMe.alertType=="NEW TEAM JOIN REQUEST"){
           this.GetListOfRequest();
