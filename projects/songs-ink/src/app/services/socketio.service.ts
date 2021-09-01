@@ -39,7 +39,6 @@ export class SocketIoService {
     if(!this.userName){
         this.userName = "Guest "+this.roomId();
       }
-      console.log(this.userName);
     }
 
     SetUsername(newName:string){
