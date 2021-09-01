@@ -75,4 +75,12 @@ export class ProfileService {
   getCustomCategories(playerID: number): Observable<CustomCategory[]> {
     return this.http.get<CustomCategory[]>(`${this.url}getCustomCategories/${playerID}`);
   }
+
+  getPlayerWords(playerID: number): Observable<CustomWord[]> {
+    return this.http.get<CustomWord[]>(`${this.url}getPlayerWords/${playerID}`);
+  }
+
+  getCustomWords(categoryID: number): Observable<CustomWord[]> {
+    return this.http.get<CustomWord[]>(`${this.url}GetCustomWords/${categoryID}`);
+  }
 }
