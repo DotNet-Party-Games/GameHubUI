@@ -24,8 +24,7 @@ import { ILoggedUser } from '../services/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LivechatService } from '../services/livechat/livechat.service';
 import { SocketioService } from '../services/socketio/socketio.service';
-
-
+import { TeamLeaderboardService} from '../../../../hubservices/src/public-api';
 //copy over layout into another folder called light bike
 //place light bike folder into the pathing within app.module.ts
 //room.html needs to have the routing information to display the game
@@ -88,7 +87,7 @@ export class lightbikeComponent implements OnInit {
   Win: boolean;
   Boost: boolean;
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
     this.currentUser =
     {
       id: 0,
@@ -401,6 +400,7 @@ export class lightbikeComponent implements OnInit {
           this.partyGameApi.addscore(this.finalScore).subscribe(data => {
             this.partyGameApi.updateLightBikeStats(this.finalScore).subscribe(); 
           });
+          this.leaderboardService.submitScore("partygames",1);
           this.lost$.next();
         }
       });
