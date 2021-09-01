@@ -105,19 +105,29 @@ export class SocketIoService {
 
 
   UpdateTotalPoints(add:number){
-    console.log(this.currentLoggedIn);
-    if(this.currentLoggedIn){
-    this.tempCurrentLoggedIn=this.currentLoggedIn;
-    console.log(this.tempCurrentLoggedIn);
-    this.tempCurrentLoggedIn.currentScore=this.tempCurrentLoggedIn.currentScore+add;
-    let templb: LeaderBoard;
-    templb.id = this.tempCurrentLoggedIn.id;
-    templb.nickName = this.user.nickname;
-    templb.currentScore = this.tempCurrentLoggedIn.currentScore;
-    templb.overallScore = this.tempCurrentLoggedIn.playerScore+add;
-    this.pointApi.updateScoreOfPlayer(templb).subscribe();
+    //console.log(this.currentLoggedIn);
+    //if(this.currentLoggedIn){
+    //this.tempCurrentLoggedIn=this.currentLoggedIn;
+    //console.log(this.tempCurrentLoggedIn);
+    //this.tempCurrentLoggedIn.currentScore=this.tempCurrentLoggedIn.currentScore+add;
+    //let templb : LeaderBoard = new LeaderBoard();
+    this.profApi.getUserScore(<string>this.user.username).subscribe( (response) => {
+      /*templb.nickName = this.user.nickname;
+      templb.currentScore = response.currentScore+add;
+      templb.overallScore = response.overallScore+add;
+      templb.id = response.id;*/
+      if(response.currentScore == null){
+        response.currentScore = 0;
+      }
+      if(response.overallScore == null){
+        response.overallScore = 0;
+      }
+      response.currentScore += add;
+      response.overallScore += add;
+      this.pointApi.updateScoreOfPlayer(response).subscribe();
+    });
     this.leaderboardService.submitScore("songsink", add);
-    }
+    //}
   }
 
 

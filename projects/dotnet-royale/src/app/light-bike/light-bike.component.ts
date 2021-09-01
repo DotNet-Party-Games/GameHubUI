@@ -292,8 +292,8 @@ export class lightbikeComponent implements OnInit {
     this.score = 1;
     this.currentHighScore = this.score;
     this.lives = 3;
-    const width = 60;
-    const height = 45;
+    const width = 70;
+    const height = 35;
     const food = {x:null, y:null};
     const snakePos = [this.getRandomField(width, height)];
     this.tempDisplay = snakePos;
@@ -315,7 +315,7 @@ export class lightbikeComponent implements OnInit {
         map(tick => {
           this.count12 = 0;
           let game = this.game$.value;
-          if (game.snakePos.length <= 10)
+          if (game.snakePos.length <= 13)
           {
             this.tempDisplay.push(game.snakePos[0]);
             this.count12++;

@@ -281,8 +281,8 @@ export class LayoutComponent implements OnInit {
     this.score = 1;
     this.currentHighScore = this.score;
     this.lives = 3;
-    const width = 40;
-    const height = 33;
+    const width = 58;
+    const height = 26;
     const food = this.getRandomField(width, height);
     const snakePos = [this.getRandomField(width, height)];
     let snakePos2;
