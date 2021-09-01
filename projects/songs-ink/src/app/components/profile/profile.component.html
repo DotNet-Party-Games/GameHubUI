@@ -13,28 +13,16 @@
     </span>
     <span>
         <h4>Categories</h4>
-        <app-profile-categorylist *ngFor="let category of userCategories; let i = index" 
-            [(ngModel)]="userCategories[i].customCategoryName"
-            (category)="category.customCategoryName"
+        <app-profile-categorylist *ngFor="let category of userCategories" 
+            [category]="category"
             (onRemoveCategory)="removeCategory(category.customCategoryName)">
         </app-profile-categorylist>
-        <app-profile-wordlist *ngFor="let word of userWords" [word]="word.CustomWordName"
-            (onRemoveWord)="removeWord(word.CustomWordName)"></app-profile-wordlist>
         <div>
-
             <form (ngSubmit)="addCategory()">
                 <div>
                     <label for="text"><b>Add a Category</b> ({{categoryAddCost * -1}} points)</label>
                     <input type="text" name="text" id="newCategory" [(ngModel)]="newCategory">
                     <input type="submit" value="Add Category" class="btn btn-primary">
-                </div>
-            </form>
-
-            <form (ngSubmit)="addWord()">
-                <div >
-                    <label for="text"><b>Add a word</b> ({{wordAddCost * -1}} points)</label>
-                    <input type="text" name="text" id="newWord" [(ngModel)]="newWord">
-                    <input type="submit" value="Add Word" class="btn btn-primary">
                 </div>
             </form>
         </div>
