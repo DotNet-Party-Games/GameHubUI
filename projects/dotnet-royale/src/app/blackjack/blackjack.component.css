@@ -86,3 +86,7 @@
 #play-control.started { grid-template-columns: 50% 50%; }
 #play-control.started #playc-start { display: none; }
 #play-control.started #playc-hit, #play-control.started #playc-stand { display: block; }
+
+li{
+  list-style-type: none;
+}

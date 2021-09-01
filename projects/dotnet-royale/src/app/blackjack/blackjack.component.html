@@ -49,6 +49,12 @@
     <div id="play-control">
       <!-- (C1) START -->
       <input type="button" id="playc-start" *ngIf="gameStarted == false" (click)="start()" value="Play!"/>
+      <div class="row mt-4 justify-content-md-center" *ngIf="!this.gameStarted">
+        <div class="col col-6 text-center">
+          <button class="btn btn-warning container mt-2" (click)="goToRoom()"><h3>Back</h3></button>
+        </div>
+      </div>
+    
       <!-- (C2) HIT OR STAND -->
       <div *ngIf="this.turn == this.thisPlayer">
         <input type="button" id="playc-hit" *ngIf="gameStarted == true" (click)="hit(turn)" value="Hit"/>
@@ -58,11 +64,6 @@
     </div>
   </div>
 
-  <div class="row mt-4 justify-content-md-center" hidden>
-    <div class="col col-6 text-center">
-      <button class="btn btn-warning container mt-2" (click)="goToRoom()"><h3>Back</h3></button>
-    </div>
-  </div>
-
+  
 </div>
 

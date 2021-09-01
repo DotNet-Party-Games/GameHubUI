@@ -198,7 +198,7 @@ export class LayoutComponent implements OnInit {
     this.socketService.joinRoom({ user: username, room: roomId });
   }
   sendSnakeGameState(): void {
-    this.socketService.sendSnakeGameState({ GameState: this.game$.value, room: this.roomId, User: this.currentUser.userName, Score: this.score});
+    this.socketService.sendSnakeGameState({ SnakePos: this.game$.value.snakePos, Lost: this.game$.value.lost, room: this.roomId, User: this.currentUser.userName, Score: this.score});
   }
   getNextField(
     game: GameState,
@@ -348,6 +348,7 @@ export class LayoutComponent implements OnInit {
               break;
             case FieldType.SNAKE:
               this.lives--;
+              this.playSFX("oof");
               if (this.lives < 1)
               {
                 this.GameOver++;
@@ -402,7 +403,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['room', { relativeTo: this.route }]);
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
   playMusic()
@@ -417,7 +418,7 @@ export class LayoutComponent implements OnInit {
   {
     let audio = <HTMLAudioElement>document.getElementById('sfx');
     audio.volume= 0.1;
-    audio.src = audioCue;
+    audio.src = "assets/dotnet-royale/" + audioCue + ".mp3";
     audio.load();
     audio.play();
   }

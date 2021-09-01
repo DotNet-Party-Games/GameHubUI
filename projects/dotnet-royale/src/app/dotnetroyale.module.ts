@@ -26,6 +26,8 @@ import { TrueblackjackComponent } from './trueblackjack/trueblackjack.component'
 import { VerticalCarouselComponent } from './vertical-carousel/vertical-carousel.component';
 import { lightbikeComponent } from './light-bike/light-bike.component';
 import { CommonModule } from '@angular/common';
+import { BikeGameFieldComponent } from './lightbikemodel/game-field/game-field.component';
+import { BikeComponent } from './lightbikemodel/snake.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { CommonModule } from '@angular/common';
     UserProfileComponent,
     TrueblackjackComponent,
     VerticalCarouselComponent,
-    lightbikeComponent
+    lightbikeComponent,
+    BikeGameFieldComponent,
+    BikeComponent
   ],
   imports: [
     FormsModule,

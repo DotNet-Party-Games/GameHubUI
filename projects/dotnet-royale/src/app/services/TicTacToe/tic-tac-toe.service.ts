@@ -9,7 +9,7 @@ export class TicTacToeService {
 
   //private url = 'http://localhost:3000';
   //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
-  private url = 'http://revabox.eastus.cloudapp.azure.com';
+  private url = 'https://revabox.eastus.cloudapp.azure.com';
   
   private socket: Socket;
 
