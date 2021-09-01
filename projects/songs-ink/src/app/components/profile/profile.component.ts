@@ -48,7 +48,8 @@ export class ProfileComponent implements OnInit {
     
     this.userService.user.subscribe( (response) => {
       this.player.nickName = <string>response.username;
-    })
+    });
+
     this.profApi.getUserScore(this.player.nickName).subscribe( (response) => {
       if(response) {
         this.player.currentScore = response.currentScore;
