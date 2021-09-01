@@ -282,7 +282,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     return "Cats Game! Nobody";
   }
   goToRoom() {
-    this.router.navigate(['room'], { relativeTo: this.route });
+
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
 }
