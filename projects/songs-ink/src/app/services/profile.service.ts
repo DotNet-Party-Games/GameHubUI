@@ -18,7 +18,7 @@ const httpOptions =
   providedIn: 'root'
 })
 export class ProfileService {
-  private url = "http://localhost:5002/api/Main/";
+  private url = "https://revabox.eastus.cloudapp.azure.com/songsinkapi/api/Main/";
   
   constructor(private http: HttpClient) { }
 
