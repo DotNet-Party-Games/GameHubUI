@@ -42,7 +42,7 @@ export class IsTMComponent implements OnInit {
     private modalService: NgbModal,
     private toastService: AppToastService) { 
       this.subscribeToEvents();
-    }
+  }
 
   ngOnInit(): void {
       this.isLoading = true;
@@ -112,7 +112,9 @@ export class IsTMComponent implements OnInit {
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
-      this.chatService.joinChat(user.teamId);
+      if(user) {
+        this.chatService.joinChat(user.teamId);
+      }
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {

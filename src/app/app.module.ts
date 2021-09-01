@@ -72,7 +72,7 @@ const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
-      {path:"game/battleship", component:GameComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
+      {path: "game/battleship", component:GameComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
       //{path: "**", redirectTo: "home"}
       
     ], { useHash: true }),
