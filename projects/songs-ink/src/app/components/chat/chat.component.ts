@@ -36,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(private socketService: SocketIoService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    let audio = new Audio('./assets/Send_Message.wav');
+    let audio = new Audio('./assets/songsink/Send_Message.wav');
     this._roomsub = this.socketService.currentRoom.subscribe(currentRoom => this.room = currentRoom);
     this._roomsub = this.socketService.goalWord.subscribe(theWord => this.goal=theWord);
     this._roomsub = this.socketService.newMessage.subscribe((message:string)=> {
