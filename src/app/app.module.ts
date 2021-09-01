@@ -26,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
 // const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
@@ -80,7 +81,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NoopAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }

@@ -48,7 +48,6 @@ export class GameboardSetupComponent implements OnInit {
   users:string[] = [];
   roomFull:boolean = false;
   gameStarted:boolean = false;
-
   constructor(public auth: AuthService, private deploy:BattleshipDeployService, private router:Router, private roomservice:RoomService, private gamestate:GameStateService, private route:ActivatedRoute) {
     this.userControl = "";
     this.height = new Array(10);
