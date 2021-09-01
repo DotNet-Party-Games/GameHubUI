@@ -157,6 +157,30 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       {
         this.sendBlackJackData(this.gameState);
       }
+      let sentScore = false;
+      if(!this.gameState.gameStarted && !sentScore)
+      {
+        sentScore = true;
+        console.log("this should only be called once");
+        if(this.bjplayers[this.thisPlayer].winner == true)
+      {
+          this.finalScore.gamesId = 2;
+          this.finalScore.score = 1;
+          this.finalScore.userName = sessionStorage.getItem('userName');
+          this.partyGameApi.addscore(this.finalScore).subscribe();
+          this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
+      }else
+      {
+        this.finalScore.gamesId = 2;
+        this.finalScore.score = 0;
+        this.finalScore.userName = sessionStorage.getItem('userName');
+        this.partyGameApi.addscore(this.finalScore).subscribe();
+        this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
+      }
+      }
+      this.socketService.getAudioTrigger().subscribe(data => {
+        this.playSFX(data);
+      })
     });
   }
 
@@ -232,6 +256,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     this.dstand = false;
     // hasnt won
     this.dwinner = false;
+    this.gameState.dwinner=false;
 
     // (C2) RESHUFFLE DECK
     // S: SHAPE (0 = HEART, 1 = DIAMOND, 2 = CLUB, 3 = SPADE)
@@ -326,11 +351,15 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       // if player points go over 21, auto stand
       if(this.bjplayers[i].ppoints > 21) {
         this.stand(i);
+        this.playSFX("oof");
       }
       // same auto stand for 21
       else if(this.bjplayers[i].ppoints == 21) {
+        this.playSFX("21");
         this.stand(i);
+
       }
+      this.socketService.sendAudioTrigger({ audioFile: "hit", room: this.roomId });
       // no else after previous two blocks, give stand option for user with button
     }
     console.log("Sending gamestate in draw");
@@ -411,6 +440,10 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       // game set to false, so play button shows up on webpage
       this.gameStarted = false;
       this.gameState.gameStarted = false;
+
+      
+
+
     }
     else {
       // otherwise, hit if below 17 for dealer
@@ -481,7 +514,9 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   {
     let audio = <HTMLAudioElement>document.getElementById('sfx');
     audio.volume= 0.1;
-    audio.src = "location of audio" + audioCue + ".mp3";
+    audio.src = "assets/dotnet-royale/" + audioCue + ".mp3";
+    //src\assets\sounds
+    //\src\app\blackjack
     audio.load();
     audio.play();
   }

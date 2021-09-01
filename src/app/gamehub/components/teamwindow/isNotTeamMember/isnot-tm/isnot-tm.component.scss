@@ -6,3 +6,13 @@
     text-shadow: 
     1px 1px 10px #0e9ceefa;
 }
+
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    background-color: transparent;
+    min-height: 200px;
+    flex-shrink: 1;
+  }
