@@ -12,7 +12,7 @@ export class SocketioService {
 
   //private url = 'http://localhost:3000';
   //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
-  private url = 'https://revabox.eastus.cloudapp.azure.com';
+  private url = 'wss://revabox.eastus.cloudapp.azure.com';
 
   private socket: Socket;
 
@@ -26,7 +26,7 @@ export class SocketioService {
   currentPlayerList = this.playerList.asObservable();
 
   constructor() {
-    this.socket = io(this.url, { path: '/dotnetroyalesocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] });
+    this.socket = io(this.url, { path: '/dotnetroyalesocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'], secure: true });
   }
   // ================= General Room Stuff ==============================
   joinRoom(data): void {
