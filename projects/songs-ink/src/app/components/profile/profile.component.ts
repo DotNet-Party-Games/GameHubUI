@@ -4,6 +4,7 @@ import { CustomWord } from '../../models/CustomWord';
 import { ProfileService } from '../../services/profile.service';
 import { LeaderBoard } from '../../models/LeaderBoard';
 import { UserService } from 'projects/hubservices/src/public-api';
+import { SocketIoService } from '../../services/socketio.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +18,13 @@ export class ProfileComponent implements OnInit {
 
   category: CustomCategory = {
     playerId: 0,
-    customCategoryName: ""
+    customCategoryName: "",
+    words: []
   }
   word: CustomWord = {
     PlayerId: 0,
     CustomCategoryId: 0,
-    CustomWordName: ""
+    customWordName: ""
   }
   newCategory: string;
   wordAddCost: number = -100;
@@ -34,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
   player: LeaderBoard;
 
-  constructor(private userService: UserService, private profApi: ProfileService) { }
+  constructor(private userService: UserService, private profApi: ProfileService, private socketService: SocketIoService) { }
 
   ngOnInit(): void {
     
@@ -44,23 +46,23 @@ export class ProfileComponent implements OnInit {
       nickName: ""
     };
     
-    this.userService.user.subscribe(response => {
-      this.player.nickName = <string>response?.username;
-    });
-    this.profApi.getUserScore(this.player.nickName).subscribe( (response => {
+    
+    this.profApi.getUserScore(this.player.nickName).subscribe( (response) => {
       if(response) {
         this.player.currentScore = response.currentScore;
         this.player.overallScore = response.overallScore;
         this.player.id = response.id;
+        
+        this.profApi.getCustomCategories(this.player.id).subscribe( (response) => {
+          this.userCategories = response;
+        })
       }
       else {
-        this.profApi.addPlayer(this.player.nickName).subscribe( (response => {
+        this.profApi.addPlayer(this.player.nickName).subscribe( (response) => {
           this.player.id = response.id;
-        }))
+        })
       }
-    }))
-
-    this.userCategories = [];
+    })
   }
     
   addCategory() {  
@@ -79,7 +81,8 @@ export class ProfileComponent implements OnInit {
         {
           id: result.id,
           playerId: result.playerId,
-          customCategoryName: result.customCategoryName
+          customCategoryName: result.customCategoryName,
+          words: []
         }
       )
     });
@@ -90,7 +93,8 @@ export class ProfileComponent implements OnInit {
     if (removeCategory)
     {
         this.profApi.removeCategory(removeCategory).subscribe(result => {
-          this.userCategories = this.userCategories.filter(obj => obj !== result);
+          const index = this.userCategories.indexOf(removeCategory, 0);
+          this.userCategories.splice(index, 1);
       }); 
     }
     else
@@ -110,7 +114,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.word.PlayerId = this.player.id;
-    this.word.CustomWordName = this.newWord;
+    this.word.customWordName = this.newWord;
     this.profApi.addPlayerWord(this.word);
   }
 

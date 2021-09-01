@@ -20,5 +20,5 @@
      <input id="input" #chatinput autocomplete="off" class="form-control" (keyup.enter)="AddChat(chatinput.value); chatinput.value=''" /><button type="button" (click) = "AddChat(chatinput.value); chatinput.value=''" >Send</button>
      <a>{{room}}</a>
     </form>
-    <button routerLink="/lobby">Leave Room</button>
+    <button (click)="leaveRoom()">Leave Room</button>
   </body>

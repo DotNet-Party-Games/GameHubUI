@@ -8,6 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { stringify } from '@angular/compiler/src/util';
 import { Player } from '../../models/Player';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -32,7 +33,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   title = 'socketio-angular';
 
-  constructor(private socketService: SocketIoService) {}
+  constructor(private socketService: SocketIoService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     let audio = new Audio('./assets/Send_Message.wav');
@@ -82,5 +83,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.socketService.leaveRoom();
     this._roomsub.unsubscribe();
+  }
+
+  leaveRoom() {
+    this.router.navigate(['lobby'], {relativeTo: this.route.parent})
+
   }
 }

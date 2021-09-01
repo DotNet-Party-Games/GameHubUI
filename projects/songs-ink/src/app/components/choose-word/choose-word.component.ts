@@ -53,7 +53,7 @@ export class ChooseWordComponent implements OnInit {
       data: this.words
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(this.chosenWord.name != ''){
+      if(result != ''){
         this.chosenWord.name = result;
         this.socket.emit('setWord', {name: this.chosenWord.name, category: this.chosenCategory});
         this.socketService.StartRound();

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { CustomWord } from '../../models/CustomWord';
 
 @Component({
   selector: 'app-profile-wordlist',
@@ -8,7 +9,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProfileWordlistComponent implements OnInit {
   @Output() onRemoveWord: EventEmitter<string> = new EventEmitter();
-  @Input() word: string;
+  @Input() word: CustomWord;
   faTimes = faTimes;
 
   constructor() { }
@@ -17,10 +18,8 @@ export class ProfileWordlistComponent implements OnInit {
 
   }
 
-  removeWord(word: string)
+  removeWord(word: CustomWord)
   {
-    this.onRemoveWord.emit(word);
+    this.onRemoveWord.emit(word.customWordName);
   }
-
-
 }
