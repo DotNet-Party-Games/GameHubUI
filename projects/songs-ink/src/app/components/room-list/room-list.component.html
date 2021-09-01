@@ -8,15 +8,6 @@
     >
       New Room
     </button>
-  
-
-    <!-- <button
-      (click)='showRooms()'
-      (click)='syncRooms()'
-    >
-      Show List of Rooms
-    </button>
-    <ng-container *ngIf="isVisible"> -->
     <button mat-raised-button id="room"
       [class.selected]='roomId === currentRoom'
       (click)='loadRoom(roomId)'
@@ -24,5 +15,5 @@
     >
       {{ roomId }}
   </button>
-<!-- </ng-container> -->
+
 </div>

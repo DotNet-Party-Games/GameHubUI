@@ -3,9 +3,8 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-import { AppToastService, UserService } from 'projects/hubservices/src/public-api';  
+import { AppToastService, UserService, GameChatService} from 'projects/hubservices/src/public-api';  
 import { User } from 'src/app/gamehub/models/user.model';
-import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -30,9 +29,9 @@ export class IsTMComponent implements OnInit {
 
   
   public user: User | null = null;
-  public connectionEstablished: Boolean = false;
+  public connectionEstablished: boolean = false;
   private modalReference: any = null;
-  public isLoading: Boolean = false;
+  public isLoading: boolean = false;
 
   // Constructor
   constructor(private teamservice:TeamService,
@@ -93,7 +92,6 @@ export class IsTMComponent implements OnInit {
         this.SearchTeam();
       }
     });
-    // location.reload();
     this.userService.getUser();
   }
 
@@ -106,7 +104,7 @@ export class IsTMComponent implements OnInit {
    }
 
    ngOnDestroy() {
-    //this.chatService.leaveChat();
+    //empty
   }
 
   subscribeToEvents(): void {

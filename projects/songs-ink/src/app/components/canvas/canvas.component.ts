@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 @Injectable()
 export class CanvasComponent implements OnInit {
 
-  mouse: mouse;
+  mouse: Mouse;
   canvas: HTMLCanvasElement;
   colorSelector: HTMLInputElement;
   context: CanvasRenderingContext2D;
@@ -80,8 +80,10 @@ export class CanvasComponent implements OnInit {
     });
   }
   ngAfterViewInit() {
+    //empty
   }
   ngOnDestroy() {  
+    //empty
   }
 
   draw(data: any) {
@@ -136,7 +138,7 @@ export class CanvasComponent implements OnInit {
    loop = setInterval(this.checkDraw, 25);
 }
 
-interface mouse {
+interface Mouse {
   click: boolean,
   move: boolean,
   pos: {
@@ -147,4 +149,4 @@ interface mouse {
     x: number,
     y: number
   } | boolean
-};
+}

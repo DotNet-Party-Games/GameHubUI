@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MusicService } from '../../services/music.service';
 import { Song } from '../../models/Song';
 import { AuthService } from '@auth0/auth0-angular';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../models/Profile';
-import { User } from '@auth0/auth0-spa-js';
+
 
 @Component({
   selector: 'app-jukebox',
@@ -43,7 +43,6 @@ export class JukeboxComponent implements OnInit {
           this.currentPlayer.email = response?.email;
           console.log(this.currentPlayer.email);
           this.getUserInfo(this.currentPlayer.email!);
-          //this.getSongs();
         }
       );
     }

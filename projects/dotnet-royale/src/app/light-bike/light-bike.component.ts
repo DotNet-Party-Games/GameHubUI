@@ -111,7 +111,7 @@ export class lightbikeComponent implements OnInit {
       console.log(data);
       this.snakeMap.set(data.User, data.b.map(a => a));
       this.snakePositionDisplay = [];
-      if (data.GameOver == true)
+      if (data.GameOver)
       {
         console.log("TRUE");
         this.GameOver++;
@@ -315,7 +315,6 @@ export class lightbikeComponent implements OnInit {
             this.count12++;
             game.snakePos = this.tempDisplay;
           }
-          //this.snakeMap.set(this.currentUser.userName, game.snakePos);
           this.sendLightSnakeGameState();
           this.snakePositionDisplay = [];
           for (let val of this.snakeMap.values()) {
@@ -338,7 +337,7 @@ export class lightbikeComponent implements OnInit {
           const nextFieldType = this.getFieldType(nextField, game);
           switch (nextFieldType) {
             case FieldType.EMPTY:
-              if (this.Win == true)
+              if (this.Win)
               {
                 game.snakePos = [...game.snakePos.slice(), nextField];
               }

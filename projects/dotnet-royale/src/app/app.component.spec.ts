@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   });
 
   it(`should have as title 'PartyGamesUI'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+
   });
 
   it('should render title', () => {

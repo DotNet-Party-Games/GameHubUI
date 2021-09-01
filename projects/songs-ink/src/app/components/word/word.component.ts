@@ -28,7 +28,6 @@ export class WordComponent implements OnInit {
   hideWord(word: string) {
     let temp = word;
     var re = /[a-zA-z]/gi;
-    var newstr = temp.replace(re, "_");
-    return newstr;
+    return temp.replace(re, "_");
   }
 }

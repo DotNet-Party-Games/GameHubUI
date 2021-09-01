@@ -56,13 +56,13 @@ export class ProfileComponent implements OnInit {
         this.player.overallScore = response.overallScore;
         this.player.id = response.id;
         
-        this.profApi.getCustomCategories(this.player.id).subscribe( (response) => {
-          this.userCategories = response;
+        this.profApi.getCustomCategories(this.player.id).subscribe( (response1) => {
+          this.userCategories = response1;
         })
       }
       else {
-        this.profApi.addPlayer(this.player.nickName).subscribe( (response) => {
-          this.player.id = response.id;
+        this.profApi.addPlayer(this.player.nickName).subscribe( (response1) => {
+          this.player.id = response1.id;
         })
       }
     })
@@ -122,5 +122,6 @@ export class ProfileComponent implements OnInit {
   }
 
   removeWord(wordToRemove: string) {
+    //empty
   }
 }

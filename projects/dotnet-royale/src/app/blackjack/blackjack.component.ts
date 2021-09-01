@@ -6,7 +6,7 @@ import { ILoggedUser } from '../services/user';
 import { ActivatedRoute,Router } from '@angular/router';
 import { SocketioService } from '../services/socketio/socketio.service';
 import { Subscription } from 'rxjs';
-import { gamestate } from './bjgamestate';
+import { Bjgamestate } from './bjgamestate';
 import { TeamLeaderboardService } from '../../../../hubservices/src/public-api';
 
 // interface for individual player
@@ -58,8 +58,8 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   // will keep track of turns based on bjplayers array
   turn: number = 0;
   sentScore: boolean= false;
-  // declare gamestate for a player
-  gameState: gamestate = {
+  // declare Bjgamestate for a player
+  gameState: Bjgamestate = {
     deck: [], // overall game deck
 
     players: [], // array to hold player objects
@@ -131,7 +131,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     this.socketService.getBlackJackData().subscribe(data => {
       console.log("received data");
       console.log(data);
-      // set local object array to gamestate array
+      // set local object array to Bjgamestate array
       this.gameState = data;
       this.bjplayers = this.gameState.players;
       this.dealer = this.gameState.dealer;
@@ -158,7 +158,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
           this.finalScore.gamesId = 2;
           this.finalScore.score = 1;
           this.finalScore.userName = sessionStorage.getItem('userName');
-          this.partyGameApi.addscore(this.finalScore).subscribe(data =>
+          this.partyGameApi.addscore(this.finalScore).subscribe(data4 =>
             {this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
             });
           this.leaderboardService.submitScore("partygames",1);
@@ -167,7 +167,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
         this.finalScore.gamesId = 2;
         this.finalScore.score = 0;
         this.finalScore.userName = sessionStorage.getItem('userName');
-        this.partyGameApi.addscore(this.finalScore).subscribe(data =>
+        this.partyGameApi.addscore(this.finalScore).subscribe(data4 =>
           {this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
           });
       }
@@ -178,7 +178,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     });
   }
 
-  sendBlackJackData(gameState: gamestate)
+  sendBlackJackData(gameState: Bjgamestate)
   {
     // make sure proper data being sent
     console.log(gameState);
@@ -212,7 +212,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       // push player object to bjplayers array
       this.bjplayers.push(bj);
     }
-    // player object goes to gamestate
+    // player object goes to Bjgamestate
     this.gameState.players=this.bjplayers;
   }
 
@@ -253,7 +253,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       this.deck[j] = temp;
     }
 
-    // add shuffled deck to gamestate
+    // add shuffled deck to Bjgamestate
     this.gameState.deck = this.deck;
 
     // for players
@@ -297,7 +297,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     // dealer gets card pushed to hand array
     if(i == 42) {
       this.dealer.push(card);
-      // add card to dealer gamestate
+      // add card to dealer Bjgamestate
 
       this.gameState.dealer = this.dealer;
     }
@@ -305,7 +305,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     // (D3) PLAYER'S CARD
     else {
       this.bjplayers[i].player.push(card);
-      // add card to player gamestate
+      // add card to player Bjgamestate
       this.gameState.players[i].player=this.bjplayers[i].player;
 
       console.log("Deal player card");
@@ -341,7 +341,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       this.socketService.sendAudioTrigger({ audioFile: "hit", room: this.roomId });
       // no else after previous two blocks, give stand option for user with button
     }
-    console.log("Sending gamestate in draw");
+    console.log("Sending Bjgamestate in draw");
     console.log(this.gameState);
     this.sendBlackJackData(this.gameState);
   }
@@ -362,7 +362,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     // otherwise pass turn to next player
     else {
       this.turn++;
-      // update turn in the gamestate
+      // update turn in the Bjgamestate
       this.gameState.turn += 1;
     }
     this.sendBlackJackData(this.gameState);
@@ -372,9 +372,9 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   points(j: number) {
     
 
-    var calc = this.calcPoints(j);
-    var aces = calc[0];
-    var points = calc[1];
+    var calcs = this.calcPoints(j);
+    var aces = calcs[0];
+    var points = calcs[1];
     // (E2) CALCULATIONS FOR ACES
     // NOTE: FOR MULTIPLE ACES, WE CALCULATE ALL POSSIBLE POINTS AND TAKE HIGHEST.
     if (aces!=0) {
@@ -413,13 +413,13 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
     // update dealer points
     if (j == 42) {
       this.dpoints = points;
-      // add points to dealer gamestate
+      // add points to dealer Bjgamestate
       this.gameState.dpoints = this.dpoints;
     }
     // add points to player points
     else {
       this.bjplayers[j].ppoints = points;
-      // add points to player gamestate
+      // add points to player Bjgamestate
       this.gameState.players[j].ppoints = this.bjplayers[j].ppoints;
     }
 
@@ -463,7 +463,7 @@ checkWhenDealerBusts(){
     // players who dont bust win
     if(this.bjplayers[i].ppoints <= 21) {
       this.bjplayers[i].winner = true;
-      // add winner boolean to gamestate
+      // add winner boolean to Bjgamestate
       this.gameState.players[i].winner = true;
     }
   }
@@ -476,7 +476,7 @@ checkWhenDealerHas21()
     // players who get 21 still win
     if(this.bjplayers[i].ppoints == 21) {
       this.bjplayers[i].winner = true;
-      // add winner boolean to gamestate
+      // add winner boolean to Bjgamestate
       this.gameState.players[i].winner = true;
     }
   }
@@ -489,7 +489,7 @@ checkWhenDealerLess21()
         // if player has more than dealer and less than or equal to 21, they win
         if(this.bjplayers[i].ppoints > this.dpoints && this.bjplayers[i].ppoints <= 21) {
           this.bjplayers[i].winner = true;
-          // add winner boolean to gamestate
+          // add winner boolean to Bjgamestate
           this.gameState.players[i].winner = true;
           // increment great than dealer variable
           betterThanDealer++;
@@ -498,7 +498,7 @@ checkWhenDealerLess21()
       // if no player has higher points, or busts, dealer wins
       if(betterThanDealer == 0) {
         this.dwinner = true;
-        // add winner boolean to gamestate
+        // add winner boolean to Bjgamestate
         this.gameState.dwinner = true;
       }
 }

@@ -268,11 +268,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         }
       }
     }
-    
-    return this.checkCats();
-  }
-  checkCats()
-  {
     for(let x of this.gameState.squares)
     {
       if(x == null)
@@ -280,11 +275,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         return null;
       }
     }
-    for (let x = 0; x < this.gameState.squares.length; x++) {
-      if (this.gameState.squares[x] == null) {
-        return null;
-      }
-    }
+    return "Cats game, nobody";
   }
   goToRoom() {
 

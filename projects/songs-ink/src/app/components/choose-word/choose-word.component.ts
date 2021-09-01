@@ -2,11 +2,10 @@ import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs';
 import { Word } from '../../models/Word';
 import { ChooseWordService } from '../../services/choose-word.service';
 import { SocketIoService } from '../../services/socketio.service';
-import { TimerComponent } from '../timer/timer.component';
+
 
 @Component({
   selector: 'app-choose-word',

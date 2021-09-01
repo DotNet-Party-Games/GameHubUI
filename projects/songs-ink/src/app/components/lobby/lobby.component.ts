@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { SocketIoService } from './../../services/socketio.service'
-import { RoomListComponent } from '../room-list/room-list.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'projects/hubservices/src/public-api';
 import { ProfileService } from '../../services/profile.service';
@@ -22,8 +20,8 @@ export class LobbyComponent implements OnInit {
     this.socketService.SetUsername(this.user);
     this.profileService.getUserScore(this.user).subscribe( (response) => {
       if(!response) {
-        this.profileService.addPlayer(this.user).subscribe( (response) => {
-          this.user = response.nickName;
+        this.profileService.addPlayer(this.user).subscribe( (response1) => {
+          this.user = response1.nickName;
         })
       }
     }) 

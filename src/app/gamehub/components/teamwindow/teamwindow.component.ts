@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameChatService, UserService } from 'projects/hubservices/src/public-api';
+import { UserService } from 'projects/hubservices/src/public-api';
 import { ITeam } from '../../interfaces/ITeam';
 import { IUser } from '../../interfaces/IUser';
-import { TeamService } from '../../services/teamservice/team.service';
 
 @Component({
   selector: 'app-teamwindow',
@@ -14,7 +13,7 @@ export class TeamwindowComponent implements OnInit {
   public currentUser: IUser | null = null;
   public userTeam:ITeam |any;
   public haveTeam: boolean = false;
-  public isLoading: Boolean = true;
+  public isLoading: boolean = true;
 
   constructor(public userService: UserService) {}
 
