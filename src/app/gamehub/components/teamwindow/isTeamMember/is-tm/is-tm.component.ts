@@ -125,6 +125,10 @@ export class IsTMComponent implements OnInit {
         this.notifyMe = alert;
         if(this.notifyMe.alertType=="NEW TEAM JOIN REQUEST"){
           this.GetListOfRequest();
+        } else if (this.notifyMe.alertType=="TEAM DISBANDED") {
+          this.userService.getUser();
+        } else {
+          this.SearchTeam();
         }
       });
     });

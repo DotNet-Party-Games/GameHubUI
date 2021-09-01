@@ -55,6 +55,7 @@ export class GameChatService {
         .then(() => {
           console.log(`Disconnected from room ID: ${this.roomId}`);
           this.roomId = "";
+          this.connectedToRoom.next(false);
         })
         .catch(err => {
           console.log(err);
