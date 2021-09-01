@@ -20,17 +20,7 @@ export class AppComponent implements OnDestroy {
     this.roomId = sessionStorage.getItem("roomId");
     this.livechatService.leaveRoom({room: this.roomId, user: this.username});
   }
-
-  ngOnInit(){
-
-  }
-
   ngOnDestroy(): void {
-
-    // this.username = sessionStorage.getItem("userName");
-    // this.roomId = sessionStorage.getItem("roomId");
-    // this.livechatService.leaveRoom({room: this.roomId, user: this.username});
-
   }
 
 }

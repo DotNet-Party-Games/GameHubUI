@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PartygameService } from '../services/partygame.service';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-import { timeStamp } from 'console';
+import { Router,ActivatedRoute  } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',

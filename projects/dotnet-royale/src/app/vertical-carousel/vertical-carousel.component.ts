@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerticalCarouselComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    //this is empty
+   }
 
   ngOnInit(): void {
+    // this is empty
   }
 
 }

@@ -48,18 +48,20 @@
 
 /* (B) DEALER'S CARDS */
 #deal-wrap { background: #343a40; }
-#deal-data { background: #0275d8;}
-#deal-data { font-size: 20px;
-            font-weight: bold;
-            color: #fff; }
+#deal-data { 
+  background: #0275d8;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff; }
 #deal-first .front { display: none; }
 #deal-first.show .back { display: none; }
 #deal-first.show .front { display: block; }
 
 /* (C) PLAYER'S CARDS */
 #play-wrap { background: #343a40;}
-#play-data { background: #d9534f;}
-#play-data { font-size: 20px;
+#play-data { 
+  background: #d9534f;
+  font-size: 20px;
   font-weight: bold;
   color: #fff; }
 
