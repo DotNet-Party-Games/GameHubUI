@@ -198,7 +198,7 @@ export class LayoutComponent implements OnInit {
     this.socketService.joinRoom({ user: username, room: roomId });
   }
   sendSnakeGameState(): void {
-    this.socketService.sendSnakeGameState({ GameState: this.game$.value, room: this.roomId, User: this.currentUser.userName, Score: this.score});
+    this.socketService.sendSnakeGameState({ SnakePos: this.game$.value.snakePos, Lost: this.game$.value.lost, room: this.roomId, User: this.currentUser.userName, Score: this.score});
   }
   getNextField(
     game: GameState,
@@ -303,7 +303,7 @@ export class LayoutComponent implements OnInit {
           console.log(this.GameOver);
           let game = this.game$.value;
           this.count12 = 0;
-          this.snakeMap.set(this.currentUser.userName, game.snakePos);
+          //this.snakeMap.set(this.currentUser.userName, game.snakePos);
           console.log("sending gamestate to socket");
           this.sendSnakeGameState();
           this.snakePositionDisplay = [];
@@ -321,76 +321,6 @@ export class LayoutComponent implements OnInit {
           {
             this.GameEnd = true;
           }
-
-          // this.snakePositionDisplay = [].concat(this.snakePositionDisplay, this.SnakeGameState);
-          // this.snakePositionDisplay = [].concat(this.snakePositionDisplay, this.SnakeGameState);
-
-
-          //const subscription = this.socketService.currentGameState.subscribe(data => (this.SnakeGameState = data.map(a=>a)));
-          //for (let n = 0; n < this.userList.length-1; n++)
-          //{
-          // this.sendSnakeGameState();
-          // //loop through for n number of players with an observable that is already subscribed and do .next for the amount of players there are... boom multiplayer
-          // const subscription = this.socketService.getSnakeGameState().subscribe(data => (this.SnakeGameState = data.map(a=>a)));
-          // this.sendSnakeGameState();
-
-          // this.SnakeGameState2 = [].concat(this.SnakeGameState2, this.SnakeGameState);
-
-          // this.socketService.getSnakeGameState().subscribe(data=>
-          //   (this.SnakeGameState = data.map(a=>a)));
-          // this.SnakeGameState2 = [].concat(this.SnakeGameState2, this.SnakeGameState);
-
-
-
-          // console.log(JSON.stringify(this.SnakeGameState2));
-
-
-
-          //subscription2.unsubscribe();
-          //maybe flip
-
-          //if (this.SnakeGameState != undefined)
-          //{
-          //  if (n>0)
-          //   {
-          //     let count = 0;
-          //     while (JSON.stringify(this.SnakeGameState) === JSON.stringify(this.tempSnake))
-          //      {
-          //        count++;
-          //        console.log("true");
-          //        this.tempSnake = this.socketService.newGameState.getValue();
-          //        if (count > 10)
-          //        {
-          //          break;
-          //        }
-          //      }
-          //     this.SnakeGameState2.push(...this.SnakeGameState);
-          //   }
-          //   else
-          //   {
-          //     this.tempSnake = this.SnakeGameState;
-          //     this.SnakeGameState2 = this.SnakeGameState;
-          //   }
-          // }
-          //subscription.unsubscribe();
-          //}
-
-          //this.snakePositionDisplay = [].concat(this.snakePositionDisplay, game.snakePos);
-          //console.log(JSON.stringify(this.snakePositionDisplay));
-          //game.snakePos2 = this.snakePositionDisplay;
-          //this.snakePositionDisplay = [].concat(game.snakePos, this.snakePositionDisplay);
-
-
-          // if (this.SnakeGameState != undefined)
-          // {
-          //   game.snakePos2 = this.SnakeGameState;
-          //   this.snakePositionDisplay = [].concat(game.snakePos, this.SnakeGameState);
-          // }
-          // else
-          // {
-          //   this.snakePositionDisplay = game.snakePos;
-          // }
-          //subscription.unsubscribe();
 
           const direction = this.direction$.value;
           const nextField = this.getNextField(game, direction);
@@ -418,6 +348,7 @@ export class LayoutComponent implements OnInit {
               break;
             case FieldType.SNAKE:
               this.lives--;
+              this.playSFX("oof");
               if (this.lives < 1)
               {
                 this.GameOver++;
@@ -472,7 +403,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['room', { relativeTo: this.route }]);
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
   playMusic()
@@ -487,7 +418,7 @@ export class LayoutComponent implements OnInit {
   {
     let audio = <HTMLAudioElement>document.getElementById('sfx');
     audio.volume= 0.1;
-    audio.src = audioCue;
+    audio.src = "assets/dotnet-royale/" + audioCue + ".mp3";
     audio.load();
     audio.play();
   }

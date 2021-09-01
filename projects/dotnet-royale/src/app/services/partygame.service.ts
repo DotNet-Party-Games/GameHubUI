@@ -17,7 +17,7 @@ export class PartygameService {
   //url referencing the WebAPI
   //private url = "http://20.81.113.152/dotnetroyaleapi/";
   //private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
-  private url = 'http://revabox.eastus.cloudapp.azure.com';
+  private url = 'https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/';
 
  isLoggedIn:boolean;
   currentScore: IScore = {

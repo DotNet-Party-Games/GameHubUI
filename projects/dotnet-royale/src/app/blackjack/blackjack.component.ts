@@ -4,7 +4,7 @@ import { BlackjackService } from '../services/blackjack/blackjack.service';
 import { IScore } from '../services/score';
 import { PartygameService } from '../services/partygame.service';
 import { ILoggedUser } from '../services/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { SocketioService } from '../services/socketio/socketio.service';
 import { Subscription } from 'rxjs';
 import { gamestate } from './bjgamestate';
@@ -89,7 +89,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
 
   public currentUser:ILoggedUser;
    // constructor to initialize socket use amongst other services
-  constructor(private partyGameApi: PartygameService, private blackjackservice: BlackjackService, private router: Router, private socketService: SocketioService) {
+  constructor(private partyGameApi: PartygameService, private blackjackservice: BlackjackService, private router: Router, private socketService: SocketioService, private route: ActivatedRoute) {
     this.currentUser =
     {
       id: 0,
@@ -208,8 +208,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
 
   goToRoom(){
     // change to reroute to blackjack room
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['blackjack']);
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
   shouldStand(pNum: number)
   {
