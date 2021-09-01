@@ -18,7 +18,7 @@
       <h6 *ngIf="GameEnd"><button (click) = "goToRoom()">Return to Lobby</button></h6>
       </div>
       <app-game-field [width]="game.width" [height]="game.height" [food]="game.food">
-        <app-snake [pos]="snakePositionDisplay"></app-snake>
+        <app-snake [pos2]="snakePositionDisplay" [pos]="game.snakePos"></app-snake>
 
       </app-game-field>
     </ng-container>
