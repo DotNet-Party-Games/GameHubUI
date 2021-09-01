@@ -17,12 +17,9 @@ export interface GameState {
   snakePos2: { x: number; y: number }[];
 }
 import { PartygameService } from '../services/partygame.service';
-import { DataService } from '../services/data.service';
 import { IScore } from '../services/score';
-import { SnakeService } from '../services/snake/snake.service';
 import { ILoggedUser } from '../services/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LivechatService } from '../services/livechat/livechat.service';
 import { SocketioService } from '../services/socketio/socketio.service';
 import { TeamLeaderboardService} from '../../../../hubservices/src/public-api';
 //copy over layout into another folder called light bike
@@ -87,7 +84,7 @@ export class lightbikeComponent implements OnInit {
   Win: boolean;
   Boost: boolean;
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
     this.currentUser =
     {
       id: 0,
@@ -103,10 +100,7 @@ export class lightbikeComponent implements OnInit {
   ngOnInit(): void {
     this.getGameList();
     this.lives = 3;
-    this.data.currentGameId.subscribe(p_gameId => {
-      this.currentGameId = p_gameId;
-      if (p_gameId == -1) this.resetScreen();
-    });
+
     this.keyDown$ = fromEvent<KeyboardEvent>(document, "keydown").pipe(
       tap(event => event.stopPropagation()),
       map(event => event.key),

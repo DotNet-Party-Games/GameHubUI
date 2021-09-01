@@ -8,7 +8,7 @@ import { SocketioService } from '../services/socketio/socketio.service';
   styleUrls: ['./livechat.component.css']
 })
 
-export class LivechatComponent implements OnInit,OnChanges {
+export class LivechatComponent implements OnInit {
 
   public roomId : string;
   public messageText:string;
@@ -22,9 +22,6 @@ export class LivechatComponent implements OnInit,OnChanges {
   constructor(private socketService: SocketioService)
   {
     this.currentUser = sessionStorage.getItem('userName');
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   ngOnInit(): void

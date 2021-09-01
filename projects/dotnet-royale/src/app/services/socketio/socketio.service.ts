@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { BehaviorSubject } from 'rxjs';
-import { BoardComponent } from '../../tictactoe/board/board.component';
+
 import { GameState } from '../TTTTGameState';
 import { gamestate } from '../../blackjack/bjgamestate';
 @Injectable({
@@ -20,8 +20,6 @@ export class SocketioService {
   currentGameState = this.newGameState.asObservable();
   private newBlackjack = new BehaviorSubject<any>({});
   currentBlackjack = this.newBlackjack.asObservable();
-  // private newTTTTGameState = new BehaviorSubject<any>({});
-  // currentTTTTGameState = this.newTTTTGameState.asObservable();
   private playerList = new BehaviorSubject<any>({});
   currentPlayerList = this.playerList.asObservable();
 
