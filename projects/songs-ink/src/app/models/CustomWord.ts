@@ -1,6 +1,6 @@
 export interface CustomWord {
     id?: number,
     PlayerId: number,
-    CustomWordName: string,
+    customWordName: string,
     CustomCategoryId: number;
 }
