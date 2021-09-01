@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../models/Profile';
+import { LeaderBoard } from '../models/LeaderBoard';
 
 const httpOptions = 
 {
@@ -23,8 +24,8 @@ export class PointsService {
   {
     return this.http.get<number>(`${this.url}getScoreOfPlayer/${id}`);
   }
-  updateScoreOfPlayer(id: number, score:number): Observable<Profile>
+  updateScoreOfPlayer(player: LeaderBoard): Observable<Profile>
   {
-    return this.http.put<Profile>(`${this.url}updateScoreOfPlayer/${id}`, score, httpOptions);
+    return this.http.put<Profile>(`${this.url}updateScoreOfPlayer/`, player, httpOptions);
   }
 }

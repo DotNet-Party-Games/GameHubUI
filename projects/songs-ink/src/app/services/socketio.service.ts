@@ -9,6 +9,9 @@ import { Player } from '../models/Player';
 import { Profile } from '../models/Profile';
 import { PointsService } from './points.service';
 import { ProfileService } from './profile.service';
+import { TeamLeaderboardService, UserService } from 'projects/hubservices/src/public-api';
+import { User } from '@auth0/auth0-spa-js';
+import { LeaderBoard } from '../models/LeaderBoard';
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +34,22 @@ export class SocketIoService {
   ableToScore = this.socket.fromEvent<boolean>('able to score');
   currentLoggedIn:Profile;
   tempCurrentLoggedIn:Profile;
+  user: User;
   
 
-  constructor(private profApi: ProfileService, private socket: Socket, private pointApi: PointsService) { this.RunOnConnect();  }
+  constructor(private profApi: ProfileService, private socket: Socket, private pointApi: PointsService, private leaderboardService: TeamLeaderboardService, private userService: UserService) {
+    this.userService.user.subscribe(user => {
+      this.user = user;
+    })
+    this.RunOnConnect(); 
+   }
 
     RunOnConnect(){
-    if(!this.userName){
+    /*if(!this.userName){
         this.userName = "Guest "+this.roomId();
-      }
+      }*/
+      this.userName = this.user.nickname;
+      console.log(this.userName);
     }
 
     SetUsername(newName:string){
@@ -99,7 +110,13 @@ export class SocketIoService {
     this.tempCurrentLoggedIn=this.currentLoggedIn;
     console.log(this.tempCurrentLoggedIn);
     this.tempCurrentLoggedIn.currentScore=this.tempCurrentLoggedIn.currentScore+add;
-    this.pointApi.updateScoreOfPlayer(this.tempCurrentLoggedIn.id,add).subscribe();
+    let templb: LeaderBoard;
+    templb.id = this.tempCurrentLoggedIn.id;
+    templb.nickName = this.user.nickname;
+    templb.currentScore = this.tempCurrentLoggedIn.currentScore;
+    templb.overallScore = this.tempCurrentLoggedIn.playerScore+add;
+    this.pointApi.updateScoreOfPlayer(templb).subscribe();
+    this.leaderboardService.submitScore("songsink", add);
     }
   }
 
