@@ -14,6 +14,8 @@ import { ProfileService } from './profile.service';
   providedIn: 'root'
 })
 export class SocketIoService {
+
+  //private url = 'http://revabox.eastus.cloudapp.azure.com';
   roomListstatic:string[]=[];
   userName:string;
   gameUserName:string;
@@ -33,7 +35,10 @@ export class SocketIoService {
   tempCurrentLoggedIn:Profile;
   
 
-  constructor(private profApi: ProfileService, private socket: Socket, private pointApi: PointsService) { this.RunOnConnect();  }
+  constructor(private profApi: ProfileService, private socket: Socket, private pointApi: PointsService) {
+    //this.socket.ioSocket = io(this.url, { path: '/songsinksocket/socket.io', transports: ['websocket', 'pulling', 'flashsocket'] });
+    this.RunOnConnect(); 
+   }
 
     RunOnConnect(){
     if(!this.userName){

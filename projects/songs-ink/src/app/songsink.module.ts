@@ -36,7 +36,8 @@ import { ChooseWordDialogComponent } from './components/choose-word/choose-word.
 import { TimerComponent } from './components/timer/timer.component';
 
 //const config: SocketIoConfig = { url: 'https://ancient-beach-47155.herokuapp.com/', options: {} };
-const config: SocketIoConfig = { url: 'localhost:3000', options: {} };
+//const config: SocketIoConfig = { url: 'localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com', options: {path: '/songsinksocket/socket.io', transports: ['websocket', 'pulling', 'flashsocket'] } };
 import { AuthGuard, AuthModule } from '@auth0/auth0-angular';
 import { JukeboxComponent } from './components/jukebox/jukebox.component';
 import { ProfileCategorylistComponent } from './components/profile-categorylist/profile-categorylist.component';
