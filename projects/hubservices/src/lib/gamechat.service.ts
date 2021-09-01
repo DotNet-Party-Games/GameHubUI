@@ -42,7 +42,7 @@ export class GameChatService {
           this.connectedToRoom.next(true);
         })
         .catch(err => {
-          console.log(err.toString());
+          console.log(err);
           console.log('retrying...');
           setTimeout(() => this.joinChat(roomId), 5000);
         })
@@ -57,7 +57,7 @@ export class GameChatService {
           this.roomId = "";
         })
         .catch(err => {
-          console.log(err.toString());
+          console.log(err);
         })
     }
   }
