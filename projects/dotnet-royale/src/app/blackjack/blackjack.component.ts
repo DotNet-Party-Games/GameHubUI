@@ -7,6 +7,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { SocketioService } from '../services/socketio/socketio.service';
 import { Subscription } from 'rxjs';
 import { gamestate } from './bjgamestate';
+import { TeamLeaderboardService } from '../../../../hubservices/src/public-api';
 
 // interface for individual player
 export interface Blackjack {
@@ -82,7 +83,7 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
 
   public currentUser:ILoggedUser;
    // constructor to initialize socket use amongst other services
-  constructor(private partyGameApi: PartygameService, private router: Router, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private partyGameApi: PartygameService, private router: Router, private socketService: SocketioService, private route: ActivatedRoute,private leaderboardService: TeamLeaderboardService) {
     this.currentUser =
     {
       id: 0,
@@ -157,15 +158,18 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
           this.finalScore.gamesId = 2;
           this.finalScore.score = 1;
           this.finalScore.userName = sessionStorage.getItem('userName');
-          this.partyGameApi.addscore(this.finalScore).subscribe();
-          this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
+          this.partyGameApi.addscore(this.finalScore).subscribe(data =>
+            {this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
+            });
+          this.leaderboardService.submitScore("partygames",1);
       }else
       {
         this.finalScore.gamesId = 2;
         this.finalScore.score = 0;
         this.finalScore.userName = sessionStorage.getItem('userName');
-        this.partyGameApi.addscore(this.finalScore).subscribe();
-        this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
+        this.partyGameApi.addscore(this.finalScore).subscribe(data =>
+          {this.partyGameApi.updateBlackJackStats(this.finalScore).subscribe();
+          });
       }
       }
       this.socketService.getAudioTrigger().subscribe(data2 => {

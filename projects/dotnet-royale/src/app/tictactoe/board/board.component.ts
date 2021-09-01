@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GameState } from '../../services/TTTTGameState';
 import { SocketioService } from '../../services/socketio/socketio.service';
 import { Subscription } from 'rxjs';
+import { TeamLeaderboardService } from '../../../../../hubservices/src/public-api';
 
 @Component({
   selector: 'app-board',
@@ -39,7 +40,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
     this.currentUser =
     {
       id: 0,
@@ -89,19 +90,17 @@ export class BoardComponent implements OnInit, OnDestroy {
           this.finalScore.gamesId=3;
           this.finalScore.userName = this.thisPlayerName;
           this.finalScore.score=1;
-          console.log("sending winner score");
           this.partyGameApi.addscore(this.finalScore).subscribe(datas => {
-            console.log("insinde addscore");
             this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
           });
+          this.leaderboardService.submitScore("partygames",1);
         }else{
           //call to add score to game
         this.finalScore.gamesId=3;
         this.finalScore.userName = this.thisPlayerName;
         this.finalScore.score=0;
-        console.log("sending LOSER score");
         this.partyGameApi.addscore(this.finalScore).subscribe(data4 => {
-          console.log("insinde addscore");
+
           this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
         });
         
