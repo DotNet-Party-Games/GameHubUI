@@ -1,0 +1,27 @@
+@import '../../mat-vars';
+table {
+    width: 170px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: $myAccentColor;
+    
+}
+
+th {
+    color: black;
+    font-size: large;
+}
+
+td {
+    color: $myPrimaryColor;
+}
+
+.active{
+    background-color: $myPrimaryColor;
+    color:$myAccentColor;
+}
+
+.inactive{
+    background-color: $myAccentColor;
+    color:$myPrimaryColor;
+}

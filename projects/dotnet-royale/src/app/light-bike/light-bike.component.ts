@@ -24,8 +24,7 @@ import { ILoggedUser } from '../services/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LivechatService } from '../services/livechat/livechat.service';
 import { SocketioService } from '../services/socketio/socketio.service';
-
-
+import { TeamLeaderboardService} from '../../../../hubservices/src/public-api';
 //copy over layout into another folder called light bike
 //place light bike folder into the pathing within app.module.ts
 //room.html needs to have the routing information to display the game
@@ -88,7 +87,7 @@ export class lightbikeComponent implements OnInit {
   Win: boolean;
   Boost: boolean;
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
     this.currentUser =
     {
       id: 0,
@@ -293,8 +292,8 @@ export class lightbikeComponent implements OnInit {
     this.score = 1;
     this.currentHighScore = this.score;
     this.lives = 3;
-    const width = 60;
-    const height = 45;
+    const width = 70;
+    const height = 35;
     const food = {x:null, y:null};
     const snakePos = [this.getRandomField(width, height)];
     this.tempDisplay = snakePos;
@@ -316,7 +315,7 @@ export class lightbikeComponent implements OnInit {
         map(tick => {
           this.count12 = 0;
           let game = this.game$.value;
-          if (game.snakePos.length <= 10)
+          if (game.snakePos.length <= 13)
           {
             this.tempDisplay.push(game.snakePos[0]);
             this.count12++;
@@ -401,6 +400,7 @@ export class lightbikeComponent implements OnInit {
           this.partyGameApi.addscore(this.finalScore).subscribe(data => {
             this.partyGameApi.updateLightBikeStats(this.finalScore).subscribe(); 
           });
+          this.leaderboardService.submitScore("partygames",1);
           this.lost$.next();
         }
       });

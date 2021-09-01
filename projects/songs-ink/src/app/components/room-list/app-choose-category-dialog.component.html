@@ -1,0 +1,5 @@
+<h1> Choose A Category </h1>
+<div *ngFor='let category of data'>
+    <button mat-button></button>
+    <button mat-button [mat-dialog-close]="category"> {{category}}</button>
+</div>

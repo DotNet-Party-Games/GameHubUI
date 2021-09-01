@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -46,6 +47,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
     AuthModule.forRoot({
@@ -72,6 +74,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       {path: "chat", component: GamechatComponent, canActivate: [AuthGuard], },
       {path: "game", component: GameComponent, canActivate: [AuthGuard], },
       {path: "game/dotnetroyale", component: GameComponent, loadChildren: () => import('projects/dotnet-royale/src/app/dotnetroyale.module').then(m => m.DotnetRoyaleModule)},
+      {path: "game/songsink", component: GameComponent, loadChildren: () => import('projects/songs-ink/src/app/songsink.module').then(m => m.SongsInkModule)},
       {path: "game/battleship", component:GameComponent, loadChildren:()=>import('projects/battleship/src/app/battleship.module').then(m=> m.BattleshipModule)}
       //{path: "**", redirectTo: "home"}
       
