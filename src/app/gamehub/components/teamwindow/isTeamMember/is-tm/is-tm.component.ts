@@ -106,14 +106,18 @@ export class IsTMComponent implements OnInit {
    }
 
    ngOnDestroy() {
-    this.chatService.leaveChat();
+    //this.chatService.leaveChat();
   }
 
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
-      if(user) {
-        this.chatService.joinChat(user.teamId);
+      if (user && user.team) {
+        this.chatService.connectionEstablished.subscribe(isConnected => {
+          if(isConnected) {
+            this.chatService.joinChat(user.teamId);
+          }
+        })
       }
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
