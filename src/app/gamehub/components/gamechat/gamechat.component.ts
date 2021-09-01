@@ -74,15 +74,18 @@ export class GamechatComponent implements OnInit {
       this.user = user;
     });
 
+    /*
     this.chatService.connectionEstablished.subscribe(isConnected => {
       this.connectionEstablished = isConnected;
       if (isConnected) {
         this.chatService.joinChat(this.channelId);
+      } else {
+        this.isLoading = true;
       }
-    });
+    });*/
 
     this.chatService.connectedToRoom.subscribe(isConnected => {
-      if (isConnected && this.isLoading) {
+      if (isConnected) {
         this.isLoading = false;
       }
     });

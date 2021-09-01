@@ -2,22 +2,23 @@
 
     <!--- This is Snake Game-->
     <ng-container *ngIf="game$ | async as game">
+      <audio id="bgmusic"></audio>
+      <audio id="sfx"></audio>
       <div style = "float:left">
-      <h5>Score: {{(score * 100) - 100}}</h5>
+      <h5 style="color:white" >Score: {{(score * 100) - 100}}</h5>
       </div>
       <div style = "float:right;">
-      <h5>Lives: {{lives}}</h5>  
+      <h5 style="color:white" >Lives: {{lives}}</h5>  
       </div>
       <div style = "text-align:center">
-      <h5>Current Highest Score: {{(currentHighScore * 100) - 100}}</h5>
+      <h5 style="color:white">Current Highest Score: {{(currentHighScore * 100) - 100}}</h5>
       </div>
       <div style="text-align:center">
-      <h6 *ngIf="game.lost">Game Over! Waiting for players to finish... </h6>
-      <h6 *ngIf="GameEnd"><button (click) = "goToRoom()">Return to Lobby</button></h6>
+      <h6 style="color:white" *ngIf="game.lost">Game Over! Waiting for players to finish... </h6>
+      <h6 style="color:white" *ngIf="GameEnd"><button (click) = "goToRoom()">Return to Lobby</button></h6>
       </div>
       <app-game-field [width]="game.width" [height]="game.height" [food]="game.food">
-        <app-snake [pos]="snakePositionDisplay"></app-snake>
-
+        <app-snake [pos2]="snakePositionDisplay" [pos]="game.snakePos"></app-snake>
       </app-game-field>
     </ng-container>
     <!-- End of Snake Game-->

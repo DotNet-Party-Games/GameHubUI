@@ -54,7 +54,7 @@ export class lightbikeComponent implements OnInit {
   public roomId: string;
   finalScore: IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null
   }
   obj: GameState;
@@ -85,6 +85,8 @@ export class lightbikeComponent implements OnInit {
   lastAlive: boolean;
   GameOver:number;
   GameEnd: boolean;
+  Win: boolean;
+  Boost: boolean;
 
   constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute) {
     this.currentUser =
@@ -133,7 +135,7 @@ export class lightbikeComponent implements OnInit {
         this.currentHighScore = this.score;
       }
     });
-    this.tick$ = interval(110);
+    this.tick$ = interval(80);
     this.direction$.subscribe((currentDirection) =>
       this.snakeDirection = currentDirection);
     const direction = this.keyDown$.pipe(
@@ -205,7 +207,7 @@ export class lightbikeComponent implements OnInit {
     this.socketService.joinRoom({ user: username, room: roomId });
   }
   sendLightSnakeGameState(): void {
-    this.socketService.sendLightSnakeGameState({ GameState: this.game$.value, room: this.roomId, User: this.currentUser.userName, Score: this.score});
+    this.socketService.sendLightSnakeGameState({ SnakePos: this.game$.value.snakePos, Lost: this.game$.value.lost, room: this.roomId, User: this.currentUser.userName, Score: this.score});
   }
   getNextField(
     game: GameState,
@@ -284,13 +286,15 @@ export class lightbikeComponent implements OnInit {
   currentfood: { x: number; y: number };
   tempDisplay: { x: number; y: number }[];
   newGame(): void {
+    this.Boost = false;
+    this.Win = false;
     this.GameEnd = false;
     this.GameOver = 0;
     this.score = 1;
     this.currentHighScore = this.score;
     this.lives = 3;
-    const width = 40;
-    const height = 33;
+    const width = 60;
+    const height = 45;
     const food = {x:null, y:null};
     const snakePos = [this.getRandomField(width, height)];
     this.tempDisplay = snakePos;
@@ -314,15 +318,14 @@ export class lightbikeComponent implements OnInit {
           let game = this.game$.value;
           if (game.snakePos.length <= 10)
           {
-            this.tempDisplay.push(game.snakePos[this.count12]);
+            this.tempDisplay.push(game.snakePos[0]);
             this.count12++;
             game.snakePos = this.tempDisplay;
           }
-          this.snakeMap.set(this.currentUser.userName, game.snakePos);
+          //this.snakeMap.set(this.currentUser.userName, game.snakePos);
           this.sendLightSnakeGameState();
           this.snakePositionDisplay = [];
           for (let val of this.snakeMap.values()) {
-
             this.snakePositionDisplay = [].concat(this.snakePositionDisplay, val);
           }
           game.snakePos2 = this.snakePositionDisplay;
@@ -330,30 +333,37 @@ export class lightbikeComponent implements OnInit {
           {
             this.currentHighScore = this.score;
           }
-          if (game.lost == true && this.GameOver == this.userList.length-1)
+          if (this.GameOver == this.userList.length-1)
           {
             this.GameEnd = true;
+            this.Win = true;
           }
-      
+
+
           const direction = this.direction$.value;
           const nextField = this.getNextField(game, direction);
           const nextFieldType = this.getFieldType(nextField, game);
           switch (nextFieldType) {
             case FieldType.EMPTY:
-              game.snakePos = [...game.snakePos.slice(1), nextField];
+              if (this.Win == true)
+              {
+                game.snakePos = [...game.snakePos.slice(), nextField];
+              }
+              else{
+                game.snakePos = [...game.snakePos.slice(1), nextField];
+              }
+
               break;
             case FieldType.SNAKE:
               this.lives--;
+              this.playSFX("oof");
               if (this.lives < 1)
               {
                 this.GameOver++;
-                if (this.GameOver >= this.userList.length)
+                if (this.GameOver == this.userList.length-1)
                 {
-                  console.log("game over paps");
                   this.GameEnd = true;
                 }
-                //game.snakePos = [];
-                //this.sendSnakeGameState();
                 game.lost = true;
                 this.GameEnd = true;
                 this.sendLightSnakeGameState();
@@ -365,6 +375,7 @@ export class lightbikeComponent implements OnInit {
                this.tempDisplay = game.snakePos;
               }
               break;
+
           }
           return game;
         }),
@@ -372,12 +383,24 @@ export class lightbikeComponent implements OnInit {
       )
       .subscribe(game => {
         this.game$.next(game);
-        if (game.lost) {
-          this.finalScore.gamesId = 1;
-          this.finalScore.score = (this.score * 100) - 100;
-          this.finalScore.userId = parseInt(sessionStorage.getItem('userId'));
-          this.partyGameApi.addscore(this.finalScore).subscribe();
-          this.partyGameApi.updateSnakeStats(this.finalScore).subscribe();
+        if (game.lost && !this.Win) {
+          this.finalScore.gamesId = 4;
+          this.finalScore.score = 0;
+          this.finalScore.userName = sessionStorage.getItem('userName');
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            this.partyGameApi.updateLightBikeStats(this.finalScore).subscribe(); 
+          });
+          
+          this.lost$.next();
+        }
+        else if(game.lost && this.Win)
+        {
+          this.finalScore.gamesId = 4;
+          this.finalScore.score = 1;
+          this.finalScore.userName = sessionStorage.getItem('userName');
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            this.partyGameApi.updateLightBikeStats(this.finalScore).subscribe(); 
+          });
           this.lost$.next();
         }
       });
@@ -397,8 +420,23 @@ export class lightbikeComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['room'], { relativeTo: this.route });
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
-
+  playMusic()
+  {
+    let audio = <HTMLAudioElement>document.getElementById('bgmusic');
+    audio.volume= 0.1;
+    audio.src = "";
+    audio.load();
+    audio.play();
+  }
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = "assets/dotnet-royale/" + audioCue + ".mp3";
+    audio.load();
+    audio.play();
+  }
 }
 

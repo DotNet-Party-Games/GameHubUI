@@ -1,0 +1,26 @@
+mat-card
+{
+    width: fit-content;
+    text-align: center;
+}
+
+mat-card.WinCard {
+    background-color: green;
+    margin: auto;
+}
+
+mat-card.LossCard {
+    background-color: red;
+    margin: auto;
+}
+
+mat-card.DrawCard {
+    background-color: cyan;
+    margin: auto;
+}
+
+#StatsCard
+{
+    margin: auto;
+    width: 30%;
+}

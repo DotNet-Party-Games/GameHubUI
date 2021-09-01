@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PartygameService } from '../services/partygame.service';
-import { Leader } from '../services/leader';
 import { IScore } from '../services/score';
-import { IUser } from '../services/user';
+import { IStat } from '../services/stat';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -12,32 +11,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LeaderboardComponent implements OnInit {
 
-  snakeLeaders: Leader[];
-  blackjackLeaders: Leader[];
-  tictactoeLeaders: Leader[];
-  scores: IScore[];
+  snakeLeaders: IScore[];
+  blackjackLeaders: IStat[];
+  tictactoeLeaders: IStat[];
+  lightbikeLeaders: IStat[];
 
   constructor(private router: Router, private partyGameApi: PartygameService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.snakeLeaders = this.getLeaderBoardByGameId(1);
-    this.blackjackLeaders = this.getLeaderBoardByGameId(2);
-    this.tictactoeLeaders = this.getLeaderBoardByGameId(3);
+    this.getAllLeaderBoardByGameId();
   }
 
-  getLeaderBoardByGameId(p_gameId: number) : Leader[]
+  getAllLeaderBoardByGameId()
   {
-    let leaders: Leader[] = [];
-    this.partyGameApi.getTop10ScoresByGameId(p_gameId).subscribe((response: IScore[]) => {
-      this.scores = response;
-      this.scores.forEach(s => {
-        this.partyGameApi.getUserFromUserId(s.userId).subscribe((u: IUser) => {
-          leaders.push({username: u.userName, score:s.score});
-          leaders.sort((a, b) => b.score - a.score)
-          });
-      })
+    this.partyGameApi.getTop10ScoresByGameId(1).subscribe((response: IScore[]) => {
+      this.snakeLeaders = response;
     });
-    return leaders;
+    this.partyGameApi.getTop10BlackJackStats().subscribe((response: IStat[]) => {
+      this.blackjackLeaders = response;
+    });
+    this.partyGameApi.getTop10TicTacToeStats().subscribe((response: IStat[]) => {
+      this.tictactoeLeaders = response;
+    });
+    this.partyGameApi.getTop10LightBikeStats().subscribe((response: IStat[]) => {
+      this.lightbikeLeaders = response;
+    });
   }
 
   goToMain(){

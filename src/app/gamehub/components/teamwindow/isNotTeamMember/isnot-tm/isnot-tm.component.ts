@@ -4,15 +4,11 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-
-// import { GameChatService } from 'src/app/gamehub/services/gamechat.service';
-
-import { ChatMessage } from 'src/app/gamehub/models/chatmessage.model';
-import { ChatStatus } from 'src/app/gamehub/models/chatstatus.model';
-import { GameChatService } from 'projects/hubservices/src/public-api';
+import { AppToastService, GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service'; 
 import { UserService } from 'projects/hubservices/src/public-api';
 import { User } from 'src/app/gamehub/models/user.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-isnot-tm',
@@ -30,35 +26,46 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   searchKey: string |any = '';
   cfrm : string |any = '';
   notifyMe:ChatAlert | any={};
+  public isLoading: Boolean = false;
+  public selectedTeamName: string | null;
 
   @Input()
   public currentUser: IUser |any = {};
 
   public user: User | null = null;
   public connectionEstablished: Boolean = false;
+  private modalReference: any = null;
 
   
-   constructor( private teamservice:TeamService,
+  constructor( private teamservice:TeamService,
     public userService: UserService,
     private chatService: GameChatService,
-    private ngZone: NgZone) { 
+    private ngZone: NgZone,
+    private modalService: NgbModal,
+    private toastService: AppToastService) { 
       this.subscribeToEvents();
     }
  
-   ngOnInit(): void {
+  ngOnInit(): void {
+    this.isLoading = true;
      this.GetAllTeam();
    }
  
-   ngOnChanges(changes:SimpleChanges):void{
-
-   }
+  ngOnChanges(): void{ }
    // get the list of all teams
-   GetAllTeam():void
-   {
-     this.teamservice.GetAllTeams().subscribe((teamList : ITeam[])=>{
-       this.teams = teamList;
-     })
-   }
+  GetAllTeam(): void {
+     this.teamservice.GetAllTeams().subscribe(
+      (teamList : ITeam[])=>{
+        this.teams = teamList;
+        this.isLoading = false;
+      }, 
+      (error) => {
+        console.log(error);
+        console.log("Retrying to get teams...")
+        setTimeout(() => this.GetAllTeam(), 5000); 
+      }
+    )
+  }
  
    //Get list of Team base on search
    OnSearchTeam():void
@@ -73,19 +80,26 @@ export class IsnotTMComponent implements OnInit, OnChanges {
      this.searchKey="";
    }
 
-   // send a request to join a team
-   OnJoinTeamRequest(teamName:string):void{
-    this.cfrm= confirm("submit the request?");
-    if(this.cfrm){
-      if(teamName!=null){
-        this.teamservice.JoinTeam(teamName).subscribe((joinRequest: ITeamJoinRequest|any)=>{
-          this.joinRequest = joinRequest;          
-          if(this.joinRequest.id){
-            alert("Your request is been sent");
-          }
-        });        
-      }
-    }     
+  sendJoinTeamRequest(): void {
+    if (this.selectedTeamName != null) {
+      this.teamservice.JoinTeam(this.selectedTeamName).subscribe(joinRequest => {
+        if(joinRequest) {
+          this.toastService.show("YOUR REQUEST HAS BEEN SENT","Please wait for the team leader to review your request.");
+        } else {
+          this.toastService.show("FAILED TO SEND REQUEST","Please try again later.");
+        }
+      });
+    }
+    this.modalReference.close();
+  }
+
+  openTeamRequestModal(content: any, teamName: string) {
+    this.selectedTeamName = teamName;
+    this.modalReference = this.modalService.open(content, { centered: true });
+  }
+
+  closeTeamRequestModal() {
+    this.modalReference.close();
   }
 
   // the submit button event click call on OnCreateTeam method
@@ -93,14 +107,15 @@ export class IsnotTMComponent implements OnInit, OnChanges {
     if(createTeamGroup.valid){
       this.teamservice.CreateTeam(createTeamGroup.value).subscribe((createdTeam:any) =>{
         if(createdTeam){   
-          sessionStorage.setItem('user_teamId',createdTeam.users[0].teamId.toString())
-          sessionStorage.setItem('user_teamName',createdTeam.users[0].team.toString())
+          sessionStorage.setItem('user_teamId',createdTeam.users[0].teamId.toString());
+          sessionStorage.setItem('user_teamName',createdTeam.users[0].team.toString());
+          this.toastService.show("TEAM CREATED",`Your team ${createdTeam.name} has been created`);
+        } else {
+          this.toastService.show("FAILED TO CREATE TEAM",`An error occurred while creating your team.`);
         }
-        alert("Team created");
       })
     }  
     this.GetAllTeam();
-    location.reload();
   }
 
   subscribeToEvents(): void {
@@ -112,7 +127,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
         console.log(alert);
         this.notifyMe = alert;
         if(this.notifyMe.alertType=="REQUEST APPROVED"){
-          location.reload();
+          this.userService.getUser();
         }
       });
     });

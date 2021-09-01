@@ -1,0 +1,32 @@
+
+<div class="container">
+    <br>
+    <mat-slide-toggle [(ngModel)]="myModel">Multiplayer</mat-slide-toggle><br>
+    <button (click)='newRoom()'>New Room</button>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <th>Room ID</th>
+        </thead>
+        <tbody>
+            <td>
+                <div [class.selected]='roomId === currentRoom'
+                
+                *ngFor='let roomId of rooms | async'>
+                <br>
+            <button class="btn btn-block btn-primary" style="width:100px; height: 50px;" (click)='loadRoom(roomId)' >{{ roomId }} </button>
+        </div>
+            </td>
+        </tbody>
+    </table>
+
+<!--     <div [class.selected]='roomId === currentRoom'
+                
+            *ngFor='let roomId of rooms | async'>
+            <br>
+        <button class="btn btn-block btn-primary" style="width:100px; height: 50px;" (click)='loadRoom(roomId)' >{{ roomId }} </button>
+        <br><br>
+    </div>
+    <br> -->
+</div>

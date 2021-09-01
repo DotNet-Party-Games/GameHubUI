@@ -18,7 +18,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public currentUser: ILoggedUser;
   finalScore: IScore = {
     gamesId: null,
-    userId: null,
+    userName: null,
     score: null,
   }
   gameState: GameState = {
@@ -33,20 +33,21 @@ export class BoardComponent implements OnInit, OnDestroy {
   thisPlayerName: string; // the player name of this specific player
   pullPlayer: boolean = false;
   audioUrl: string = "https://songsink.blob.core.windows.net/songs/"; //base url to access sounds
+  // Socket server subscription
   audioSub: Subscription;
   playerSub: Subscription;
   ttttDataSub: Subscription;
 
 
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private ttttService: TicTacToeService, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private socketService: SocketioService, private route: ActivatedRoute) {
     this.currentUser =
     {
       id: 0,
       password: "",
       userName: ""
     }
-    this.currentUser.id = parseInt(sessionStorage.getItem('userId'));
+   
     this.currentUser.userName = sessionStorage.getItem('userName');
     this.currentUser.password = sessionStorage.getItem('userPassword');
   }
@@ -60,15 +61,17 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.playerSub = this.socketService.findPlayers().subscribe(data => {
       console.log("In find player subscription, data: ");
       console.log(data);
+      // if you've already gotten the player list, dont do it again
       if (!this.pullPlayer) {
         this.gameState.playerList = data;
-        
+        // find out what player number this player is
         this.thisPlayer = this.gameState.playerList.indexOf(this.thisPlayerName);
-        
+        //get number of players
         this.numOfPlayers = this.gameState.playerList.length;
+        //generate empty array of squares
         this.gameState.squares = new Array((this.numOfPlayers + 1) ** 2).fill(null);
         if (this.thisPlayer == 0) {
-          this.newGame();
+          this.newGame(); // start a new game if youre player 0
         }
       }
       this.pullPlayer = true;
@@ -79,12 +82,41 @@ export class BoardComponent implements OnInit, OnDestroy {
       console.log(data.isOver);
       console.log(data.playerList);
       console.log(data.gameStarted);
+      //update game data with new data from server
       this.gameState=data;
+      if(this.gameState.winner){
+        if(this.gameState.winner == this.thisPlayerName)
+        {
+          this.finalScore.gamesId=3;
+          this.finalScore.userName = this.thisPlayerName;
+          this.finalScore.score=1;
+          console.log("sending winner score");
+          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+            console.log("insinde addscore");
+            this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
+          });
+        }else{
+          //call to add score to game
+        this.finalScore.gamesId=3;
+        this.finalScore.userName = this.thisPlayerName;
+        this.finalScore.score=0;
+        console.log("sending LOSER score");
+        this.partyGameApi.addscore(this.finalScore).subscribe(data => {
+          console.log("insinde addscore");
+          this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
+        });
+        
+        }
+        
+      }
+
     });
+    //this gets the players from the server
     this.socketService.getPlayers(({ room: this.roomId }));
   }
 
   ngOnDestroy(): void {
+    // clean up subscriptions
     this.playerSub.unsubscribe();
     this.ttttDataSub.unsubscribe();
     this.audioSub.unsubscribe();
@@ -96,7 +128,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   newGame() {
     this.gameState.gameStarted = true;
-    
+
     this.gameState.squares = new Array((this.numOfPlayers + 1) ** 2).fill(null);
     this.gameState.currentPlayer = 0;
     this.createGrid();
@@ -104,7 +136,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.gameState.winner = null;
     this.gameState.isOver = false;
     this.gameState.alreadyClicked = false;
-    this.sendTicTacToeGamestate(this.gameState);
+    this.sendTicTacToeGamestate(this.gameState); // send game state to other players
     let audio = <HTMLAudioElement>document.getElementById('audio');
     audio.pause();
   }
@@ -112,6 +144,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   generatePlayerPieces() {
     let possiblePieces: any[];
     possiblePieces = ["X", "O", "\u0444", "\u30B7", "\u02E0", "\u0376", "\u037C", "\u0394", "\u0398", "\u039B", "\u039E", "\u03A0", "\u03A8", "\u03A9", "\u00B5", "\u03A3", "\u0393", "\u0370"];
+    // randomize pieces
     for (let i = possiblePieces.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [possiblePieces[i], possiblePieces[j]] = [possiblePieces[j], possiblePieces[i]];
@@ -119,7 +152,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.gameState.playerPieces = new Array();
     for (let x = 0; x < this.numOfPlayers; x++) {
       if (x >= possiblePieces.length) {
-        this.gameState.playerPieces.push(String(x));
+        this.gameState.playerPieces.push(String(x)); // this is overflow incase there are more players than pieces
       } else {
         this.gameState.playerPieces.push(possiblePieces[x]);
       }
@@ -128,13 +161,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   async makeMove(idx: number) {
+    // this if statement makes sure only the player who should make a move can make one
     if (!this.gameState.squares[idx] && !this.gameState.isOver && !this.gameState.alreadyClicked && this.gameState.currentPlayer == this.thisPlayer) {
       this.gameState.alreadyClicked = true;
-      this.gameState.squares[idx] = this.gameState.playerPieces[this.gameState.currentPlayer];
+      this.gameState.squares[idx] = this.gameState.playerPieces[this.gameState.currentPlayer]; // add player piece to array
       this.updateGrid(idx, this.gameState.playerPieces[this.gameState.currentPlayer]);
       this.socketService.sendAudioTrigger({ audioFile: "placepiecesound", room: this.roomId });
       this.playAudio('placepiecesound');
-      this.gameState.winner = this.calculateWinner();
+      this.gameState.winner = this.calculateWinner(); //check winner
       this.endTurn();
     }
   }
@@ -148,7 +182,15 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.gameState.isOver = true;
       this.playAudio("youwon");
       this.socketService.sendAudioTrigger({ audioFile: "youlose", room: this.roomId })
-    } 
+      //make call to service to update score
+      // this.finalScore.gamesId=3;
+      //   this.finalScore.userName = this.thisPlayerName;
+      //   this.finalScore.score=1;
+      //   console.log("sending winner score");
+      //   this.partyGameApi.addscore(this.finalScore);
+      //   this.partyGameApi.updateTicTacToeStats(this.finalScore);
+
+    }
     this.sendTicTacToeGamestate(this.gameState);
 
   }
@@ -240,7 +282,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     return "Cats Game! Nobody";
   }
   goToRoom() {
-    this.router.navigate(['room'], { relativeTo: this.route });
+
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
 }

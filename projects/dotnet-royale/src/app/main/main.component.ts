@@ -34,5 +34,12 @@ export class MainComponent implements OnInit {
   goToRoot(){
     this.router.navigate(['gamelist']);
   }
-
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = audioCue;
+    audio.load();
+    audio.play();
+  }
 }

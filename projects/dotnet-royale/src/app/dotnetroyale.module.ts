@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LivechatComponent } from './livechat/livechat.component';
-import { GamelistComponent } from './gamelist/gamelist.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { PartygameService } from './services/partygame.service';
 import { SquareComponent } from './tictactoe/square/square.component';
@@ -23,11 +22,12 @@ import { MainComponent } from './main/main.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { RoomComponent } from './room/room.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { FakeLoginComponent } from './fake-login/fake-login.component';
 import { TrueblackjackComponent } from './trueblackjack/trueblackjack.component';
 import { VerticalCarouselComponent } from './vertical-carousel/vertical-carousel.component';
 import { lightbikeComponent } from './light-bike/light-bike.component';
 import { CommonModule } from '@angular/common';
+import { BikeGameFieldComponent } from './lightbikemodel/game-field/game-field.component';
+import { BikeComponent } from './lightbikemodel/snake.component';
 
 
 @NgModule({
@@ -35,7 +35,6 @@ import { CommonModule } from '@angular/common';
     AppComponent,
     LayoutComponent,
     LivechatComponent,
-    GamelistComponent,
     LeaderboardComponent,
     SquareComponent,
     BoardComponent,
@@ -46,10 +45,11 @@ import { CommonModule } from '@angular/common';
     LobbyComponent,
     RoomComponent,
     UserProfileComponent,
-    FakeLoginComponent,
     TrueblackjackComponent,
     VerticalCarouselComponent,
-    lightbikeComponent
+    lightbikeComponent,
+    BikeGameFieldComponent,
+    BikeComponent
   ],
   imports: [
     FormsModule,

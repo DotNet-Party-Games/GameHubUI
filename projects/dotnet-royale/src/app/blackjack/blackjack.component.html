@@ -1,5 +1,6 @@
 <div style="height: 100vh;">
-
+  <audio id="bgmusic"></audio>
+  <audio id="sfx"></audio>
   <div style="height: 88vh;">
   <!-- (A) DEALER'S CARDS -->
     <h3 id="winner"></h3>
@@ -7,43 +8,62 @@
       <!-- (A1) DEALER'S POINTS + STAND -->
       <div id="deal-data">
         <span id="deal-stand">STAND</span>
-        Dealer's Hand - <span id="deal-points">?</span>
+        Dealer's Hand - <span id="deal-points">{{dpoints}}</span>
+        <span *ngIf="dwinner">  WINNER</span>
       </div>
 
       <!-- (A2) DEALER'S CARDS -->
-      <div id="deal-cards"></div>
+      <div id="deal-cards">
+        <ul *ngFor="let dcards of dealer; index as i">
+          <li style="color:white;">{{(dnum[dcards.n] ? 
+            this.dnum[dcards.n] : 
+            dcards.n
+          ) }} {{dsymbols[dcards.s]}}</li>
+        </ul>
+      </div>
     </div>
 
     <!-- (B) PLAYER'S CARDS -->
-    <div id="play-wrap" *ngFor="let player of players; index as i">
+    <div id="play-wrap" *ngFor="let players of bjplayers; index as i">
       <!-- (B1) PLAYERS'S POINTS + STAND -->
       <div id="play-data">
-        <span id="play-stand{{i}}">STAND </span>
-      {{player}} - <span id="play-points{{i}}">0</span>
-        <span *ngIf="i == turn">YOUR TURN</span>
+        <span *ngIf="bjplayers[i].pstand">STAND - </span>
+        {{players.name}} - <span id="play-points">{{players.ppoints}} points</span>
+        <span *ngIf="i == turn && gameStarted">    YOUR TURN</span>
+        <span *ngIf="bjplayers[i].winner">  WINNER</span>
       </div>
 
       <!-- (B2) PLAYER'S CARDS -->
-      <div id="play-cards{{i}}"></div>
+      <div id="play-cards">
+        <ul *ngFor="let cards of bjplayers[i].player">
+          <li style="color:white;">{{(dnum[cards.n] ? 
+            this.dnum[cards.n] : 
+            cards.n
+          ) }} {{dsymbols[cards.s]}}</li>
+        </ul>
+      </div>
     </div>
 
 
     <!-- (C) PLAY! -->
     <div id="play-control">
-
       <!-- (C1) START -->
-      <input type="button" id="playc-start"  value="Play!"/>
+      <input type="button" id="playc-start" *ngIf="gameStarted == false" (click)="start()" value="Play!"/>
+      <div class="row mt-4 justify-content-md-center" *ngIf="!this.gameStarted">
+        <div class="col col-6 text-center">
+          <button class="btn btn-warning container mt-2" (click)="goToRoom()"><h3>Back</h3></button>
+        </div>
+      </div>
+    
       <!-- (C2) HIT OR STAND -->
-      <input type="button" id="playc-hit"  value="Hit"/>
-      <input type="button" id="playc-stand"  value="Stand"/>
+      <div *ngIf="this.turn == this.thisPlayer">
+        <input type="button" id="playc-hit" *ngIf="gameStarted == true" (click)="hit(turn)" value="Hit"/>
+        <input type="button" id="playc-stand" *ngIf="gameStarted == true" (click)="stand(turn)" value="Stand"/>
+      </div>
+      
     </div>
   </div>
 
-  <div class="row mt-4 justify-content-md-center">
-    <div class="col col-6 text-center">
-      <button class="btn btn-warning container mt-2" (click)="goToRoom()"><h3>Back</h3></button>
-    </div>
-  </div>
-
+  
 </div>
 

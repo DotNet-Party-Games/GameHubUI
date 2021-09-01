@@ -41,6 +41,7 @@ export class LivechatComponent implements OnInit,OnChanges {
     this.roomId = sessionStorage.getItem("roomId");
     this.socketService.getMessage().subscribe((data: {user:string, message:string}) => {
             this.messageArray.push(data);
+            this.playSFX("received");
         });
 
     this.join(this.currentUser,this.roomId);
@@ -53,6 +54,7 @@ export class LivechatComponent implements OnInit,OnChanges {
 
   sendMessage():void
   {
+    this.playSFX("send");
     this.socketService.sendMessage({
       user: this.currentUser,
       room: this.roomId,
@@ -73,6 +75,13 @@ export class LivechatComponent implements OnInit,OnChanges {
       if(room) this.UserList = room.users;
     });
   }
-
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = audioCue;
+    audio.load();
+    audio.play();
+  }
 
 }

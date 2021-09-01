@@ -24,7 +24,7 @@ export class UserService {
     });
   }
 
-  private getUser(): void {
+  public getUser(): void {
     this.http.get<User>(`${environment.api.url}/user`)
       .subscribe(
         result => {

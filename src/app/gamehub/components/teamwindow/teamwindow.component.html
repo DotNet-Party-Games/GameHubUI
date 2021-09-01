@@ -1,12 +1,13 @@
-  <div *ngIf="haveTeam==false">
+<div *ngIf="isLoading; else teamcontent" id="spinner-wrapper" class="container-fluid spinner-wrapper">
+  <app-loading-wheel></app-loading-wheel>
+</div>
+
+<ng-template #teamcontent>
+  <div *ngIf="haveTeam==false && !isLoading">
     <app-isnot-tm></app-isnot-tm>
   </div>
 
-  <div *ngIf="haveTeam==true" style="border-top: 2px solid white;">
-    <app-is-tm [currentUser] = "currentUser"></app-is-tm>
+  <div *ngIf="haveTeam==true && !isLoading" style="border-top: 2px solid white;">
+    <app-is-tm [currentUser]="currentUser"></app-is-tm>
   </div>
-
-
-  
-  
-
+</ng-template>
