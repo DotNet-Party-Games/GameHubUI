@@ -17,18 +17,19 @@
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
-  <div *ngIf="!isLoading; else loadingpanel" id="message-container" class="container-fluid border bg-light">
+
+  <div *ngIf="!isLoading; else loadingpanel" id="message-container" class="bg-dark text-white">
     <div *ngFor="let msg of chatMessages">
-      <div class="d-flex w-100 justify-content-between">
+      <div class="d-flex w-100 justify-content-between" >
         <h5 class="mb-1">{{msg.senderName}}</h5>
         <small>{{msg.timestamp | date:'L/dd/yy h:mm a'}}</small>
       </div>
       <p class="mb-1">{{msg.body}}</p>
     </div>
   </div>
-  <div class="">
+  <div class="" >
     <div class="input-group mb-3">
-      <input (keydown.enter)="sendMessage()" type="text" class="form-control" placeholder="Send a message"
+      <input (keydown.enter)="sendMessage()" type="text" class="form-control bg-dark text-white" placeholder="Send a message"
         [formControl]="messageBody">
       <button (click)="sendMessage()" class="btn btn-primary" type="button" id="send-message-button">Send</button>
     </div>
@@ -46,7 +47,7 @@
 </ng-template>
 
 <ng-template #loadingpanel>
-  <div id="spinner-wrapper" class="container-fluid spinner-wrapper border bg-light">
+  <div id="spinner-wrapper" class="container-fluid spinner-wrapper bg-dark">
     <app-loading-wheel></app-loading-wheel>
   </div>
 </ng-template>

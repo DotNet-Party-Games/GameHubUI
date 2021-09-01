@@ -3,10 +3,11 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-import { UserService } from 'projects/hubservices/src/public-api';  
+import { AppToastService, UserService } from 'projects/hubservices/src/public-api';  
 import { User } from 'src/app/gamehub/models/user.model';
 import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-is-tm',
@@ -30,42 +31,50 @@ export class IsTMComponent implements OnInit {
   
   public user: User | null = null;
   public connectionEstablished: Boolean = false;
+  private modalReference: any = null;
+  public isLoading: Boolean = false;
 
   // Constructor
   constructor(private teamservice:TeamService,
     public userService: UserService,
     private chatService: GameChatService,
-    private ngZone: NgZone) { 
+    private ngZone: NgZone,
+    private modalService: NgbModal,
+    private toastService: AppToastService) { 
       this.subscribeToEvents();
-    }
+  }
 
   ngOnInit(): void {
+      this.isLoading = true;
       this.GetListOfRequest();
       this.SearchTeam();
   }
 
   // Delete Team
-  OnDeleteTeam():void{
-    this.cfrm= confirm("Are You Sure To Delete Team?");
-    if(this.cfrm){
+  deleteTeam() {
     this.teamservice.DeleteTeamByName(this.currentUser.team.name).subscribe((isDeleted :boolean)=>{
       this.isDeleted = isDeleted;
       sessionStorage.removeItem('teamName');
+      this.userService.getUser();
     });
-  }
-    location.reload();
+    this.closeModal()
   }
 
-  // leave Team
-  OnLeaveTeam():void{
-    this.cfrm= confirm("Are You Sure To Delete Team?");
-    if(this.cfrm){
+  leaveTeam() {
     this.teamservice.leaveTeam().subscribe((left :boolean)=>{
       this.hasLeft = left;
       sessionStorage.removeItem('teamName');
+      this.userService.getUser();
     });
+    this.closeModal()
   }
-    location.reload();
+
+  openModal(content: any) {
+    this.modalReference = this.modalService.open(content, { centered: true,  });
+  }
+
+  closeModal() {
+    this.modalReference.close();
   }
 
   // Get the list Of  all Join team request
@@ -85,18 +94,31 @@ export class IsTMComponent implements OnInit {
       }
     });
     // location.reload();
+    this.userService.getUser();
   }
 
   SearchTeam():void
    {
      this.teamservice.GetSearchedTeamsByName(this.teamName).subscribe((team : ITeam)=>{
        this.myteam = team;
+       this.isLoading = false;
      });
    }
+
+   ngOnDestroy() {
+    //this.chatService.leaveChat();
+  }
 
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
+      if (user && user.team) {
+        this.chatService.connectionEstablished.subscribe(isConnected => {
+          if(isConnected) {
+            this.chatService.joinChat(user.teamId);
+          }
+        })
+      }
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {

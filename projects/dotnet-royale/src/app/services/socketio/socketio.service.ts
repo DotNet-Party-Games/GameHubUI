@@ -4,13 +4,18 @@ import { io, Socket } from 'socket.io-client';
 import { BehaviorSubject } from 'rxjs';
 import { BoardComponent } from '../../tictactoe/board/board.component';
 import { GameState } from '../TTTTGameState';
+import { gamestate } from '../../blackjack/bjgamestate';
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
 
+  //private url = 'http://localhost:3000';
+  //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
+  private url = 'https://revabox.eastus.cloudapp.azure.com';
+
   private socket: Socket;
-  private url = 'http://localhost:3000';
+
   private newGameState = new BehaviorSubject<any>({ x: 1, y: 1 });
   currentGameState = this.newGameState.asObservable();
   private newBlackjack = new BehaviorSubject<any>({});
@@ -20,12 +25,10 @@ export class SocketioService {
   private playerList = new BehaviorSubject<any>({});
   currentPlayerList = this.playerList.asObservable();
 
-  //private url = 'http://20.81.113.152/dotnetroyalesocket/';
-  //private url = 'https://pgsocketserver.herokuapp.com/';
   constructor() {
-    this.socket = io(this.url, { transports: ['websocket', 'pulling', 'flashsocket'] });
+    this.socket = io(this.url, { path: '/dotnetroyalesocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] });
   }
-  // ================= General Room Stuff ============================== 
+  // ================= General Room Stuff ==============================
   joinRoom(data): void {
     this.socket.emit('join', data);
     sessionStorage.setItem('roomId', data.room);
@@ -123,17 +126,19 @@ export class SocketioService {
         observer.next(data));
       });
     }
-    
+
 
   //==================== Black Jack Stuff ==========================
   sendBlackJackData(data): void {
     this.socket.emit('blackjack', data)
   }
 
-  getBlackJackData(): void {
-    this.socket.on('new blackjack', (data) => {
-      this.newBlackjack.next(data);
-    })
+  getBlackJackData(): Observable<gamestate> {
+    return new Observable(obs => {
+      this.socket.on('new blackjack', (data) => {
+        obs.next(data);
+      });
+    });
   }
 
 

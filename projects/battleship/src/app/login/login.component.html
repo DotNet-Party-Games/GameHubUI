@@ -1,0 +1,10 @@
+<button mat-button *ngIf="auth.isAuthenticated$ | async else Logout" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+</button>
+<ng-template #Logout>
+<button mat-button (click)="login()">
+    <mat-icon>login</mat-icon>
+    Login/Register
+</button>
+</ng-template>

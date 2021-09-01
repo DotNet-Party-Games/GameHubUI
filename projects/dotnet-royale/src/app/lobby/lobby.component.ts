@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../../hubservices/src/lib/user.service';
 import { IRoom } from '../services/room';
 import { SocketioService } from '../services/socketio/socketio.service';
 
@@ -16,12 +17,22 @@ export class LobbyComponent implements OnInit {
   isInputRoomId: boolean = false;
   roomIdInput: string;
   rooms: IRoom[];
-  constructor(private router: Router, private socketService: SocketioService, private route: ActivatedRoute ) { }
+  constructor(
+    private router: Router,
+    private socketService: SocketioService,
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
 
     this.username = sessionStorage.getItem('userName');
     this.roomId = sessionStorage.getItem('roomId');
+    if(!this.username)
+      this.userService.user.subscribe(u => {
+        sessionStorage.setItem('userName', u.username);
+      });
+
     if(!this.roomId)
     {
       sessionStorage.setItem("roomId", 'lobby');
@@ -78,5 +89,12 @@ export class LobbyComponent implements OnInit {
   hideInputRoomId(){
     this.isInputRoomId = false;
   }
-
+  playSFX(audioCue: string)
+  {
+    let audio = <HTMLAudioElement>document.getElementById('sfx');
+    audio.volume= 0.1;
+    audio.src = audioCue;
+    audio.load();
+    audio.play();
+  }
 }
