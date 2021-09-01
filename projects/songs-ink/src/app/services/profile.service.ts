@@ -5,7 +5,7 @@ import { Profile } from '../models/Profile';
 import { CustomCategory } from '../models/CustomCategory';
 import { CustomWord } from '../models/CustomWord';
 import { LeaderBoard } from '../models/LeaderBoard';
-import { Leader } from 'projects/dotnet-royale/src/app/services/leader';
+//import { Leader } from 'projects/dotnet-royale/src/app/services/leader';
 
 const httpOptions = 
 {
@@ -18,7 +18,8 @@ const httpOptions =
   providedIn: 'root'
 })
 export class ProfileService {
-  private url = "http://localhost:5002/api/Main/";
+  //private url = "https://localhost:5002/api/Main/";
+  private url = "https://revabox.eastus.cloudapp.azure.com/songsinkapi/api/Main/";
   
   constructor(private http: HttpClient) { }
 
