@@ -17,12 +17,12 @@
     <div class="row text-center" style="margin-top: 40px;">
       <div class="col">
         <h2 id="title">Team List</h2>
-        <table class="table table-dark table-stdiped" style="margin-top: 20px;">
+        <table *ngIf="!isLoading; else loadingpanel" class="table table-dark table-stdiped" style="margin-top: 20px;">
           <!-- thead -->
           <thead>
               <tr>
                 <th>#</th>
-                <th>team Name</th>
+                <th>Team Name</th>
                 <th>Number Of Members</th>
                 <th>Join Team</th>
               </tr>            
@@ -33,7 +33,7 @@
                 <td>{{ teams.indexOf(team)+1 }}</td>
                 <td >{{team.name}} </td>  
                 <td >{{team.users.length}}</td>
-                <td><a class="btn btn-primary" (click)="OnJoinTeamRequest(team.name)">Join</a></td>
+                <td><a class="btn btn-primary" (click)="openTeamRequestModal(confirmTeamRequest, team.name)">Request to Join</a></td>
               </tr>                
           </tbody>
           <!-- tfoot -->
@@ -74,3 +74,25 @@
           </div>
         </div>
   </div>
+
+  <ng-template #confirmTeamRequest let-modal>
+    <div class="modal-header bg-dark text-white">
+      <h4 class="modal-title">Send Request</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body bg-dark text-white">
+      <p>Send a request to join Team {{selectedTeamName}}?</p>
+    </div>
+    <div class="modal-footer bg-dark text-white">
+      <button ngbAutofocus type="button" class="btn btn-success" (click)="sendJoinTeamRequest()">Send</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #loadingpanel>
+    <div id="spinner-wrapper" class="container-fluid spinner-wrapper">
+      <app-loading-wheel></app-loading-wheel>
+    </div>
+  </ng-template>

@@ -18,8 +18,7 @@
     </ngb-panel>
   </ngb-accordion>
 
-  <div *ngIf="!isLoading; else loadingpanel" id="message-container" class="bg-dark text-white"
-  [formControl]="messageBody">
+  <div *ngIf="!isLoading; else loadingpanel" id="message-container" class="bg-dark text-white">
     <div *ngFor="let msg of chatMessages">
       <div class="d-flex w-100 justify-content-between" >
         <h5 class="mb-1">{{msg.senderName}}</h5>
