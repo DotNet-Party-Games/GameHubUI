@@ -116,6 +116,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
       })
     }  
     this.GetAllTeam();
+    this.userService.getUser();
   }
 
   subscribeToEvents(): void {
