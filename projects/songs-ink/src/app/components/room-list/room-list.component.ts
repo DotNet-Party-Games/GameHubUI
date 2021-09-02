@@ -94,5 +94,5 @@ export class ChooseCategoryDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<RoomListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { this.dialogRef.disableClose = true; }
 }
