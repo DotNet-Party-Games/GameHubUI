@@ -1,13 +1,8 @@
 <div class="row" id="main_div">
     <div class="row text-center" style="height: 30vh;  margin-bottom: 5px;">
-        <!-- <h3 style="margin: 5% 0% 0% 0% ; color: #518053;;">WELCOME TO</h3> -->
         <img src="assets\images\title2.png" alt="title" style="width:35%; margin: auto;">
     </div>
     <div class="row text-center" style="margin: 0% 0% 3% 0% ;">
-        <!-- <div class="col">
-                <h6>NEED HELP?</h6>
-            <a href="" class=" text-decoration-none">join us on our Discord Group</a>
-        </div> -->
         <div class="col">
             <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
                 <button routerLink="/gamelist" class="text-white text-decoration-none btn btn-dark">Play Games</button>
@@ -16,19 +11,10 @@
 
             </ng-template>
         </div>
-        <!-- <div class="col">
-            <h6>FIRST TIME HERE?</h6>
-            <a href="" class=" text-decoration-none" >Read our Mannuel</a> 
-        </div> -->
     </div>
 
 </div><br><br><br>
 <div class="row text-white" style="margin: auto;">
-    <!-- <div>
-            <h6>HELP US MAKE A BETTER REVABOX</h6>
-            <a class="text-white text-decoration-none btn btn-dark col-2 fst-italic">donate</a> 
-            <hr width="70%" style="margin-right: auto; margin-left: auto; margin-top: 8%;">
-    </div> -->
     <div class="row text-white">
         <div class="col-8">
             <h5 style="text-shadow: 1px 1px 10px #0e9ceefa; font: 30px bold Arial, serif;">WELCOME TO REVABOX</h5>

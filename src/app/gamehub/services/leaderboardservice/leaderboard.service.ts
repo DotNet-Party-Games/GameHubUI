@@ -10,7 +10,6 @@ import { ITeamLeaderboard } from '../../interfaces/ITeamLeaderboard';
 export class LeaderboardService {
   
   //reference API URL
-  //private url = "https://localhost:44327/leaderboard/";
 
   private url = environment.api.url;
 
