@@ -107,17 +107,15 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   OnCreateTeam(createTeamGroup:FormGroup):void{
     if(createTeamGroup.valid){
       this.teamservice.CreateTeam(createTeamGroup.value).subscribe((createdTeam:any) =>{
-        if(createdTeam){   
-          sessionStorage.setItem('user_teamId',createdTeam.users[0].teamId.toString());
-          sessionStorage.setItem('user_teamName',createdTeam.users[0].team.toString());
+        if(createdTeam){
           this.toastService.show("TEAM CREATED",`Your team ${createdTeam.name} has been created`);
+          this.userService.getUser();
         } else {
           this.toastService.show("FAILED TO CREATE TEAM",`An error occurred while creating your team.`);
         }
       })
     }  
     this.GetAllTeam();
-    this.userService.getUser();
   }
 
   subscribeToEvents(): void {
@@ -126,7 +124,6 @@ export class IsnotTMComponent implements OnInit, OnChanges {
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
-        console.log(alert);
         this.notifyMe = alert;
         if(this.notifyMe.alertType=="REQUEST APPROVED"){
           this.userService.getUser();
