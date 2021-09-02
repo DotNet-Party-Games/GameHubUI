@@ -10,7 +10,7 @@
     \_______________________________________________WWS_________/
  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww 
+  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 
 We're working on this game component!!!
 </pre>
@@ -21,5 +21,7 @@ We're working on this game component!!!
 <app-game-board *ngIf="gameState"></app-game-board>
 </div>
 <div class="winner" *ngIf="winner" >You Win!!!</div>
+<div class="win" *ngIf="winner" ></div>
 <div class="loser" *ngIf="loser">You Lose :(</div>
-<button class ="btn btn-primary" *ngIf="loser || winner" (click)="LeaveRoom()">Back to Lobby</button>
+<div class="loss" *ngIf="loser"></div>
+<div style="align-content: center"><button class ="btn btn-primary" *ngIf="loser || winner" (click)="LeaveRoom()">Back to Lobby</button></div>
