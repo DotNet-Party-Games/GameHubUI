@@ -1,7 +1,31 @@
 .winner{
-    color:white;
+    color:rgb(255, 215, 0);
+    text-align: center;
+    font: 64px;
+    font-weight: 900;
+    text-shadow: -1px 1px 0 #000,
+				  1px 1px 0 #000,
+				 1px -1px 0 #000,
+				 -1px -1px 0 #000;
 
 }
 .loser{
-    color:white;
+    color:rgb(192, 192, 192);
+    text-align: center;
+    font: 64px;
+    font-weight: 900;
+    text-shadow: -1px 1px 0 #000,
+				  1px 1px 0 #000,
+				 1px -1px 0 #000,
+				 -1px -1px 0 #000;
+}
+
+.win {
+  display: flex;
+  justify-content: center;
+}
+
+.loss {
+  display: flex;
+  justify-content: center;
 }

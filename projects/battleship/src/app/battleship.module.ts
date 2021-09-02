@@ -42,6 +42,7 @@ import { BattleshipDeployService } from './services/battleship-deploy.service';
 import { UserService } from 'projects/hubservices/src/public-api';
 import { StatisticapiService } from './services/statisticapi.service';
 import { TeamLeaderboardService } from 'projects/hubservices/src/public-api';
+import { UserlistComponent } from './userlist/userlist.component';
 
 @Injectable()
 export class SocketOne extends Socket {
@@ -69,7 +70,8 @@ export class SocketOne extends Socket {
     RoomListComponent,
     RoomComponent,
     ChatComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    UserlistComponent
   ],
   imports: [
       CommonModule,

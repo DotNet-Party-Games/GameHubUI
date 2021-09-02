@@ -33,10 +33,10 @@ export class StatisticapiService {
     this.user.user.subscribe(res => {this.userObj = res})
     this.leaderboard.submitScore(this.userObj.team.name, won)
     if (won ==1){
-      this.http.post(this.url+"Statistic", {player:this.userObj.username, p_:false});
+      this.http.post(this.url+"Statistic", {player:this.userObj.username, p_:true});
     }
     if (won==0){
-      this.http.post(this.url+"Statistic", {player:this.userObj.username, p_:true})
+      this.http.post(this.url+"Statistic", {player:this.userObj.username, p_:false})
     }
   }
 

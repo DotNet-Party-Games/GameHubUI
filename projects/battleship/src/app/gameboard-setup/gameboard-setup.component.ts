@@ -86,6 +86,8 @@ export class GameboardSetupComponent implements OnInit {
     this.roomservice.currentRoom.subscribe(response => this.roomNum = response);
     this.gamestate.isWater.subscribe(environ => this.isWater = environ);
     this.gamestate.roomFull.subscribe(full=>this.roomFull=full);
+    this.users=this.gamestate.usersInRoom;
+    this.gamestate.userList.subscribe(result=>this.users=result);
     
 
     this.gamestate.startingBoard.refNumber = new Array(10);
