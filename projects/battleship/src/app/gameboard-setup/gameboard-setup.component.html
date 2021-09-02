@@ -7,12 +7,12 @@
 	{{roomNum}}
   </div>
   <!-- <button class="btn btn-primary" (click)="SetUpRoom()">Create Room</button> -->
-  <button class="btn btn-primary" (click)="Deploy()">Deploy Ships</button>
+  <button class="btn btn-primary" *ngIf="roomFull" (click)="Deploy()">Deploy Ships</button>
   <button class ="btn btn-primary" (click)="LeaveRoom()">Leave Room</button>
   <button class ="btn btn-primary" *ngIf="size==4" (click)="cycleBoardView()">Change board</button>
-  <ng-template [ngIf]="shipsDeployed">
+  <!-- <ng-template [ngIf]="shipsDeployed">
 	<button class="btn btn-danger" routerLink="/gameboard">Advance</button>
-  </ng-template>
+  </ng-template> -->
   
   <div class="app-container"><app-chat></app-chat></div>
   <!--Lobby set up options-->
