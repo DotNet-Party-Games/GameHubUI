@@ -2,7 +2,6 @@ import { Injectable, Input } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Observer } from 'rxjs';
 import { IBoard, IUser } from './gameboard';
-import { SocketOne } from '../battleship.module';
 import { StatisticapiService } from './statisticapi.service';
 
 @Injectable({
@@ -77,7 +76,7 @@ import { StatisticapiService } from './statisticapi.service';
 
   
     // initialize socket object
-    constructor(private socket: SocketOne, private stats:StatisticapiService) {
+    constructor(private socket: Socket, private stats:StatisticapiService) {
       this.winner.subscribe(result => this.win = result);
       this.maxSize.subscribe(result => this.size=result);
       this.isWater.subscribe(result=>this.environ=result);

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SocketOne } from '../battleship.module';
 import { GameStateService } from '../services/gamestate.service';
 
 @Component({
