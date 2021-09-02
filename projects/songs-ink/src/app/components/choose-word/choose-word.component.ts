@@ -70,7 +70,7 @@ export class ChooseWordDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ChooseWordComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { this.dialogRef.disableClose = true; }
 
     onNoClick(): void {
       this.dialogRef.close();
