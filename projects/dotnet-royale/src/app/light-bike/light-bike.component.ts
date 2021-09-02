@@ -4,7 +4,8 @@ import {
   fromEvent,
   interval,
   Observable,
-  Subject
+  Subject,
+  Subscription
 } from "rxjs";
 import { distinctUntilChanged, map, takeUntil, tap } from "rxjs/operators";
 import { IGame } from '../services/game';
@@ -61,7 +62,7 @@ export class lightbikeComponent implements OnInit {
   snakeDirection: Direction;
 
   game$: BehaviorSubject<GameState>;
-
+  sendBackSub: Subscription;
   keyDown$: Observable<string>;
   tick$: Observable<number>;
   direction$ = new BehaviorSubject<Direction>(Direction.RIGHT);
@@ -100,7 +101,9 @@ export class lightbikeComponent implements OnInit {
   ngOnInit(): void {
     this.getGameList();
     this.lives = 3;
-
+    this.sendBackSub = this.socketService.goToGame().subscribe(data => {
+      this.sendOtherBack();
+    });
     this.keyDown$ = fromEvent<KeyboardEvent>(document, "keydown").pipe(
       tap(event => event.stopPropagation()),
       map(event => event.key),
@@ -413,6 +416,11 @@ export class lightbikeComponent implements OnInit {
   }
 
   goToRoom() {
+    if(this.userList.indexOf(this.currentUser.userName)==0)
+    {
+      this.socketService.sendGameId({room: this.roomId, gameid: 5});
+    }
+    this.sendBackSub.unsubscribe();
     this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
   playMusic()
@@ -431,5 +439,11 @@ export class lightbikeComponent implements OnInit {
     audio.load();
     audio.play();
   }
+  sendOtherBack(){
+    this.sendBackSub.unsubscribe();
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
+  }
+
+
 }
 
