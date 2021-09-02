@@ -38,11 +38,18 @@ import { RoomComponent } from './room/room.component';
 import { ChatComponent } from './chat/chat.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { CommonModule } from '@angular/common';
+import { GameStateService } from './services/gamestate.service';
+import { ChatService } from './services/chat.service';
+import { RoomService } from './services/room.service';
+import { BattleshipDeployService } from './services/battleship-deploy.service';
+import { UserService } from 'projects/hubservices/src/public-api';
+import { StatisticapiService } from './services/statisticapi.service';
+import { TeamLeaderboardService } from 'projects/hubservices/src/public-api';
 
 
 // creates configuration for module to operate off?
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
-// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket', 'pulling', 'flashsocket']}};
+// const config: SocketIoConfig = { url: 'wss://revabox.eastus.cloudapp.azure.com', options: {path: '/battleshipsocket/socket.io', transports: ['websocket', 'pulling', 'flashsocket'] } };
 
 @NgModule({
   declarations: [
@@ -79,12 +86,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       MatProgressSpinnerModule,
       MatSortModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthHttpInterceptor,
-      multi: true,
-    }
-  ],
+  providers: [ GameStateService, ChatService, RoomService, BattleshipDeployService, UserService, StatisticapiService],
 })
 export class BattleshipModule { }

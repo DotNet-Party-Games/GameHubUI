@@ -18,7 +18,7 @@ export class RoomService {
 
   // constructor initializes socket use
   constructor(private socket: Socket, private router:Router, private route:ActivatedRoute, private userService:UserService) { 
-    this.userService.user.subscribe(result=>this.testName=result.username);
+    // this.userService.user.subscribe(result=>this.testName=result.username);
     this.socket.emit('first connection', this.testName);
   }
 
