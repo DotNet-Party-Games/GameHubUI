@@ -13,7 +13,7 @@ import { TeamLeaderboardService } from '../../../../../hubservices/src/public-ap
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit, OnDestroy {
+export class BoardComponent implements OnInit {
 
   public currentUser: ILoggedUser;
   finalScore: IScore = {
@@ -113,12 +113,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.socketService.getPlayers(({ room: this.roomId }));
   }
 
-  ngOnDestroy(): void {
-    // clean up subscriptions
-    this.playerSub.unsubscribe();
-    this.ttttDataSub.unsubscribe();
-    this.audioSub.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   // clean up subscriptions
+  //   this.playerSub.unsubscribe();
+  //   this.ttttDataSub.unsubscribe();
+  //   this.audioSub.unsubscribe();
+  // }
   sendTicTacToeGamestate(currentGameState: GameState) {
     this.socketService.sendTicTacToeData({ gameboard: currentGameState, room: this.roomId });
   }
