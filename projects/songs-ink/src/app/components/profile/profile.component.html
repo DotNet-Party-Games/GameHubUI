@@ -20,7 +20,7 @@
         <div>
             <form (ngSubmit)="addCategory()">
                 <div>
-                    <label for="text"><b>Add a Category</b> ({{categoryAddCost * -1}} points)</label>
+                    <label for="text" style="color: white !important"><b>Add a Category</b> ({{categoryAddCost * -1}} points)</label>
                     <input type="text" name="text" id="newCategory" [(ngModel)]="newCategory">
                     <input type="submit" value="Add Category" class="btn btn-primary">
                 </div>
