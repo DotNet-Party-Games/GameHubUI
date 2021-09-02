@@ -9,9 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LeaderboardListItemComponent implements OnInit {
 
   @Input() leaderboardItem: LeaderBoard;
-  constructor() { }
+  constructor() { 
+    //empty
+  }
 
   ngOnInit(): void {
+    //empty
   }
 
 }

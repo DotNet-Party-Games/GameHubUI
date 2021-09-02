@@ -1,13 +1,9 @@
 <div class="row" id="main_div">
     <div class="row text-center" style="height: 30vh;  margin-bottom: 5px;">
-        <!-- <h3 style="margin: 5% 0% 0% 0% ; color: #518053;;">WELCOME TO</h3> -->
         <img src="assets\images\title2.png" alt="title" style="width:35%; margin: auto;">
     </div>
     <div class="row text-center" style="margin: 0% 0% 3% 0% ;">
-        <!-- <div class="col">
-                <h6>NEED HELP?</h6>
-            <a href="" class=" text-decoration-none">join us on our Discord Group</a>
-        </div> -->
+
         <div class="col">
             <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
                 <button routerLink="/gamelist" class="text-white text-decoration-none btn btn-dark">Play Games</button>
@@ -16,26 +12,19 @@
 
             </ng-template>
         </div>
-        <!-- <div class="col">
-            <h6>FIRST TIME HERE?</h6>
-            <a href="" class=" text-decoration-none" >Read our Mannuel</a> 
-        </div> -->
+
     </div>
 
 </div><br><br><br>
 <div class="row text-white" style="margin: auto;">
-    <!-- <div>
-            <h6>HELP US MAKE A BETTER REVABOX</h6>
-            <a class="text-white text-decoration-none btn btn-dark col-2 fst-italic">donate</a> 
-            <hr width="70%" style="margin-right: auto; margin-left: auto; margin-top: 8%;">
-    </div> -->
+
     <div class="row text-white">
         <div class="col-8">
             <h5 style="text-shadow: 1px 1px 10px #0e9ceefa; font: 30px bold Arial, serif;">WELCOME TO REVABOX</h5>
             <div style="font-size: medium; width: 70%; margin-right: auto; text-align: left;">
                 <p style="color: #0ea7eefa;">
                     RevaBox Games is a multiplayer gaming platform and social hub experience. Join and play individually
-                    or as a team to gather points and compete for the top spot on the leaderboards.
+                    or as a team of up to 4 to gather points and compete for the top spot on the leaderboards.
                 </p>
                 <ul style="color: #0ea7eefa;">
                     <li>Dotnet Royale - a minigame roulette consisting of Blackjack, Tic-Tac-Toe, Lightbike, and Snake

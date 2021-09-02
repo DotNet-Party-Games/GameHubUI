@@ -1,17 +1,11 @@
-import { Injectable, Input, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { BehaviorSubject, Subscriber, Subscription } from 'rxjs';
-import { io } from 'socket.io-client';
-import { Room } from '../models/room';
-import { ProfileComponent } from '../components/profile/profile.component';
-import { Chatline } from '../models/chatline';
 import { Player } from '../models/Player';
 import { Profile } from '../models/Profile';
 import { PointsService } from './points.service';
 import { ProfileService } from './profile.service';
 import { TeamLeaderboardService, UserService } from 'projects/hubservices/src/public-api';
 import { User } from '@auth0/auth0-spa-js';
-import { LeaderBoard } from '../models/LeaderBoard';
 
 @Injectable({
   providedIn: 'root'
@@ -45,9 +39,6 @@ export class SocketIoService {
    }
 
     RunOnConnect(){
-    /*if(!this.userName){
-        this.userName = "Guest "+this.roomId();
-      }*/
       this.userName = this.user.nickname;
       console.log(this.userName);
     }
@@ -64,13 +55,6 @@ export class SocketIoService {
       this.gameUserName=tempusernamer;
     })
   }
-
-  // getRooms() {
-  //   this.socket.on('room', (room: string) => {
-  //     this.rooms$.next(room);
-  //   });
-  //   return this.rooms$.asObservable();
-  // }
 
   addRoom(chosenCategory: string) {
     this.socket.emit('addRoom', { room: this.roomId(), category: chosenCategory });
@@ -106,17 +90,8 @@ export class SocketIoService {
 
 
   UpdateTotalPoints(add:number){
-    //console.log(this.currentLoggedIn);
-    //if(this.currentLoggedIn){
-    //this.tempCurrentLoggedIn=this.currentLoggedIn;
-    //console.log(this.tempCurrentLoggedIn);
-    //this.tempCurrentLoggedIn.currentScore=this.tempCurrentLoggedIn.currentScore+add;
-    //let templb : LeaderBoard = new LeaderBoard();
     this.profApi.getUserScore(<string>this.user.username).subscribe( (response) => {
-      /*templb.nickName = this.user.nickname;
-      templb.currentScore = response.currentScore+add;
-      templb.overallScore = response.overallScore+add;
-      templb.id = response.id;*/
+
       if(response.currentScore == null){
         response.currentScore = 0;
       }
@@ -128,7 +103,6 @@ export class SocketIoService {
       this.pointApi.updateScoreOfPlayer(response).subscribe();
     });
     this.leaderboardService.submitScore("songsink", add);
-    //}
   }
 
 

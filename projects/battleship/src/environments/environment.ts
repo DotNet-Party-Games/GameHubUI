@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  domain: "dev-j003fsv8.us.auth0.com",
-  clientId: "KxFNFvrGZceNJp856CDPl48z2q8tKj3h",
-  audience: "https://express.sample",
-  serverUrl: "http://localhost:6060"
+  // domain: "dev-j003fsv8.us.auth0.com",
+  // clientId: "KxFNFvrGZceNJp856CDPl48z2q8tKj3h",
+  // audience: "https://express.sample",
+  // serverUrl: "http://localhost:6060"
 };
 
 /*

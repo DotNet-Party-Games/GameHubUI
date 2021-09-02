@@ -1,19 +1,19 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { IScore } from '../../services/score';
 import { PartygameService } from '../../services/partygame.service';
-import { TicTacToeService } from '../../services/TicTacToe/tic-tac-toe.service';
 import { ILoggedUser } from '../../services/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameState } from '../../services/TTTTGameState';
 import { SocketioService } from '../../services/socketio/socketio.service';
 import { Subscription } from 'rxjs';
+import { TeamLeaderboardService } from '../../../../../hubservices/src/public-api';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit, OnDestroy {
+export class BoardComponent implements OnInit {
 
   public currentUser: ILoggedUser;
   finalScore: IScore = {
@@ -40,7 +40,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
     this.currentUser =
     {
       id: 0,
@@ -58,12 +58,12 @@ export class BoardComponent implements OnInit, OnDestroy {
       console.log("received audio: " + data);
       this.playAudio(data);
     })
-    this.playerSub = this.socketService.findPlayers().subscribe(data => {
+    this.playerSub = this.socketService.findPlayers().subscribe(data2 => {
       console.log("In find player subscription, data: ");
-      console.log(data);
+      console.log(data2);
       // if you've already gotten the player list, dont do it again
       if (!this.pullPlayer) {
-        this.gameState.playerList = data;
+        this.gameState.playerList = data2;
         // find out what player number this player is
         this.thisPlayer = this.gameState.playerList.indexOf(this.thisPlayerName);
         //get number of players
@@ -90,19 +90,17 @@ export class BoardComponent implements OnInit, OnDestroy {
           this.finalScore.gamesId=3;
           this.finalScore.userName = this.thisPlayerName;
           this.finalScore.score=1;
-          console.log("sending winner score");
-          this.partyGameApi.addscore(this.finalScore).subscribe(data => {
-            console.log("insinde addscore");
+          this.partyGameApi.addscore(this.finalScore).subscribe(datas => {
             this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
           });
+          this.leaderboardService.submitScore("partygames",1);
         }else{
           //call to add score to game
         this.finalScore.gamesId=3;
         this.finalScore.userName = this.thisPlayerName;
         this.finalScore.score=0;
-        console.log("sending LOSER score");
-        this.partyGameApi.addscore(this.finalScore).subscribe(data => {
-          console.log("insinde addscore");
+        this.partyGameApi.addscore(this.finalScore).subscribe(data4 => {
+
           this.partyGameApi.updateTicTacToeStats(this.finalScore).subscribe();
         });
         
@@ -115,14 +113,13 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.socketService.getPlayers(({ room: this.roomId }));
   }
 
-  ngOnDestroy(): void {
-    // clean up subscriptions
-    this.playerSub.unsubscribe();
-    this.ttttDataSub.unsubscribe();
-    this.audioSub.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   // clean up subscriptions
+  //   this.playerSub.unsubscribe();
+  //   this.ttttDataSub.unsubscribe();
+  //   this.audioSub.unsubscribe();
+  // }
   sendTicTacToeGamestate(currentGameState: GameState) {
-    //console.log("Sending GameBoard Data");
     this.socketService.sendTicTacToeData({ gameboard: currentGameState, room: this.roomId });
   }
 
@@ -271,20 +268,18 @@ export class BoardComponent implements OnInit, OnDestroy {
         }
       }
     }
-    let isCats: boolean = true;
-    for (let x = 0; x < this.gameState.squares.length; x++) {
-      if (this.gameState.squares[x] == null) {
-        isCats = false;
+    for(let x of this.gameState.squares)
+    {
+      if(x == null)
+      {
         return null;
       }
     }
-    this.gameState.isOver = true;
-    return "Cats Game! Nobody";
+    return "Cats game, nobody";
   }
   goToRoom() {
 
     this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
-
 }
 

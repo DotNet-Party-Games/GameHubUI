@@ -11,6 +11,7 @@ export class NavComponent implements OnInit {
   constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
+    //empty
   }
 
   public login(): void {

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
 import { UserService } from 'projects/hubservices/src/public-api';
 import { Room } from '../models/room.model';
+import { SocketOne } from '../battleship.module';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class RoomService {
   testName:string;
 
   // constructor initializes socket use
-  constructor(private socket: Socket, private router:Router, private route:ActivatedRoute, private userService:UserService) { 
-    this.userService.user.subscribe(result=>this.testName=result.username);
+  constructor(private socket: SocketOne, private router:Router, private route:ActivatedRoute, private userService:UserService) { 
+    // this.userService.user.subscribe(result=>this.testName=result.username);
     this.socket.emit('first connection', this.testName);
   }
 

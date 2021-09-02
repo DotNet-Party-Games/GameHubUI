@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { Injectable, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+import { SocketIoModule, SocketIoConfig, Socket } from 'ngx-socket-io';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -28,7 +26,6 @@ import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { LoginComponent } from './login/login.component';
 
-import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { GameBoardComponent } from './game-board/game-board.component';
@@ -38,11 +35,25 @@ import { RoomComponent } from './room/room.component';
 import { ChatComponent } from './chat/chat.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { CommonModule } from '@angular/common';
+import { GameStateService } from './services/gamestate.service';
+import { ChatService } from './services/chat.service';
+import { RoomService } from './services/room.service';
+import { BattleshipDeployService } from './services/battleship-deploy.service';
+import { UserService } from 'projects/hubservices/src/public-api';
+import { StatisticapiService } from './services/statisticapi.service';
+import { TeamLeaderboardService } from 'projects/hubservices/src/public-api';
+
+@Injectable()
+export class SocketOne extends Socket {
+  constructor() {
+    super({ url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket']}});
+  }
+}
 
 
 // creates configuration for module to operate off?
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
-// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket', 'pulling', 'flashsocket']}};
+// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] } };
 
 @NgModule({
   declarations: [
@@ -61,7 +72,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       CommonModule,
       AppRoutingModule,
       FlexLayoutModule,
-      SocketIoModule.forRoot(config),
+      SocketIoModule,
       FormsModule,
       ReactiveFormsModule,
       MatToolbarModule,
@@ -79,12 +90,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
       MatProgressSpinnerModule,
       MatSortModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthHttpInterceptor,
-      multi: true,
-    }
-  ],
+  providers: [ GameStateService, ChatService, RoomService, BattleshipDeployService, UserService, StatisticapiService, SocketOne],
 })
 export class BattleshipModule { }

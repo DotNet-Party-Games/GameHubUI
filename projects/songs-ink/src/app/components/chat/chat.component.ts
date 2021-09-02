@@ -1,13 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { SocketIoService } from '../../services/socketio.service';
-import { Observable, Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-import {Room} from '../../models/room';
-import {Chatline} from '../../models/chatline';
-import { FormControl, FormGroup } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { stringify } from '@angular/compiler/src/util';
-import { Player } from '../../models/Player';
+import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

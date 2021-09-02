@@ -13,9 +13,8 @@ import { HomeComponent } from './gamehub/components/home/home.component';
 import { NavComponent } from './gamehub/components/nav/nav.component';
 
 import { RouterModule } from '@angular/router';
-import { AuthGuard, AuthModule } from '@auth0/auth0-angular';
+import { AuthGuard, AuthModule, AuthHttpInterceptor} from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 import { environment } from 'src/environments/environment';
 import { GamechatComponent } from './gamehub/components/gamechat/gamechat.component';
@@ -24,12 +23,11 @@ import { IsTMComponent } from './gamehub/components/teamwindow/isTeamMember/is-t
 import { GameComponent } from './gamehub/components/gamewindow/game/game.component';
 import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading-wheel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RoomComponent } from 'projects/battleship/src/app/room/room.component';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
-// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path:"/battleshipsocket/socket.io/"}};
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +47,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SocketIoModule.forRoot(config),
+    // SocketIoModule.forRoot(config),
     AuthModule.forRoot({
       domain: environment.auth.domain,
       clientId: environment.auth.clientId,

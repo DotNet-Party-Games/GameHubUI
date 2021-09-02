@@ -11,7 +11,7 @@ import { ChatStatus } from '../models/chatstatus.model';
 })
 export class GameChatService {
   public messageReceived = new EventEmitter<ChatMessage>();
-  public connectionEstablished = new EventEmitter<Boolean>();
+  public connectionEstablished = new EventEmitter<boolean>();
   public userEvent = new EventEmitter<ChatStatus>();
   public userAlert = new EventEmitter<ChatAlert>();
 

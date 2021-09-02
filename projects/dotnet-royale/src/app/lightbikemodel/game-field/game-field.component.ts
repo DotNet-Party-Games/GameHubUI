@@ -22,7 +22,9 @@ export class BikeGameFieldComponent implements OnInit {
   @ContentChild(BikeComponent)
   snake: BikeComponent;
 
-  constructor() {}
+  constructor() {
+    //empty
+  }
 
   ngOnInit() {
     this.widthArray = new Array(this.width).fill(0).map((x, i) => i);
