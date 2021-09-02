@@ -44,20 +44,20 @@ import { StatisticapiService } from './services/statisticapi.service';
 import { TeamLeaderboardService } from 'projects/hubservices/src/public-api';
 import { UserlistComponent } from './userlist/userlist.component';
 
-@Injectable()
-export class SocketOne extends Socket {
-  constructor() {
-    super({ url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket']}});
-      // super({ url: 'http://localhost:3000', options: {transports: [
-      // 'websocket', 
-      // 'pulling', 'flashsocket']}});
-  }
-}
+// @Injectable()
+// export class SocketOne extends Socket {
+//   constructor() {
+//     super({ url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket']}});
+//       // super({ url: 'http://localhost:3000', options: {transports: [
+//       // 'websocket', 
+//       // 'pulling', 'flashsocket']}});
+//   }
+// }
 
 
 // creates configuration for module to operate off?
 // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket', 'pulling', 'flashsocket']}};
-// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] } };
+const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] } };
 
 @NgModule({
   declarations: [
@@ -77,7 +77,7 @@ export class SocketOne extends Socket {
       CommonModule,
       AppRoutingModule,
       FlexLayoutModule,
-      SocketIoModule,
+      SocketIoModule.forRoot(config),
       FormsModule,
       ReactiveFormsModule,
       MatToolbarModule,
@@ -95,6 +95,6 @@ export class SocketOne extends Socket {
       MatProgressSpinnerModule,
       MatSortModule
   ],
-  providers: [ GameStateService, ChatService, RoomService, BattleshipDeployService, UserService, StatisticapiService, SocketOne],
+  providers: [ GameStateService, ChatService, RoomService, BattleshipDeployService, UserService, StatisticapiService],
 })
 export class BattleshipModule { }

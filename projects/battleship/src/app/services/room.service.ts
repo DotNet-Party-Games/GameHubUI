@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
 import { UserService } from 'projects/hubservices/src/public-api';
 import { Room } from '../models/room.model';
-import { SocketOne } from '../battleship.module';
 import { User } from 'projects/hubservices/src/models/user.model';
+import { StatisticapiService } from './statisticapi.service';
 
 
 @Injectable({
@@ -17,13 +17,11 @@ export class RoomService {
   currentRoom = this.socket.fromEvent<string>('room');
   rooms = this.socket.fromEvent<string[]>('rooms');
   roomSize = 2;
-  testName:string;
+  testName:string = this.roomId();
   user:User;
 
   // constructor initializes socket use
-  constructor(private socket: SocketOne, private router:Router, private userService:UserService) { 
-    this.userService.user.subscribe(user=>this.user=user);
-    this.testName=this.user.username;
+  constructor(private socket: Socket, private router:Router) { 
     console.log(this.testName);
     this.socket.emit('first connection', this.testName);
   }
