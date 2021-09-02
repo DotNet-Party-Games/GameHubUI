@@ -35,7 +35,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this._roomsub = this.socketService.newMessage.subscribe((message:string)=> {
       this.chatlines.unshift(message);
       if(this.receiveMessage){
-        console.log("playing message sound");
         audio.volume=0.1;
         audio.play();
       }
@@ -48,9 +47,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   AddChat(message:string) {
-    console.log(message);
-    console.log(this.goal);
-    console.log(this.ableToScore);
     if(message&&this.goal&&this.ableToScore&&!this.activeDrawer){
       if(message.toLocaleLowerCase()==this.goal.toLocaleLowerCase()){
         this.receiveMessage = false;
