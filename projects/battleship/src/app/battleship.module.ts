@@ -47,6 +47,9 @@ import { TeamLeaderboardService } from 'projects/hubservices/src/public-api';
 export class SocketOne extends Socket {
   constructor() {
     super({ url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket']}});
+      // super({ url: 'http://localhost:3000', options: {transports: [
+      // 'websocket', 
+      // 'pulling', 'flashsocket']}});
   }
 }
 
