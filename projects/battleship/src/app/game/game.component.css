@@ -21,11 +21,9 @@
 }
 
 .win {
-  background-image: url("/assets/battleship/The_King.png");
   align-content: center;
 }
 
 .loss {
-  background-image: url("/assets/battleship/BOI.png");
   align-content: center;
 }

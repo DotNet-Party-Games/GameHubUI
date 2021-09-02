@@ -21,7 +21,13 @@ We're working on this game component!!!
 <app-game-board *ngIf="gameState"></app-game-board>
 </div>
 <div class="winner" *ngIf="winner" >You Win!!!</div>
-<div class="win" *ngIf="winner" ></div>
+<div class="win" *ngIf="winner" >
+  <img src="/assets/battleship/The_King.jpg">
+</div>
 <div class="loser" *ngIf="loser">You Lose :(</div>
-<div class="loss" *ngIf="loser"></div>
-<div style="align-content: center"><button class ="btn btn-primary" *ngIf="loser || winner" (click)="LeaveRoom()">Back to Lobby</button></div>
+<div class="loss" *ngIf="loser">
+  <img src="/assets/battleship/BOI.png">
+</div>
+<div style="align-content: center">
+  <button class ="btn btn-primary" *ngIf="loser || winner" (click)="LeaveRoom()">Back to Lobby</button>
+</div>
