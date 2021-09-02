@@ -26,7 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SocketIoModule.forRoot(config),
+    // SocketIoModule.forRoot(config),
     AuthModule.forRoot({
       domain: environment.auth.domain,
       clientId: environment.auth.clientId,
