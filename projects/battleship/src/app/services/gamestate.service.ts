@@ -3,6 +3,7 @@ import { Socket } from 'ngx-socket-io';
 import { Observable, Observer } from 'rxjs';
 import { IBoard, IUser } from './gameboard';
 import { SocketOne } from '../battleship.module';
+import { StatisticapiService } from './statisticapi.service';
 
 @Injectable({
     providedIn: 'root'
@@ -76,7 +77,7 @@ import { SocketOne } from '../battleship.module';
 
   
     // initialize socket object
-    constructor(private socket: SocketOne) {
+    constructor(private socket: SocketOne, private stats:StatisticapiService) {
       this.winner.subscribe(result => this.win = result);
       this.maxSize.subscribe(result => this.size=result);
       this.isWater.subscribe(result=>this.environ=result);
@@ -131,6 +132,8 @@ import { SocketOne } from '../battleship.module';
     }
     WinningShot(){
       this.socket.emit('win shot');
+      this.socket.on('winner', () => this.stats.UpdateStatistic(1));
+      this.socket.on('loser', () => this.stats.UpdateStatistic(0));
       
     }
     InterpretBoard(item: number[][][], itemLegend: string[][][], craft: string[][][]) {

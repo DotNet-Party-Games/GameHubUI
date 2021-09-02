@@ -15,33 +15,34 @@
   </ng-template> -->
   
   <div class="app-container"><app-chat></app-chat></div>
+  <div class="app-container"><app-userlist></app-userlist></div>
   <!--Lobby set up options-->
   <div id="options" class="sidenav">
 	  <div>
 		  <div style="height: 100px; width:200px">
 			  <div class="player1">
-			  Player 1 Status
+			  {{users[0]}}
 			  <br>
 				<div *ngIf="!playerOneReady" class="notready">Ready: <span></span> </div>
 				<div *ngIf="playerOneReady" class="ready"> Ready: <span></span> </div>
 			  </div>
   
 			  <div class="player2">
-			  Player 2 Status
+			  {{users[1]}}
 				  <br>
 				<div class="notready" *ngIf="!playerTwoReady">Ready: <span></span></div>
 				<div class="ready" *ngIf="playerTwoReady">Ready: <span></span></div>
 			  </div>
   
 			  <div class="player3" *ngIf="size==4">
-				  Player 3 Status
+				{{users[2]}}
 				  <br>
 				  <div class="notready" *ngIf="!playerThreeReady">Ready: <span></span></div>
 				  <div class="ready" *ngIf="playerThreeReady">Ready: <span></span></div>
 			  </div>
   
 			  <div class="player4" *ngIf="size==4">
-				  Player 4 Status
+				{{users[3]}}
 				  <br>
 				  <div class="notready" *ngIf="!playerFourReady">Ready: <span></span></div>
 				  <div class="notready" *ngIf="playerFourReady">Ready: <span></span></div>
