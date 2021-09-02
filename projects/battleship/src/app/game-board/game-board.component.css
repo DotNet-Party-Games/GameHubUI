@@ -9,71 +9,71 @@ td {
 }
 
 td.water {
-  background-image: url("/src/assets/battleship/WaterTile.png");
+  background-image: url("/assets/battleship/WaterTile.png");
 }
 
 td.hit {
-  background-image: url("/src/assets/battleship/Fire.png");
+  background-image: url("/assets/battleship/Fire.png");
 }
 
 td.miss {
-  background-image: url("/src/assets/battleship/Miss.png");
+  background-image: url("/assets/battleship/Miss.png");
 }
 
 td.destroyed {
-  background-image: url("/src/assets/battleship/Debris.png");
+  background-image: url("/assets/battleship/Debris.png");
 }
 
 td.patrolboat1 {
-  background-image: url("/src/assets/battleship/PatrolBoat1.png");
+  background-image: url("/assets/battleship/PatrolBoat1.png");
 }
 
 td.patrolboat2 {
-  background-image: url("/src/assets/battleship/PatrolBoat2.png");
+  background-image: url("/assets/battleship/PatrolBoat2.png");
 }
 
   div.aircraftcarrier {
-    background-image: url("/src/assets/battleship/AircraftCarrier.png");
+    background-image: url("/assets/battleship/AircraftCarrier.png");
   }
 
   div.battleship {
-    background-image: url("/src/assets/battleship/Battleship.png");
+    background-image: url("/assets/battleship/Battleship.png");
   }
 
   div.destroyer {
-    background-image: url("/src/assets/battleship/Destroyer.png");
+    background-image: url("/assets/battleship/Destroyer.png");
   }
 
   div.submarine {
-    background-image: url("/src/assets/battleship/Submarine.png");
+    background-image: url("/assets/battleship/Submarine.png");
   }
 
   div.patrolboat {
-    background-image: url("/src/assets/battleship/PatrolBoat.png");
+    background-image: url("/assets/battleship/PatrolBoat.png");
   }
 
   td.water {
-    background-image: url("/src/assets/battleship/WaterTile.png");
+    background-image: url("/assets/battleship/WaterTile.png");
   }
 
 td.patrolboatr1 {
-  background-image: url("/src/assets/battleship/PatrolBoatR1.png");
+  background-image: url("/assets/battleship/PatrolBoatR1.png");
 }
 
 td.patrolboatr2 {
-  background-image: url("/src/assets/battleship/PatrolBoatR2.png");
+  background-image: url("/assets/battleship/PatrolBoatR2.png");
 }
 
 td.submarine1 {
-  background-image: url("/src/assets/battleship/Submarine1.png");
+  background-image: url("/assets/battleship/Submarine1.png");
 }
 
 td.submarine2 {
-  background-image: url("/src/assets/battleship/Submarine2.png");
+  background-image: url("/assets/battleship/Submarine2.png");
 }
 
 td.submarine3 {
-  background-image: url("/src/assets/battleship/Submarine3.png");
+  background-image: url("/assets/battleship/Submarine3.png");
 }
 
 td.submariner1 {
@@ -81,114 +81,114 @@ td.submariner1 {
 }
 
 td.submariner2 {
-  background-image: url("/src/assets/battleship/SubmarineR2.png");
+  background-image: url("/assets/battleship/SubmarineR2.png");
 }
 
 td.submariner3 {
-  background-image: url("/src/assets/battleship/SubmarineR3.png");
+  background-image: url("/assets/battleship/SubmarineR3.png");
 }
 
 td.destroyer1 {
-  background-image: url("/src/assets/battleship/Destroyer1.png");
+  background-image: url("/assets/battleship/Destroyer1.png");
 }
 
 td.destroyer2 {
-  background-image: url("/src/assets/battleship/Destroyer2.png");
+  background-image: url("/assets/battleship/Destroyer2.png");
 }
 
 td.destroyer3 {
-  background-image: url("/src/assets/battleship/Destroyer3.png");
+  background-image: url("/assets/battleship/Destroyer3.png");
 }
 
 td.destroyerr1 {
-  background-image: url("/src/assets/battleship/DestroyerR1.png");
+  background-image: url("/assets/battleship/DestroyerR1.png");
 }
 
 td.destroyerr2 {
-  background-image: url("/src/assets/battleship/DestroyerR2.png");
+  background-image: url("/assets/battleship/DestroyerR2.png");
 }
 
 td.destroyerr3 {
-  background-image: url("/src/assets/battleship/DestroyerR3.png");
+  background-image: url("/assets/battleship/DestroyerR3.png");
 }
 
 td.battleship1 {
-  background-image: url("/src/assets/battleship/Battleship1.png");
+  background-image: url("/assets/battleship/Battleship1.png");
 }
 
 td.battleship2 {
-  background-image: url("/src/assets/battleship/Battleship2.png");
+  background-image: url("/assets/battleship/Battleship2.png");
 }
 
 td.battleship3 {
-  background-image: url("/src/assets/battleship/Battleship3.png");
+  background-image: url("/assets/battleship/Battleship3.png");
 }
 
 td.battleship4 {
-  background-image: url("/src/assets/battleship/Battleship4.png");
+  background-image: url("/assets/battleship/Battleship4.png");
 }
 
 td.battleshipr1 {
-  background-image: url("/src/assets/battleship/BattleshipR1.png");
+  background-image: url("/assets/battleship/BattleshipR1.png");
 }
 
 td.battleshipr2 {
-  background-image: url("/src/assets/battleship/BattleshipR2.png");
+  background-image: url("/assets/battleship/BattleshipR2.png");
 }
 
 td.battleshipr3 {
-  background-image: url("/src/assets/battleship/BattleshipR3.png");
+  background-image: url("/assets/battleship/BattleshipR3.png");
 }
 
 td.battleshipr4 {
-  background-image: url("/src/assets/battleship/BattleshipR4.png");
+  background-image: url("/assets/battleship/BattleshipR4.png");
 }
 
 td.aircraftcarrier1 {
-  background-image: url("/src/assets/battleship/AircraftCarrier1.png");
+  background-image: url("/assets/battleship/AircraftCarrier1.png");
 }
 
 td.aircraftcarrier2 {
-  background-image: url("/src/assets/battleship/AircraftCarrier2.png");
+  background-image: url("/assets/battleship/AircraftCarrier2.png");
 }
 
 td.aircraftcarrier3 {
-  background-image: url("/src/assets/battleship/AircraftCarrier3.png");
+  background-image: url("/assets/battleship/AircraftCarrier3.png");
 }
 
 td.aircraftcarrier4 {
-  background-image: url("/src/assets/battleship/AircraftCarrier4.png");
+  background-image: url("/assets/battleship/AircraftCarrier4.png");
 }
 
 td.aircraftcarrier5 {
-  background-image: url("/src/assets/battleship/AircraftCarrier5.png");
+  background-image: url("/assets/battleship/AircraftCarrier5.png");
 }
 
 td.aircraftcarrierr1 {
-  background-image: url("/src/assets/battleship/AircraftCarrierR1.png");
+  background-image: url("/assets/battleship/AircraftCarrierR1.png");
 }
 
 td.aircraftcarrierr2 {
-  background-image: url("/src/assets/battleship/AircraftCarrierR2.png");
+  background-image: url("/assets/battleship/AircraftCarrierR2.png");
 }
 
 td.aircraftcarrierr3 {
-  background-image: url("/src/assets/battleship/AircraftCarrierR3.png");
+  background-image: url("/assets/battleship/AircraftCarrierR3.png");
 }
 
 td.aircraftcarrierr4 {
-  background-image: url("/src/assets/battleship/AircraftCarrierR4.png");
+  background-image: url("/assets/battleship/AircraftCarrierR4.png");
 }
 
 td.aircraftcarrierr5 {
-  background-image: url("/src/assets/battleship/AircraftCarrierR5.png");
+  background-image: url("/assets/battleship/AircraftCarrierR5.png");
 }
 
 
 .grid-container {
   display: inline-grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
-  background: url("/src/assets/battleship/Woter.png");
+  background: url("/assets/battleship/Woter.png");
   background-size: cover;
   border: 10px solid rgba(0, 2, 100, 0.8);
   float: left;
@@ -217,7 +217,7 @@ img {
     height: 660px;
     text-align: center;
     border: 10px solid rgba(4, 6, 110, 0.8);
-    background: url("/src/assets/battleship/Woter.png");
+    background: url("/assets/battleship/Woter.png");
     background-size: cover;
     float: left;
     margin-left: 30px;
@@ -229,303 +229,303 @@ img {
 }
 /* air layer assets */
 td.air {
-  background-image: url("/src/assets/battleship/cloud.png");
+  background-image: url("/assets/battleship/cloud.png");
 }
 td.airhit {
-  background-image: url("/src/assets/battleship/air_hit.png");
+  background-image: url("/assets/battleship/air_hit.png");
 }
 td.airmiss {
-  background-image: url("/src/assets/battleship/air_miss.png");
+  background-image: url("/assets/battleship/air_miss.png");
 }
 
 td.airplaneDestroyed {
-  background-image: url("/src/assets/battleship/plane_destroyed.png");
+  background-image: url("/assets/battleship/plane_destroyed.png");
 }
 
 td.plane1_1 {
-  background-image: url("/src/assets/battleship/plane1_1.png");
+  background-image: url("/assets/battleship/plane1_1.png");
 }
 
 td.plane1_1_R1 {
-  background-image: url("/src/assets/battleship/plane1_1_R1.png");
+  background-image: url("/assets/battleship/plane1_1_R1.png");
 }
 
 td.plane1_1_R2 {
-  background-image: url("/src/assets/battleship/plane1_1_R2.png");
+  background-image: url("/assets/battleship/plane1_1_R2.png");
 }
 
 td.plane1_1_R3 {
-  background-image: url("/src/assets/battleship/plane1_1_R3.png");
+  background-image: url("/assets/battleship/plane1_1_R3.png");
 }
 
 td.plane1_2 {
-  background-image: url("/src/assets/battleship/plane1_2.png");
+  background-image: url("/assets/battleship/plane1_2.png");
 }
 
 td.plane1_2_R1 {
-  background-image: url("/src/assets/battleship/plane1_2_R1.png");
+  background-image: url("/assets/battleship/plane1_2_R1.png");
 }
 
 td.plane1_2_R2 {
-  background-image: url("/src/assets/battleship/plane1_2_R2.png");
+  background-image: url("/assets/battleship/plane1_2_R2.png");
 }
 
 td.plane1_2_R3 {
-  background-image: url("/src/assets/battleship/plane1_2_R3.png");
+  background-image: url("/assets/battleship/plane1_2_R3.png");
 }
 
 td.plane2_1 {
-  background-image: url("/src/assets/battleship/plane2_1.png");
+  background-image: url("/assets/battleship/plane2_1.png");
 }
 
 td.plane2_1_R1 {
-  background-image: url("/src/assets/battleship/plane2_1_R1.png");
+  background-image: url("/assets/battleship/plane2_1_R1.png");
 }
 
 td.plane2_1_R2 {
-  background-image: url("/src/assets/battleship/plane2_1_R2.png");
+  background-image: url("/assets/battleship/plane2_1_R2.png");
 }
 
 td.plane2_1_R3 {
-  background-image: url("/src/assets/battleship/plane2_1_R3.png");
+  background-image: url("/assets/battleship/plane2_1_R3.png");
 }
 
 td.plane2_2 {
-  background-image: url("/src/assets/battleship/plane2_2.png");
+  background-image: url("/assets/battleship/plane2_2.png");
 }
 
 td.plane2_2_R1 {
-  background-image: url("/src/assets/battleship/plane2_2_R1.png");
+  background-image: url("/assets/battleship/plane2_2_R1.png");
 }
 
 td.plane2_2_R2 {
-  background-image: url("/src/assets/battleship/plane2_2_R2.png");
+  background-image: url("/assets/battleship/plane2_2_R2.png");
 }
 
 td.plane2_2_R3 {
-  background-image: url("/src/assets/battleship/plane2_2_R3.png");
+  background-image: url("/assets/battleship/plane2_2_R3.png");
 }
 
 td.plane2_3 {
-  background-image: url("/src/assets/battleship/plane2_3.png");
+  background-image: url("/assets/battleship/plane2_3.png");
 }
 
 td.plane2_3_R1 {
-  background-image: url("/src/assets/battleship/plane2_3_R1.png");
+  background-image: url("/assets/battleship/plane2_3_R1.png");
 }
 
 td.plane2_3_R2 {
-  background-image: url("/src/assets/battleship/plane2_3_R2.png");
+  background-image: url("/assets/battleship/plane2_3_R2.png");
 }
 
 td.plane2_3_R3 {
-  background-image: url("/src/assets/battleship/plane2_3_R3.png");
+  background-image: url("/assets/battleship/plane2_3_R3.png");
 }
 
 td.plane2_4 {
-  background-image: url("/src/assets/battleship/plane2_4.png");
+  background-image: url("/assets/battleship/plane2_4.png");
 }
 
 td.plane2_4_R1 {
-  background-image: url("/src/assets/battleship/plane2_4_R1.png");
+  background-image: url("/assets/battleship/plane2_4_R1.png");
 }
 
 td.plane2_4_R2 {
-  background-image: url("/src/assets/battleship/plane2_4_R2.png");
+  background-image: url("/assets/battleship/plane2_4_R2.png");
 }
 
 td.plane2_4_R3 {
-  background-image: url("/src/assets/battleship/plane2_4_R3.png");
+  background-image: url("/assets/battleship/plane2_4_R3.png");
 }
 
 td.plane3_1 {
-  background-image: url("/src/assets/battleship/plane3_1.png");
+  background-image: url("/assets/battleship/plane3_1.png");
 }
 
 td.plane3_1_R1 {
-  background-image: url("/src/assets/battleship/plane3_1_R1.png");
+  background-image: url("/assets/battleship/plane3_1_R1.png");
 }
 
 td.plane3_1_R2 {
-  background-image: url("/src/assets/battleship/plane3_1_R2.png");
+  background-image: url("/assets/battleship/plane3_1_R2.png");
 }
 
 td.plane3_1_R3 {
-  background-image: url("/src/assets/battleship/plane3_1_R3.png");
+  background-image: url("/assets/battleship/plane3_1_R3.png");
 }
 
 td.plane3_2 {
-  background-image: url("/src/assets/battleship/plane3_2.png");
+  background-image: url("/assets/battleship/plane3_2.png");
 }
 
 td.plane3_2_R1 {
-  background-image: url("/src/assets/battleship/plane3_2_R1.png");
+  background-image: url("/assets/battleship/plane3_2_R1.png");
 }
 
 td.plane3_2_R2 {
-  background-image: url("/src/assets/battleship/plane3_2_R2.png");
+  background-image: url("/assets/battleship/plane3_2_R2.png");
 }
 
 td.plane3_2_R3 {
-  background-image: url("/src/assets/battleship/plane3_2_R3.png");
+  background-image: url("/assets/battleship/plane3_2_R3.png");
 }
 
 td.plane3_3 {
-  background-image: url("/src/assets/battleship/plane3_3.png");
+  background-image: url("/assets/battleship/plane3_3.png");
 }
 
 td.plane3_3_R1 {
-  background-image: url("/src/assets/battleship/plane3_3_R1.png");
+  background-image: url("/assets/battleship/plane3_3_R1.png");
 }
 
 td.plane3_3_R2 {
-  background-image: url("/src/assets/battleship/plane3_3_R2.png");
+  background-image: url("/assets/battleship/plane3_3_R2.png");
 }
 
 td.plane3_3_R3 {
-  background-image: url("/src/assets/battleship/plane3_3_R3.png");
+  background-image: url("/assets/battleship/plane3_3_R3.png");
 }
 
 td.plane3_4 {
-  background-image: url("/src/assets/battleship/plane3_4.png");
+  background-image: url("/assets/battleship/plane3_4.png");
 }
 
 td.plane3_4_R1 {
-  background-image: url("/src/assets/battleship/plane3_4_R1.png");
+  background-image: url("/assets/battleship/plane3_4_R1.png");
 }
 
 td.plane3_4_R2 {
-  background-image: url("/src/assets/battleship/plane3_4_R2.png");
+  background-image: url("/assets/battleship/plane3_4_R2.png");
 }
 
 td.plane3_4_R3 {
-  background-image: url("/src/assets/battleship/plane3_4_R3.png");
+  background-image: url("/assets/battleship/plane3_4_R3.png");
 }
 
 td.plane3_5 {
-  background-image: url("/src/assets/battleship/plane3_5.png");
+  background-image: url("/assets/battleship/plane3_5.png");
 }
 
 td.plane3_5_R1 {
-  background-image: url("/src/assets/battleship/plane3_5_R1.png");
+  background-image: url("/assets/battleship/plane3_5_R1.png");
 }
 
 td.plane3_5_R2 {
-  background-image: url("/src/assets/battleship/plane3_5_R2.png");
+  background-image: url("/assets/battleship/plane3_5_R2.png");
 }
 
 td.plane3_5_R3 {
-  background-image: url("/src/assets/battleship/plane3_5_R3.png");
+  background-image: url("/assets/battleship/plane3_5_R3.png");
 }
 
 td.plane3_6 {
-  background-image: url("/src/assets/battleship/plane3_6.png");
+  background-image: url("/assets/battleship/plane3_6.png");
 }
 
 td.plane3_6_R1 {
-  background-image: url("/src/assets/battleship/plane3_6_R1.png");
+  background-image: url("/assets/battleship/plane3_6_R1.png");
 }
 
 td.plane3_6_R2 {
-  background-image: url("/src/assets/battleship/plane3_6_R2.png");
+  background-image: url("/assets/battleship/plane3_6_R2.png");
 }
 
 td.plane3_6_R3 {
-  background-image: url("/src/assets/battleship/plane3_6_R3.png");
+  background-image: url("/assets/battleship/plane3_6_R3.png");
 }
 
 td.plane4_1 {
-  background-image: url("/src/assets/battleship/plane4_1.png");
+  background-image: url("/assets/battleship/plane4_1.png");
 }
 
 td.plane4_1_R1 {
-  background-image: url("/src/assets/battleship/plane4_1_R1.png");
+  background-image: url("/assets/battleship/plane4_1_R1.png");
 }
 
 td.plane4_1_R2 {
-  background-image: url("/src/assets/battleship/plane4_1_R2.png");
+  background-image: url("/assets/battleship/plane4_1_R2.png");
 }
 
 td.plane4_1_R3 {
-  background-image: url("/src/assets/battleship/plane4_1_R3.png");
+  background-image: url("/assets/battleship/plane4_1_R3.png");
 }
 
 td.plane4_2 {
-  background-image: url("/src/assets/battleship/plane4_2.png");
+  background-image: url("/assets/battleship/plane4_2.png");
 }
 
 td.plane4_2_R1 {
-  background-image: url("/src/assets/battleship/plane4_2_R1.png");
+  background-image: url("/assets/battleship/plane4_2_R1.png");
 }
 
 td.plane4_2_R2 {
-  background-image: url("/src/assets/battleship/plane4_2_R2.png");
+  background-image: url("/assets/battleship/plane4_2_R2.png");
 }
 
 td.plane4_2_R3 {
-  background-image: url("/src/assets/battleship/plane4_2_R3.png");
+  background-image: url("/assets/battleship/plane4_2_R3.png");
 }
 
 td.plane4_3 {
-  background-image: url("/src/assets/battleship/plane4_3.png");
+  background-image: url("/assets/battleship/plane4_3.png");
 }
 
 td.plane4_3_R1 {
-  background-image: url("/src/assets/battleship/plane4_3_R1.png");
+  background-image: url("/assets/battleship/plane4_3_R1.png");
 }
 
 td.plane4_3_R2 {
-  background-image: url("/src/assets/battleship/plane4_3_R2.png");
+  background-image: url("/assets/battleship/plane4_3_R2.png");
 }
 
 td.plane4_3_R3 {
-  background-image: url("/src/assets/battleship/plane4_3_R3.png");
+  background-image: url("/assets/battleship/plane4_3_R3.png");
 }
 
 td.plane4_4 {
-  background-image: url("/src/assets/battleship/plane4_4.png");
+  background-image: url("/assets/battleship/plane4_4.png");
 }
 
 td.plane4_4_R1 {
-  background-image: url("/src/assets/battleship/plane4_4_R1.png");
+  background-image: url("/assets/battleship/plane4_4_R1.png");
 }
 
 td.plane4_4_R2 {
-  background-image: url("/src/assets/battleship/plane4_4_R2.png");
+  background-image: url("/assets/battleship/plane4_4_R2.png");
 }
 
 td.plane4_4_R3 {
-  background-image: url("/src/assets/battleship/plane4_4_R3.png");
+  background-image: url("/assets/battleship/plane4_4_R3.png");
 }
 
 td.plane4_5 {
-  background-image: url("/src/assets/battleship/plane4_5.png");
+  background-image: url("/assets/battleship/plane4_5.png");
 }
 
 td.plane4_5_R1 {
-  background-image: url("/src/assets/battleship/plane4_5_R1.png");
+  background-image: url("/assets/battleship/plane4_5_R1.png");
 }
 
 td.plane4_5_R2 {
-  background-image: url("/src/assets/battleship/plane4_5_R2.png");
+  background-image: url("/assets/battleship/plane4_5_R2.png");
 }
 
 td.plane4_5_R3 {
-  background-image: url("/src/assets/battleship/plane4_5_R3.png");
+  background-image: url("/assets/battleship/plane4_5_R3.png");
 }
 
 td.plane4_6 {
-  background-image: url("/src/assets/battleship/plane4_6.png");
+  background-image: url("/assets/battleship/plane4_6.png");
 }
 
 td.plane4_6_R1 {
-  background-image: url("/src/assets/battleship/plane4_6_R1.png");
+  background-image: url("/assets/battleship/plane4_6_R1.png");
 }
 
 td.plane4_6_R2 {
-  background-image: url("/src/assets/battleship/plane4_6_R2.png");
+  background-image: url("/assets/battleship/plane4_6_R2.png");
 }
 
 td.plane4_6_R3 {
-  background-image: url("/src/assets/battleship/plane4_6_R3.png");
+  background-image: url("/assets/battleship/plane4_6_R3.png");
 }
