@@ -37,7 +37,7 @@ export class BoardComponent implements OnInit {
   audioSub: Subscription;
   playerSub: Subscription;
   ttttDataSub: Subscription;
-
+  sendBackSub: Subscription;
 
 
   constructor(private router: Router, private partyGameApi: PartygameService, private cd: ChangeDetectorRef, private socketService: SocketioService, private route: ActivatedRoute, private leaderboardService: TeamLeaderboardService) {
@@ -109,6 +109,9 @@ export class BoardComponent implements OnInit {
       }
 
     });
+    this.sendBackSub = this.socketService.goToGame().subscribe(data => {
+      this.sendOtherBack();
+    });
     //this gets the players from the server
     this.socketService.getPlayers(({ room: this.roomId }));
   }
@@ -179,13 +182,6 @@ export class BoardComponent implements OnInit {
       this.gameState.isOver = true;
       this.playAudio("youwon");
       this.socketService.sendAudioTrigger({ audioFile: "youlose", room: this.roomId })
-      //make call to service to update score
-      // this.finalScore.gamesId=3;
-      //   this.finalScore.userName = this.thisPlayerName;
-      //   this.finalScore.score=1;
-      //   console.log("sending winner score");
-      //   this.partyGameApi.addscore(this.finalScore);
-      //   this.partyGameApi.updateTicTacToeStats(this.finalScore);
 
     }
     this.sendTicTacToeGamestate(this.gameState);
@@ -278,7 +274,15 @@ export class BoardComponent implements OnInit {
     return "Cats game, nobody";
   }
   goToRoom() {
-
+    if(this.thisPlayer==0)
+    {
+      this.socketService.sendGameId({room: this.roomId, gameid: 5});
+    }
+    this.sendBackSub.unsubscribe();
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
+  }
+  sendOtherBack(){
+    this.sendBackSub.unsubscribe();
     this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 }

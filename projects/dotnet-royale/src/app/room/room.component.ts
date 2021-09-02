@@ -13,13 +13,13 @@ export class RoomComponent implements OnInit, OnDestroy {
   username: string;
   gameId: number;
   roomId: string;
-  userList: string[];
+  userList: string[] =[];
   goToGameSub: Subscription;
   constructor(private router: Router, private socketService: SocketioService, private route: ActivatedRoute) { }
   ngOnDestroy(): void {
     this.goToGameSub.unsubscribe();
   }
-
+  clickedPlay: boolean = false;
   ngOnInit(): void {
     this.username = sessionStorage.getItem('userName');
     this.roomId = sessionStorage.getItem('roomId');
@@ -67,8 +67,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
   sendGameId()
   {
-    console.log("sendgameid triggered");
-    console.log(this.userList.indexOf(this.username));
+    this.clickedPlay = true;
     if(this.userList.indexOf(this.username)==0)
     {
       console.log("sending gameid");
@@ -78,27 +77,40 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
   goToGame(p_gameid: number)
   {
-    switch(p_gameid) {
+    if(this.userList.indexOf(this.username)!=0 || this.clickedPlay)
+    {
+      switch(p_gameid) {
       case 1: {
+        this.goToGameSub.unsubscribe();
         this.router.navigate(['snake'], { relativeTo: this.route.parent });
         break;
       }
       case 2: {
+        this.goToGameSub.unsubscribe();
         this.router.navigate(['blackjack'], { relativeTo: this.route.parent });
         break;
       }
       case 3: {
+        //this.goToGameSub.unsubscribe();
         this.router.navigate(['tictactoe'], { relativeTo: this.route.parent });
         break;
       }
       case 4: {
+        this.goToGameSub.unsubscribe();
         this.router.navigate(['lightbike'], { relativeTo: this.route.parent });
+        break;
+      }
+      case 5: {
+       // this.goToGameSub.unsubscribe();
+        this.router.navigate(['room'], { relativeTo: this.route.parent });
         break;
       }
       default: {
         break;
       }
     }
+    }
+    
   }
   playSFX(audioCue: string)
   {

@@ -4,7 +4,8 @@ import {
   fromEvent,
   interval,
   Observable,
-  Subject
+  Subject,
+  Subscription
 } from "rxjs";
 import { distinctUntilChanged, map, takeUntil, tap } from "rxjs/operators";
 import { IGame } from '../services/game';
@@ -53,7 +54,7 @@ export class LayoutComponent implements OnInit {
   currentGameId: number;
   mainScreen: string;
   snakeDirection: Direction;
-
+  sendBackSub: Subscription;
   game$: BehaviorSubject<GameState>;
 
   keyDown$: Observable<string>;
@@ -97,6 +98,9 @@ export class LayoutComponent implements OnInit {
       map(event => event.key),
       distinctUntilChanged()
     );
+    this.sendBackSub = this.socketService.goToGame().subscribe(data => {
+      this.sendOtherBack();
+    });
     this.socketService.getSnakeGameState().subscribe(data => {
       console.log("data from socket");
       console.log(data);
@@ -394,6 +398,11 @@ export class LayoutComponent implements OnInit {
   }
 
   goToRoom() {
+    if(this.userList.indexOf(this.currentUser.userName)==0)
+    {
+      this.socketService.sendGameId({room: this.roomId, gameid: 5});
+    }
+    this.sendBackSub.unsubscribe();
     this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
@@ -412,6 +421,10 @@ export class LayoutComponent implements OnInit {
     audio.src = "assets/dotnet-royale/" + audioCue + ".mp3";
     audio.load();
     audio.play();
+  }
+  sendOtherBack(){
+    this.sendBackSub.unsubscribe();
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
 }
