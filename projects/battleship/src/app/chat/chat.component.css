@@ -42,10 +42,12 @@
 
 
 ul li{
-    background-color: #000000;;
+    background-color:gray;
     color: #F5F5F5;
     padding: 15px 30px;
     margin:10px;
     text-align: right;
+    border-radius:15px;
+    
 }
 
