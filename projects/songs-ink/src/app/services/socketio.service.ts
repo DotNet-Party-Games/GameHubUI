@@ -95,6 +95,7 @@ export class SocketIoService {
 
   TimeUp(){
     this.socket.emit('times up');
+    this.socket.emit('Clear');
   }
 
   AddPoints(points:number){
