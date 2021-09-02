@@ -43,6 +43,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.chatlines.unshift(message);
       if(this.receiveMessage){
         console.log("playing message sound");
+        audio.volume=0.1;
         audio.play();
       }
       this.receiveMessage = true;
