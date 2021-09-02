@@ -13,12 +13,12 @@ import { AppToastService } from './apptoast.service';
 })
 export class GameChatService {
   public messageReceived = new EventEmitter<ChatMessage>();
-  public connectionEstablished = new BehaviorSubject<Boolean>(false);
-  public connectedToRoom = new BehaviorSubject<Boolean>(false);
+  public connectionEstablished = new BehaviorSubject<boolean>(false);
+  public connectedToRoom = new BehaviorSubject<boolean>(false);
   public userEvent = new EventEmitter<ChatStatus>();
   public userAlert = new EventEmitter<ChatAlert>();
 
-  public connectionEst: Boolean = false;
+  public connectionEst: boolean = false;
 
   private hubConnection: HubConnection | null = null;
   private roomId: string = "";
@@ -55,6 +55,7 @@ export class GameChatService {
         .then(() => {
           console.log(`Disconnected from room ID: ${this.roomId}`);
           this.roomId = "";
+          this.connectedToRoom.next(false);
         })
         .catch(err => {
           console.log(err);

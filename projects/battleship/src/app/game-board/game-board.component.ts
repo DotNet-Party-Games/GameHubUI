@@ -1,11 +1,8 @@
-import { Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { IBoard, IShot } from '../services/gameboard';
+import { Component, OnDestroy, OnInit} from '@angular/core';
+import { IBoard } from '../services/gameboard';
 import { GameStateService } from '../services/gamestate.service';
 import { Subscription } from 'rxjs';
-import { InteractivityChecker } from '@angular/cdk/a11y';
 import { Router, ActivatedRoute} from '@angular/router';
-import { IUserScore } from '../services/IUserScores';
-import { stringify } from '@angular/compiler/src/util';
 import { StatisticapiService } from '../services/statisticapi.service';
 
 export interface IUser

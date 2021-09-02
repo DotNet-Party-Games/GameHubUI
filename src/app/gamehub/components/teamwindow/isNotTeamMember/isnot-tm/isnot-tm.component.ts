@@ -1,12 +1,11 @@
-import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ITeam } from 'src/app/gamehub/interfaces/ITeam'; 
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-import { AppToastService, GameChatService } from 'projects/hubservices/src/public-api';
+import { AppToastService, GameChatService, UserService} from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service'; 
-import { UserService } from 'projects/hubservices/src/public-api';
 import { User } from 'src/app/gamehub/models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -26,14 +25,14 @@ export class IsnotTMComponent implements OnInit, OnChanges {
   searchKey: string |any = '';
   cfrm : string |any = '';
   notifyMe:ChatAlert | any={};
-  public isLoading: Boolean = false;
+  public isLoading: boolean = false;
   public selectedTeamName: string | null;
 
   @Input()
   public currentUser: IUser |any = {};
 
   public user: User | null = null;
-  public connectionEstablished: Boolean = false;
+  public connectionEstablished: boolean = false;
   private modalReference: any = null;
 
   
@@ -51,7 +50,9 @@ export class IsnotTMComponent implements OnInit, OnChanges {
      this.GetAllTeam();
    }
  
-  ngOnChanges(): void{ }
+  ngOnChanges(): void{ 
+    //empty
+  }
    // get the list of all teams
   GetAllTeam(): void {
      this.teamservice.GetAllTeams().subscribe(
@@ -116,6 +117,7 @@ export class IsnotTMComponent implements OnInit, OnChanges {
       })
     }  
     this.GetAllTeam();
+    this.userService.getUser();
   }
 
   subscribeToEvents(): void {

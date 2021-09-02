@@ -5,8 +5,6 @@ import { ChatMessage } from '../../models/chatmessage.model';
 import { ChatStatus } from '../../models/chatstatus.model';
 import { User } from '../../models/user.model';
 import { FormControl } from '@angular/forms';
-import { timingSafeEqual } from 'crypto';
-import { ChatAlert } from '../../models/chatalert.model';
 
 @Component({
   selector: 'app-gamechat',
@@ -15,12 +13,12 @@ import { ChatAlert } from '../../models/chatalert.model';
 })
 export class GamechatComponent implements OnInit {
 
-  public loading = new EventEmitter<Boolean>();
+  public loading = new EventEmitter<boolean>();
 
   public chatMessages: ChatMessage[] = [];
   public user: User | null = null;
-  public connectionEstablished: Boolean = false;
-  public isLoading: Boolean = false;
+  public connectionEstablished: boolean = false;
+  public isLoading: boolean = false;
   public channelId: string = "test"
   public messageBody = new FormControl('');
 
@@ -74,18 +72,8 @@ export class GamechatComponent implements OnInit {
       this.user = user;
     });
 
-    /*
-    this.chatService.connectionEstablished.subscribe(isConnected => {
-      this.connectionEstablished = isConnected;
-      if (isConnected) {
-        this.chatService.joinChat(this.channelId);
-      } else {
-        this.isLoading = true;
-      }
-    });*/
-
     this.chatService.connectedToRoom.subscribe(isConnected => {
-      if (isConnected && this.isLoading) {
+      if (isConnected) {
         this.isLoading = false;
       }
     });

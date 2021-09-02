@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
+// import { Socket } from 'ngx-socket-io';
 
 import { ChatService } from '../services/chat.service';
-
-//const SOCKET_ENDPOINT = 'ws://localhost:3000';
 
 @Component({
   selector: 'app-chat',
@@ -13,7 +10,7 @@ import { ChatService } from '../services/chat.service';
 })
 export class ChatComponent implements OnInit {
   // declare variables
-  socket: Socket;
+  // socket: Socket;
   message: string;
   data:string;
   messages:string[] = [];
