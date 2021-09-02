@@ -86,7 +86,7 @@ export class IsTMComponent implements OnInit {
   // Accept or deny a particular request
   AcceptOrDeny(requestId:string,accept?:boolean){
     this.teamservice.ApproveOrDenyRequest(requestId).subscribe((response:boolean)=>{
-      this.isAccepted=response
+      this.isAccepted=response;
       if(response){
         this.GetListOfRequest();
         this.SearchTeam();

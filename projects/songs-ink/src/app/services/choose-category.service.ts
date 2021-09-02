@@ -4,10 +4,7 @@ import { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ChooseCategoryService {
-
-//private url = "http://localhost:5002/api/Main";
- //private url = "https://localhost:5001/api/Main";
- private url = "https://revabox.eastus.cloudapp.azure.com/songsinkapi/api/Main"
+ private url = "https://revabox.eastus.cloudapp.azure.com/songsinkapi/api/Main";
   constructor(private http: HttpClient) { }
 
   getDefaultCategories() {

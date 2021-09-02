@@ -15,7 +15,7 @@ const httpOptions =
   providedIn: 'root'
 })
 export class PointsService {
-  //private url = "https://localhost:5001/api/Main/";
+  
   private url = 'https://revabox.eastus.cloudapp.azure.com/songsinkapi/api/Main/';
   constructor(private http: HttpClient) { }
 
