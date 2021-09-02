@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BattleshipDeployService } from '../services/battleship-deploy.service';
 import { GameStateService } from '../services/gamestate.service';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-game',
@@ -13,13 +16,15 @@ export class GameComponent implements OnInit {
   winner:boolean = false;
   loser:boolean = false;
   _roomSub:Subscription;
+  roomNum: string;
 
-  constructor(private socket:GameStateService) { }
+  constructor(private socket:GameStateService,private deploy:BattleshipDeployService, private roomservice:RoomService,private router:Router,) { }
 
   ngOnInit(): void {
     this._roomSub = this.socket.gameStarted.subscribe(started=>this.gameState=started);
     this._roomSub = this.socket.winner.subscribe(win=>{this.winner = win; this.playaudio("win")});
     this._roomSub = this.socket.loser.subscribe(lose=>{this.loser = lose; this.playaudio("lose")});
+    this.roomservice.currentRoom.subscribe(response => this.roomNum = response);
   }
 
   playaudio(status:string){
@@ -36,6 +41,12 @@ export class GameComponent implements OnInit {
         audio.play();
         break;
     }
+  }
+
+  LeaveRoom(){
+    this.deploy.leaveRoom(this.roomNum);
+    console.log("leaving room");
+    this.router.navigate(["/game/battleship/roomlist"]);
   }
 
 }

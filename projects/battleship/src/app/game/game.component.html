@@ -22,3 +22,4 @@ We're working on this game component!!!
 </div>
 <div class="winner" *ngIf="winner" >You Win!!!</div>
 <div class="loser" *ngIf="loser">You Lose :(</div>
+<button class ="btn btn-primary" *ngIf="loser || winner" (click)="LeaveRoom()">Back to Lobby</button>
