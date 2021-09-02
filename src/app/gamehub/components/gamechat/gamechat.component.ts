@@ -70,6 +70,13 @@ export class GamechatComponent implements OnInit {
     this.userService.user.subscribe(user => {
       if(!this.isLoading) this.isLoading = true;
       this.user = user;
+      if (user && user.team) {
+        this.chatService.connectionEstablished.subscribe(isConnected => {
+          if (isConnected) {
+            this.chatService.joinChat(user.teamId);
+          }
+        })
+      }
     });
 
     this.chatService.connectedToRoom.subscribe(isConnected => {

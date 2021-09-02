@@ -86,7 +86,7 @@ export class IsTMComponent implements OnInit {
   // Accept or deny a particular request
   AcceptOrDeny(requestId:string,accept?:boolean){
     this.teamservice.ApproveOrDenyRequest(requestId).subscribe((response:boolean)=>{
-      this.isAccepted=response
+      this.isAccepted=response;
       if(response){
         this.GetListOfRequest();
         this.SearchTeam();
@@ -110,13 +110,13 @@ export class IsTMComponent implements OnInit {
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
-      if (user && user.team) {
+      /*if (user && user.team) {
         this.chatService.connectionEstablished.subscribe(isConnected => {
           if (isConnected) {
             this.chatService.joinChat(user.teamId);
           }
         })
-      }
+      }*/
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {

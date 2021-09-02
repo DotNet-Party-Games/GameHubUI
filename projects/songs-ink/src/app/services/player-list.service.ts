@@ -14,11 +14,11 @@ const httpOptions = {
 })
 export class PlayerListService {
   
-  private apiURL = 'http://localhost:3004/players'
+  private url = "https://revabox.eastus.cloudapp.azure.com/songsinkapi/api/Main";
 
   constructor(private http: HttpClient) { }
 
   getPlayers(): Observable<Player[]> {
-    return this.http.get<Player[]>(this.apiURL);
+    return this.http.get<Player[]>(`${this.url}/players`);
   }
 }
