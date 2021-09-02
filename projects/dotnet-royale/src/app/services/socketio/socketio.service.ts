@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,BehaviorSubject  } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import { BehaviorSubject } from 'rxjs';
-import { BoardComponent } from '../../tictactoe/board/board.component';
 import { GameState } from '../TTTTGameState';
-import { gamestate } from '../../blackjack/bjgamestate';
+import { Bjgamestate } from '../../blackjack/bjgamestate';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +10,7 @@ export class SocketioService {
 
   //private url = 'http://localhost:3000';
   //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
-  private url = 'http://revabox.eastus.cloudapp.azure.com';
+  private url = 'wss://revabox.eastus.cloudapp.azure.com';
 
   private socket: Socket;
 
@@ -20,13 +18,11 @@ export class SocketioService {
   currentGameState = this.newGameState.asObservable();
   private newBlackjack = new BehaviorSubject<any>({});
   currentBlackjack = this.newBlackjack.asObservable();
-  // private newTTTTGameState = new BehaviorSubject<any>({});
-  // currentTTTTGameState = this.newTTTTGameState.asObservable();
   private playerList = new BehaviorSubject<any>({});
   currentPlayerList = this.playerList.asObservable();
 
   constructor() {
-    this.socket = io(this.url, { path: '/dotnetroyalesocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] });
+    this.socket = io(this.url, { path: '/dotnetroyalesocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'], secure: true });
   }
   // ================= General Room Stuff ==============================
   joinRoom(data): void {
@@ -133,7 +129,7 @@ export class SocketioService {
     this.socket.emit('blackjack', data)
   }
 
-  getBlackJackData(): Observable<gamestate> {
+  getBlackJackData(): Observable<Bjgamestate> {
     return new Observable(obs => {
       this.socket.on('new blackjack', (data) => {
         obs.next(data);

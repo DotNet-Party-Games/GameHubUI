@@ -10,6 +10,8 @@ export class ToastsComponent implements OnInit {
 
   constructor(public toastService: AppToastService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //empty
+  }
 
 }

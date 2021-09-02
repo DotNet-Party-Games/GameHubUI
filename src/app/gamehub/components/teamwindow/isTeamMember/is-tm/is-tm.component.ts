@@ -3,9 +3,8 @@ import { ITeam } from 'src/app/gamehub/interfaces/ITeam';
 import { ITeamJoinRequest } from 'src/app/gamehub/interfaces/ITeamJoinRequest';
 import { IUser } from 'src/app/gamehub/interfaces/IUser';
 import { ChatAlert } from 'src/app/gamehub/models/chatalert.model';
-import { AppToastService, UserService } from 'projects/hubservices/src/public-api';  
+import { AppToastService, UserService, GameChatService} from 'projects/hubservices/src/public-api';  
 import { User } from 'src/app/gamehub/models/user.model';
-import { GameChatService } from 'projects/hubservices/src/public-api';
 import { TeamService } from 'src/app/gamehub/services/teamservice/team.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -30,9 +29,9 @@ export class IsTMComponent implements OnInit {
 
   
   public user: User | null = null;
-  public connectionEstablished: Boolean = false;
+  public connectionEstablished: boolean = false;
   private modalReference: any = null;
-  public isLoading: Boolean = false;
+  public isLoading: boolean = false;
 
   // Constructor
   constructor(private teamservice:TeamService,
@@ -87,13 +86,12 @@ export class IsTMComponent implements OnInit {
   // Accept or deny a particular request
   AcceptOrDeny(requestId:string,accept?:boolean){
     this.teamservice.ApproveOrDenyRequest(requestId).subscribe((response:boolean)=>{
-      this.isAccepted=response
+      this.isAccepted=response;
       if(response){
         this.GetListOfRequest();
         this.SearchTeam();
       }
     });
-    // location.reload();
     this.userService.getUser();
   }
 
@@ -106,22 +104,29 @@ export class IsTMComponent implements OnInit {
    }
 
    ngOnDestroy() {
-    this.chatService.leaveChat();
+    //empty
   }
 
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
-      if(user) {
-        this.chatService.joinChat(user.teamId);
-      }
+      /*if (user && user.team) {
+        this.chatService.connectionEstablished.subscribe(isConnected => {
+          if (isConnected) {
+            this.chatService.joinChat(user.teamId);
+          }
+        })
+      }*/
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
-        console.log(alert);
         this.notifyMe = alert;
         if(this.notifyMe.alertType=="NEW TEAM JOIN REQUEST"){
           this.GetListOfRequest();
+        } else if (this.notifyMe.alertType=="TEAM DISBANDED") {
+          this.userService.getUser();
+        } else {
+          this.SearchTeam();
         }
       });
     });

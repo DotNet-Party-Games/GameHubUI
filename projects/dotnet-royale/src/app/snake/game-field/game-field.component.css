@@ -18,7 +18,12 @@ td {
 td.snake {
   background-color: rgb(21, 128, 21);
 }
+td.snake2 {
+  background-color: rgb(163, 14, 84);
+}
 
 td.food {
   background-color: red;
 }
+
+

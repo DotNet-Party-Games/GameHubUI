@@ -3,6 +3,7 @@
         <img src="assets\images\title2.png" alt="title" style="width:35%; margin: auto;">
     </div>
     <div class="row text-center" style="margin: 0% 0% 3% 0% ;">
+
         <div class="col">
             <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
                 <button routerLink="/gamelist" class="text-white text-decoration-none btn btn-dark">Play Games</button>
@@ -11,10 +12,12 @@
 
             </ng-template>
         </div>
+
     </div>
 
 </div><br><br><br>
 <div class="row text-white" style="margin: auto;">
+
     <div class="row text-white">
         <div class="col-8">
             <h5 style="text-shadow: 1px 1px 10px #0e9ceefa; font: 30px bold Arial, serif;">WELCOME TO REVABOX</h5>

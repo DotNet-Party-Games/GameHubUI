@@ -1,4 +1,4 @@
-export interface gamestate {
+export interface Bjgamestate {
     deck: any[]; // overall game deck
 
     players: any[]; // array for player objects
