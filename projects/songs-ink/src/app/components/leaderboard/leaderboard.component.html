@@ -1,0 +1,8 @@
+<div class="container mx-auto m-3 p-2">
+  <div class="row">
+    <div id="title" class="label-name col-6 col-md-6 col-sm-6">Username</div>
+    <div id="title" class="label-score col-6 col-md-6 col-sm-6">Overall Score</div>
+  </div>
+  <app-leaderboard-list-item *ngFor="let leaderboardItem of leaderboardItems index as i" [leaderboardItem]="leaderboardItems[i]" ></app-leaderboard-list-item>
+</div>
+

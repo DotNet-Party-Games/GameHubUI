@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import {GameState} from '../../layout/layout.component'
-import { BehaviorSubject } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +9,7 @@ export class SnakeService {
 
   //private url = 'http://localhost:3000';
   //private url = 'wss://revabox.eastus.cloudapp.azure.com/dotnetroyalesocket/';
-  private url = 'http://revabox.eastus.cloudapp.azure.com';
+  private url = 'https://revabox.eastus.cloudapp.azure.com';
 
   private socket: Socket;
 

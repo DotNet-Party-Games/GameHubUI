@@ -17,12 +17,9 @@ export interface GameState {
   snakePos2: { x: number; y: number }[];
 }
 import { PartygameService } from '../services/partygame.service';
-import { DataService } from '../services/data.service';
 import { IScore } from '../services/score';
-import { SnakeService } from '../services/snake/snake.service';
 import { ILoggedUser } from '../services/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LivechatService } from '../services/livechat/livechat.service';
 import { SocketioService } from '../services/socketio/socketio.service';
 
 enum Direction {
@@ -79,7 +76,7 @@ export class LayoutComponent implements OnInit {
   GameOver:number;
   GameEnd: boolean;
 
-  constructor(private router: Router, private partyGameApi: PartygameService, private data: DataService, private socketService: SocketioService, private route: ActivatedRoute) {
+  constructor(private router: Router, private partyGameApi: PartygameService, private socketService: SocketioService, private route: ActivatedRoute) {
     this.currentUser =
     {
       id: 0,
@@ -95,10 +92,6 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     this.getGameList();
     this.lives = 3;
-    this.data.currentGameId.subscribe(p_gameId => {
-      this.currentGameId = p_gameId;
-      if (p_gameId == -1) this.resetScreen();
-    });
     this.keyDown$ = fromEvent<KeyboardEvent>(document, "keydown").pipe(
       tap(event => event.stopPropagation()),
       map(event => event.key),
@@ -109,7 +102,7 @@ export class LayoutComponent implements OnInit {
       console.log(data);
       this.snakeMap.set(data.User, data.b.map(a => a));
       this.snakePositionDisplay = [];
-      if (data.GameOver == true)
+      if (data.GameOver)
       {
         console.log("TRUE");
         this.GameOver++;
@@ -198,7 +191,7 @@ export class LayoutComponent implements OnInit {
     this.socketService.joinRoom({ user: username, room: roomId });
   }
   sendSnakeGameState(): void {
-    this.socketService.sendSnakeGameState({ GameState: this.game$.value, room: this.roomId, User: this.currentUser.userName, Score: this.score});
+    this.socketService.sendSnakeGameState({ SnakePos: this.game$.value.snakePos, Lost: this.game$.value.lost, room: this.roomId, User: this.currentUser.userName, Score: this.score});
   }
   getNextField(
     game: GameState,
@@ -281,8 +274,8 @@ export class LayoutComponent implements OnInit {
     this.score = 1;
     this.currentHighScore = this.score;
     this.lives = 3;
-    const width = 40;
-    const height = 33;
+    const width = 58;
+    const height = 26;
     const food = this.getRandomField(width, height);
     const snakePos = [this.getRandomField(width, height)];
     let snakePos2;
@@ -297,14 +290,14 @@ export class LayoutComponent implements OnInit {
       snakePos2
     });
     //Maybe transition to an observable and the subscriber is set on the latest value since it subscribed until next(), then do next() for n number of players
+
+    
     this.tick$
       .pipe(
         map(tick => {
           console.log(this.GameOver);
           let game = this.game$.value;
           this.count12 = 0;
-          //this.snakeMap.set(this.currentUser.userName, game.snakePos);
-          console.log("sending gamestate to socket");
           this.sendSnakeGameState();
           this.snakePositionDisplay = [];
           for (let val of this.snakeMap.values()) {
@@ -316,8 +309,7 @@ export class LayoutComponent implements OnInit {
           {
             this.currentHighScore = this.score;
           }
-          console.log(this.GameOver);
-          if (game.lost == true && this.GameOver == this.userList.length-1)
+          if (game.lost && this.GameOver == this.userList.length-1)
           {
             this.GameEnd = true;
           }
@@ -334,13 +326,14 @@ export class LayoutComponent implements OnInit {
               game.snakePos = [...game.snakePos, nextField];
               game.food = this.getRandomField(game.width, game.height);
               let loop = true;
-              while (loop) {
-                for (let x = 0; x < game.snakePos.length; x++) {
-                  if (game.snakePos[x].x === game.food.x && game.snakePos[x].y === game.food.y) {
-                    game.food = this.getRandomField(game.width, game.height);
-                  }
 
-                  else {
+              while (loop) {
+                for(let pos of game.snakePos)
+                {
+                  if(pos.x ===game.food.x && pos.y === game.food.y)
+                  {
+                    game.food = this.getRandomField(game.width, game.height);
+                  }else {
                     loop = false;
                   }
                 }
@@ -348,6 +341,7 @@ export class LayoutComponent implements OnInit {
               break;
             case FieldType.SNAKE:
               this.lives--;
+              this.playSFX("oof");
               if (this.lives < 1)
               {
                 this.GameOver++;
@@ -356,8 +350,6 @@ export class LayoutComponent implements OnInit {
                   console.log("game over paps");
                   this.GameEnd = true;
                 }
-                //game.snakePos = [];
-                //this.sendSnakeGameState();
                 game.lost = true;
                 this.GameEnd = true;
                 this.sendSnakeGameState();
@@ -402,7 +394,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToRoom() {
-    this.router.navigate(['room', { relativeTo: this.route }]);
+    this.router.navigate(['room'], { relativeTo: this.route.parent });
   }
 
   playMusic()
@@ -417,7 +409,7 @@ export class LayoutComponent implements OnInit {
   {
     let audio = <HTMLAudioElement>document.getElementById('sfx');
     audio.volume= 0.1;
-    audio.src = audioCue;
+    audio.src = "assets/dotnet-royale/" + audioCue + ".mp3";
     audio.load();
     audio.play();
   }

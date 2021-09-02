@@ -14,12 +14,9 @@ export class LeaderboardComponent implements OnInit {
   TeamEntry: ITeamScore[];
   SelectedGame: string = "partygames";
   public user: User | null = null;
-  public isLoading: Boolean = false;
+  public isLoading: boolean = false;
 
   constructor(private leaderBoardService: LeaderboardService, public userService: UserService) { 
-    // this.leaders.push({playerName:"klaus",score:1500});
-    // this.leaders.push({playerName:"Iram",score:1000});
-    // this.leaders.push({playerName:"Sean",score:500});
 
     this.GetUser();
   }

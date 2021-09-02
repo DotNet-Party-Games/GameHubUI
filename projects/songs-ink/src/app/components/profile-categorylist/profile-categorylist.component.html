@@ -1,0 +1,22 @@
+<div>
+    <span>
+        <p>{{category.customCategoryName}}</p>
+        <button mat-raised-button
+            (click)="removeCategory(category.customCategoryName)"
+        >Remove 
+        </button>
+    </span>
+    <h4>Words</h4>
+    <app-profile-wordlist *ngFor="let word of words"
+    [word]="word"
+    (onRemoveWord)="removeWord(word.customWordName)"
+    >
+    </app-profile-wordlist>
+    <form (ngSubmit)="addWord(category.id)">
+        <div>
+            <label for="text"><b>Add a word</b> ({{wordAddCost * -1}} points)</label>
+            <input type="text" name="text" id="newWord" [(ngModel)]="newWord">
+            <input type="submit" value="Add Word" class="btn btn-primary">
+        </div>
+    </form>
+</div>
