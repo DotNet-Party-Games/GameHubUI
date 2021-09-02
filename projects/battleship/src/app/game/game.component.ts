@@ -36,7 +36,7 @@ export class GameComponent implements OnInit {
         audio.play();
         break;
       case "lose":
-        audio.src = "/assets/battleship/Taps 5 second version.wav";
+        audio.src = "/assets/battleship/Taps 5 second version.mp3";
         audio.load();
         audio.play();
         break;
