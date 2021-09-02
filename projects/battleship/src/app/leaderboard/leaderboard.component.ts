@@ -5,6 +5,7 @@ import { IUserScore } from '../services/IUserScores';
 import { ILeaderboard } from '../services/ILeaderBoard';
 import { StatisticapiService } from '../services/statisticapi.service';
 import { Statistics } from '../services/TeamScore';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-leaderboard',
@@ -24,7 +25,7 @@ export class LeaderboardComponent implements OnInit {
     this.sort = ms;
   }
 
-  constructor(private StatsApi:StatisticapiService) { 
+  constructor(private StatsApi:StatisticapiService, private router:Router) { 
     this.scores = new Array<Statistics>();
     this.dataSource = new MatTableDataSource();
   }
@@ -57,5 +58,8 @@ export class LeaderboardComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  leaveRoom(){
+    this.router.navigate(["game/battleship/roomlist"]);
   }
 }
