@@ -31,12 +31,12 @@ export class GameComponent implements OnInit {
     let audio = new Audio();
     switch(status){
       case "win":
-        audio.src = "./../../../../../src/assets/battleship/victory.mp3";
+        audio.src = "/assets/battleship/victory.mp3";
         audio.load();
         audio.play();
         break;
       case "lose":
-        audio.src = "./../../../../../src/assets/battleship/Taps 5 second version.wav";
+        audio.src = "/assets/battleship/Taps 5 second version.mp3";
         audio.load();
         audio.play();
         break;

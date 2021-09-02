@@ -127,7 +127,7 @@ playaudio(action:string){
   let audio = new Audio();
   switch(action){
     case "miss":
-      audio.src = "./../../../../../src/assets/battleship/splash.wav";
+      audio.src = "./../../../../../src/assets/battleship/splash.mp3";
       audio.load();
       audio.play();
       break;
@@ -282,7 +282,7 @@ playaudio(action:string){
     }
   }
   LeaveRoom(){
-    this.router.navigate(["/roomlist"], {relativeTo:this.route.parent});
+    this.router.navigate(["/game/battleship/roomlist"]);
   }
 
   

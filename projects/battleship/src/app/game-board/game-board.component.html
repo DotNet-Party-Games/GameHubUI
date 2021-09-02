@@ -6,15 +6,15 @@
 <table align="center">
   <tbody>
     <tr>
-      <td *ngIf="turn">Your turn</td>
+      <td *ngIf="turn" style="color:white">Your turn</td>
       <td></td>
       <td></td>
-      <td *ngIf="!turn">Enemy turn</td>
+      <td *ngIf="!turn" style="color:white">Enemy turn</td>
     </tr>
     <tr>
-      <td>Your Ocean</td>
+      <td style="color:white">Your Ocean</td>
       <td></td>
-      <td>Enemy Ocean</td>
+      <td style="color:white">Enemy Ocean</td>
     </tr>
     <tr>
       <td>
@@ -51,11 +51,11 @@
 <ng-container *ngIf="isWater">
 <div align="center">Opponent's Remaining Ships</div>
 <div align="center">
-  <img *ngIf ="carrier!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/AircraftCarrier.png"> 
-  <img *ngIf ="battle!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/Battleship.png"> 
-  <img *ngIf ="dest!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/Destroyer.png"> 
-  <img *ngIf ="sub!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/Submarine.png"> 
-  <img *ngIf ="patrol!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/PatrolBoat.png"> 
+  <img *ngIf ="carrier!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/AircraftCarrier.png"> 
+  <img *ngIf ="battle!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/Battleship.png"> 
+  <img *ngIf ="dest!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/Destroyer.png"> 
+  <img *ngIf ="sub!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/Submarine.png"> 
+  <img *ngIf ="patrol!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/PatrolBoat.png"> 
 </div>
 </ng-container>
 </ng-container>
@@ -63,10 +63,10 @@
   <table align="center">
     <tbody>
       <tr>
-        <td align="center" *ngIf="turn">Your turn</td>
+        <td align="center" *ngIf="turn" style="color:white">Your turn</td>
         <td></td>
         <td></td>
-        <td align="center" *ngIf="!turn">Enemy turn</td>
+        <td align="center" *ngIf="!turn" style="color:white">Enemy turn</td>
       </tr>
       <tr>
         <td align="center">Your Ocean</td>
@@ -106,16 +106,16 @@
     </tbody>
   </table>
   <ng-container *ngIf="!isWater">
-  <div align="center">Opponent's Remaining Planes</div>
+  <div align="center" style="color:white">Opponent's Remaining Planes</div>
   <div align="center">
-    <img *ngIf ="heli!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/plane1.png"> 
-    <img *ngIf ="stealth!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/plane2.png"> 
-    <img *ngIf ="fight1!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/plane3.png"> 
-    <img *ngIf ="fight2!=0" style="align-items: center; margin-right: 5px;" src="/src/assets/battleship/plane4.png"> 
+    <img *ngIf ="heli!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/plane1.png"> 
+    <img *ngIf ="stealth!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/plane2.png"> 
+    <img *ngIf ="fight1!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/plane3.png"> 
+    <img *ngIf ="fight2!=0" style="align-items: center; margin-right: 5px;" src="/assets/battleship/plane4.png"> 
   </div>
   </ng-container>
   </ng-container>
-<p>Sounds:
+<p style="color:white">Sounds:
     Splash: https://freesound.org/people/petenice/sounds/9508/
     By: petenice
     
