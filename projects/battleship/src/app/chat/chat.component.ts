@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+// import { Socket } from 'ngx-socket-io';
 
 import { ChatService } from '../services/chat.service';
 
@@ -10,7 +10,7 @@ import { ChatService } from '../services/chat.service';
 })
 export class ChatComponent implements OnInit {
   // declare variables
-  socket: Socket;
+  // socket: Socket;
   message: string;
   data:string;
   messages:string[] = [];

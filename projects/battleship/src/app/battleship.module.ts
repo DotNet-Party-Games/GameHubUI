@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SocketIoModule, SocketIoConfig, Socket } from 'ngx-socket-io';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -43,10 +43,17 @@ import { UserService } from 'projects/hubservices/src/public-api';
 import { StatisticapiService } from './services/statisticapi.service';
 import { TeamLeaderboardService } from 'projects/hubservices/src/public-api';
 
+@Injectable()
+export class SocketOne extends Socket {
+  constructor() {
+    super({ url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket']}});
+  }
+}
+
 
 // creates configuration for module to operate off?
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket', 'pulling', 'flashsocket']}};
-// const config: SocketIoConfig = { url: 'wss://revabox.eastus.cloudapp.azure.com', options: {path: '/battleshipsocket/socket.io', transports: ['websocket', 'pulling', 'flashsocket'] } };
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transports: ['websocket', 'pulling', 'flashsocket']}};
+// const config: SocketIoConfig = { url: 'https://revabox.eastus.cloudapp.azure.com/', options: {path: '/battleshipsocket/socket.io/', transports: ['websocket', 'pulling', 'flashsocket'] } };
 
 @NgModule({
   declarations: [
@@ -65,7 +72,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
       CommonModule,
       AppRoutingModule,
       FlexLayoutModule,
-      SocketIoModule.forRoot(config),
+      SocketIoModule,
       FormsModule,
       ReactiveFormsModule,
       MatToolbarModule,
@@ -83,6 +90,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {transpo
       MatProgressSpinnerModule,
       MatSortModule
   ],
-  providers: [ GameStateService, ChatService, RoomService, BattleshipDeployService, UserService, StatisticapiService],
+  providers: [ GameStateService, ChatService, RoomService, BattleshipDeployService, UserService, StatisticapiService, SocketOne],
 })
 export class BattleshipModule { }
