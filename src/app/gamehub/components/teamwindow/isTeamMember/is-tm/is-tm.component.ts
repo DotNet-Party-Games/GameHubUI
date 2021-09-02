@@ -110,13 +110,13 @@ export class IsTMComponent implements OnInit {
   subscribeToEvents(): void {
     this.userService.user.subscribe(user => {
       this.user = user;
-      if (user && user.team) {
+      /*if (user && user.team) {
         this.chatService.connectionEstablished.subscribe(isConnected => {
           if (isConnected) {
             this.chatService.joinChat(user.teamId);
           }
         })
-      }
+      }*/
     });
     this.chatService.userAlert.subscribe((alert: ChatAlert) => {
       this.ngZone.run(() => {
