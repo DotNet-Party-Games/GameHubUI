@@ -2,6 +2,7 @@
 <button (click)="LeaveRoom()">Leave Room</button>
 <button class ="btn btn-primary" *ngIf="size==4" (click)="cycleBoardView()">Change board</button>
 <ng-container *ngIf="view">
+  <app-chat></app-chat>
 <table align="center">
   <tbody>
     <tr>

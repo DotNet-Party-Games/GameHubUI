@@ -29,7 +29,7 @@ img {
     background: url("./../../../../../src/assets/battleship/Woter.png");
     background-size: cover;
     float: left;
-    margin-left: 5px;
+    margin-left: 2px;
 }
 
 .btn {
@@ -573,7 +573,7 @@ td.plane4_6_R3 {
 }
 
 .sidenav {
-    background-color: white;
+    color: white;
     height: 80%;
     left: 10;
     overflow-x: hidden;

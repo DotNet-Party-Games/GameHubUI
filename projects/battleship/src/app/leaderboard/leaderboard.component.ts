@@ -6,13 +6,6 @@ import { ILeaderboard } from '../services/ILeaderBoard';
 import { StatisticapiService } from '../services/statisticapi.service';
 import { Statistics } from '../services/TeamScore';
 
-export interface MockScore {
-  scoreId: number,
-  userId: number,
-  scoreValue: number,
-  gameTime: string
-}
-
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
@@ -24,14 +17,12 @@ export class LeaderboardComponent implements OnInit {
   dataSource: MatTableDataSource<Statistics>;
   NoData:boolean=true;
   Leaderboard:ILeaderboard;
-  displayedColumns: string[] = ['UserId', 'Wins', 'Losses'];
+  displayedColumns: string[] = ['userId', 'wins', 'losses'];
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatSort, { static: false }) set matSort(ms: MatSort) {
     this.sort = ms;
   }
-
-  @ViewChild(MatSort) mockSort: MatSort;
 
   constructor(private StatsApi:StatisticapiService) { 
     this.scores = new Array<Statistics>();
@@ -47,6 +38,11 @@ export class LeaderboardComponent implements OnInit {
     this.StatsApi.GetEveryone();
     console.log("goteveryone");
     this.GetIndividualLeaderboard();
+  }
+
+  ngAfterViewInit (){
+    this.GetIndividualLeaderboard();
+    this.dataSource.sort = this.sort;
   }
 
   GetIndividualLeaderboard()

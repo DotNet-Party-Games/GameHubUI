@@ -19,7 +19,7 @@ We're working on this game component!!!
 <div *ngIf="!winner&&!loser">
 <app-gameboard-setup *ngIf="!gameState"></app-gameboard-setup>
 <app-game-board *ngIf="gameState"></app-game-board>
-<app-chat></app-chat>
 </div>
-<div *ngIf="winner" >You Win!!!</div>
-<div *ngIf="loser">You Lose :(</div>
+<div class="winner" *ngIf="winner" >You Win!!!</div>
+<div class="loser" *ngIf="loser">You Lose :(</div>
+<button class ="btn btn-primary" *ngIf="loser || winner" (click)="LeaveRoom()">Back to Lobby</button>
