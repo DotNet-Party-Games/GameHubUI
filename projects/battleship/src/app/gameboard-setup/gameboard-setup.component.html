@@ -14,7 +14,7 @@
 	<button class="btn btn-danger" routerLink="/gameboard">Advance</button>
   </ng-template>
   
-  
+  <div class="app-container"><app-chat></app-chat></div>
   <!--Lobby set up options-->
   <div id="options" class="sidenav">
 	  <div>
@@ -33,14 +33,14 @@
 				<div class="ready" *ngIf="playerTwoReady">Ready: <span></span></div>
 			  </div>
   
-			  <div class="player3">
+			  <div class="player3" *ngIf="size==4">
 				  Player 3 Status
 				  <br>
 				  <div class="notready" *ngIf="!playerThreeReady">Ready: <span></span></div>
 				  <div class="ready" *ngIf="playerThreeReady">Ready: <span></span></div>
 			  </div>
   
-			  <div class="player4">
+			  <div class="player4" *ngIf="size==4">
 				  Player 4 Status
 				  <br>
 				  <div class="notready" *ngIf="!playerFourReady">Ready: <span></span></div>
@@ -53,9 +53,10 @@
 
 
 <div class="container" *ngIf="viewBoard">
+	
 	<div class="row">
 		<!-- Game board -->
-		<div class="col-6">
+		<div class="col-8">
 			<table class="table table-bordered border-primary" style="height: fit-content; width: fit-content;">
 				<tbody>
 				  <tr *ngFor="let row of height; let j = index">
@@ -134,7 +135,7 @@
 <div class="container" *ngIf="!viewBoard">
 	<div class="row">
 		<!-- Game board -->
-		<div class="col-6">
+		<div class="col-8">
 			<table class="table table-bordered border-primary" style="height: fit-content; width: fit-content;">
 				<tbody>
 				  <tr *ngFor="let row of height; let j = index">

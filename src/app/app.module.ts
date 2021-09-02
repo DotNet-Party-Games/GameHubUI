@@ -25,6 +25,7 @@ import { LoadingWheelComponent } from './gamehub/components/loadingwheel/loading
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {}};
 
@@ -81,7 +82,8 @@ import { ToastsComponent } from './gamehub/components/toasts/toasts.component';
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NoopAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
