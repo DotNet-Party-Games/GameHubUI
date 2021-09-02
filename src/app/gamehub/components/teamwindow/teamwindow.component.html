@@ -3,11 +3,11 @@
 </div>
 
 <ng-template #teamcontent>
-  <div *ngIf="haveTeam==false && !isLoading">
+  <div *ngIf="haveTeam==false">
     <app-isnot-tm></app-isnot-tm>
   </div>
 
-  <div *ngIf="haveTeam==true && !isLoading" style="border-top: 2px solid white;">
+  <div *ngIf="haveTeam==true" style="border-top: 2px solid white;">
     <app-is-tm [currentUser]="currentUser"></app-is-tm>
   </div>
 </ng-template>
