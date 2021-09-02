@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
 
 import { ChatService } from '../services/chat.service';
-
-//const SOCKET_ENDPOINT = 'ws://localhost:3000';
 
 @Component({
   selector: 'app-chat',

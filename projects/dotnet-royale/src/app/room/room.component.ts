@@ -96,7 +96,7 @@ export class RoomComponent implements OnInit, OnDestroy {
         break;
       }
       default: {
-
+        break;
       }
     }
   }

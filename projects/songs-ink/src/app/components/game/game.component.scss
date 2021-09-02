@@ -1,0 +1,27 @@
+// The margin between two sections
+@import '../../mat-vars';
+
+
+#wrapper {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+#item {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+#word-wrapper {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#app-chat {
+    padding-left: 25px;
+}
+#player-list {
+    width: 100px;
+}
+

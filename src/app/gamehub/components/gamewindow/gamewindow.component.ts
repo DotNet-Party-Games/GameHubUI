@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamewindowComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    //empty
+   }
 
   ngOnInit(): void {
+    //empty
   }
 
 }

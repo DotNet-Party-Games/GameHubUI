@@ -1,14 +1,10 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ILoggedUser, IUser } from './user';
+import { Injectable } from '@angular/core';
+import { HttpClient} from "@angular/common/http";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IGame } from './game';
-import { map } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
 import { IScore } from './score';
 import { IStat } from './stat';
 import { IGameStats } from './gamestats';
-import { IUserScore } from './userscore';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +13,7 @@ export class PartygameService {
   //url referencing the WebAPI
   //private url = "http://20.81.113.152/dotnetroyaleapi/";
   //private url = "https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/";
-  private url = 'http://revabox.eastus.cloudapp.azure.com';
+  private url = 'https://revabox.eastus.cloudapp.azure.com/dotnetroyaleAPI/';
 
  isLoggedIn:boolean;
   currentScore: IScore = {

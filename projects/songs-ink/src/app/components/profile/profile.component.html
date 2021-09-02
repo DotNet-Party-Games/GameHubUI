@@ -1,0 +1,30 @@
+<div style="text-align: center;">
+    <span>
+        <h4>Player Info</h4>
+        <div>
+            <p>Username: {{player.nickName}}</p>
+        </div>
+        <div>
+            <p>Total Score: {{player.overallScore}}</p>
+        </div>
+        <div>
+            <p>Current Score: {{player.currentScore}}</p>
+        </div>
+    </span>
+    <span>
+        <h4>Categories</h4>
+        <app-profile-categorylist *ngFor="let category of userCategories" 
+            [category]="category"
+            (onRemoveCategory)="removeCategory(category.customCategoryName)">
+        </app-profile-categorylist>
+        <div>
+            <form (ngSubmit)="addCategory()">
+                <div>
+                    <label for="text"><b>Add a Category</b> ({{categoryAddCost * -1}} points)</label>
+                    <input type="text" name="text" id="newCategory" [(ngModel)]="newCategory">
+                    <input type="submit" value="Add Category" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </span>
+</div>

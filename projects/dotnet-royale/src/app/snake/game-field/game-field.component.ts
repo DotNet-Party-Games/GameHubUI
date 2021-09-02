@@ -22,7 +22,9 @@ export class GameFieldComponent implements OnInit {
   @ContentChild(SnakeComponent)
   snake: SnakeComponent;
 
-  constructor() {}
+  constructor() {
+    //this is intentional
+  }
 
   ngOnInit() {
     this.widthArray = new Array(this.width).fill(0).map((x, i) => i);
